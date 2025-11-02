@@ -38,29 +38,33 @@ h1, h2, h3, h4, p, ul {
 }
 
 
-/* ===== HEADER ===== */
+/* ===== HEADER (REVISI: Ditambahkan Padding di kondisi normal) ===== */
 header#siteHeader {
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 1000;
-  backdrop-filter: blur(8px); /* Sedikit lebih blur */
-  background: rgba(0, 31, 63, 0.75); /* Sedikit lebih opaque */
+  backdrop-filter: blur(8px);
+  background: rgba(0, 31, 63, 0.75);
   box-shadow: 0 6px 20px var(--shadow-color);
-  transition: all .4s ease-in-out; /* Transisi lebih lambat dan halus */
+  transition: all .4s ease-in-out;
+  /* Tambahkan padding default agar tinggi jelas untuk perhitungan sticky */
+  padding: 14px 0; 
 }
 
 /* State Header Saat Digulir (Scrolling) */
 header#siteHeader.smaller {
-  padding: 8px 0;
-  background: rgba(0, 17, 40, 0.95); /* Hampir penuh opaque */
+  /* Padding menyusut, tinggi total header saat ini sekitar 60px (diukur tanpa padding-top/bottom inner) */
+  padding: 8px 0; 
+  background: rgba(0, 17, 40, 0.95);
   box-shadow: 0 8px 36px var(--shadow-color);
 }
 
 .header-inner{
   max-width:1200px;
   margin:0 auto;
-  padding:14px 20px;
+  /* INNER padding HANYA untuk horizontal agar header#siteHeader.smaller tidak mengganggu */
+  padding:0 20px; 
   display:flex;
   align-items:center;
   justify-content:space-between;
@@ -71,11 +75,11 @@ header#siteHeader.smaller {
 .logo-area{display:flex;align-items:center;gap:12px}
 .site-logo{
   width: 44px; height: 44px; border-radius: 8px; object-fit: contain;
-  transition: transform .3s ease-out, box-shadow .3s ease-out; /* Transisi khusus untuk logo */
+  transition: transform .3s ease-out, box-shadow .3s ease-out; 
   filter: drop-shadow(0 2px 6px var(--shadow-color));
 }
 .site-logo:hover { 
-  transform: scale(1.1) rotate(-3deg); /* Efek rotasi kecil saat hover */
+  transform: scale(1.1) rotate(-3deg); 
   box-shadow: 0 0 20px rgba(0, 180, 255, 0.5); 
 }
 
@@ -104,9 +108,18 @@ header#siteHeader.smaller {
   background-color: rgba(0, 180, 255, 0.05); 
 }
 
-/* ===== LIVE SCORE TICKER ===== */
+/* ===== LIVE SCORE TICKER (REVISI UTAMA: Penambahan position: sticky) ===== */
 .live-score-ticker{
   margin-top:0;
+  
+  /* FIX UTAMA: Ticker harus sticky */
+  position: sticky; 
+  
+  /* FIX UTAMA: Ticker menempel 60px dari atas (sesuai tinggi header saat mengecil) */
+  top: 60px; 
+  
+  z-index: 990; /* Harus di bawah z-index header (1000) */
+  
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
   background: rgba(2, 20, 40, 0.5); 
