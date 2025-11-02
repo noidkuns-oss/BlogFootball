@@ -1,6 +1,5 @@
 /* =======================
-    STYLE - BlogFootball
-    Glass header + slow ticker + responsive
+    STYLE - BlogFootball (Final Sticky Solusi)
     ======================= */
 
 :root{
@@ -10,18 +9,15 @@
   --muted: #9fc7db;
   --glass-alpha: 0.14;
   --card-title: #7fe5ff;
-  --shadow-color: rgba(0, 0, 0, 0.7); /* Warna bayangan yang lebih kuat */
+  --shadow-color: rgba(0, 0, 0, 0.7);
 }
 
 /* Global Reset & Smooth Transition */
 *, *::before, *::after {
   box-sizing: border-box;
-  /* Transisi Global untuk warna, background, dan shadow */
   transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
-html, body {
-  height: 100%;
-}
+html, body { height: 100%; }
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -31,31 +27,23 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Menghapus default margin dari elemen umum */
-h1, h2, h3, h4, p, ul {
-  margin: 0;
-  padding: 0;
-}
+h1, h2, h3, h4, p, ul { margin: 0; padding: 0; }
 
 
-/* ===== HEADER (REVISI: Ditambahkan Padding di kondisi normal) ===== */
+/* ===== HEADER (STICKY UTAMA) ===== */
 header#siteHeader {
   width: 100%;
-  position: sticky;
-  top: 0;
+  position: sticky; /* HANYA HEADER YANG STICKY */
+  top: 0;          
   z-index: 1000;
   backdrop-filter: blur(8px);
   background: rgba(0, 31, 63, 0.75);
   box-shadow: 0 6px 20px var(--shadow-color);
-  transition: all .4s ease-in-out;
-  /* Tambahkan padding default agar tinggi jelas untuk perhitungan sticky */
-  padding: 14px 0; 
+  transition: all .4s ease-in-out; 
 }
 
 /* State Header Saat Digulir (Scrolling) */
 header#siteHeader.smaller {
-  /* Padding menyusut, tinggi total header saat ini sekitar 60px (diukur tanpa padding-top/bottom inner) */
-  padding: 8px 0; 
   background: rgba(0, 17, 40, 0.95);
   box-shadow: 0 8px 36px var(--shadow-color);
 }
@@ -63,23 +51,28 @@ header#siteHeader.smaller {
 .header-inner{
   max-width:1200px;
   margin:0 auto;
-  /* INNER padding HANYA untuk horizontal agar header#siteHeader.smaller tidak mengganggu */
-  padding:0 20px; 
+  padding:14px 20px; /* Padding untuk konten nav dan logo */
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:20px;
+  /* Transisi khusus untuk mengecilkan header-inner saat scrolling */
+  transition: padding 0.4s ease-in-out; 
+}
+/* Header Inner menyusut saat scrolling */
+header#siteHeader.smaller .header-inner {
+    padding: 8px 20px;
 }
 
 /* logo area */
 .logo-area{display:flex;align-items:center;gap:12px}
 .site-logo{
   width: 44px; height: 44px; border-radius: 8px; object-fit: contain;
-  transition: transform .3s ease-out, box-shadow .3s ease-out; 
+  transition: transform .3s ease-out, box-shadow .3s ease-out;
   filter: drop-shadow(0 2px 6px var(--shadow-color));
 }
 .site-logo:hover { 
-  transform: scale(1.1) rotate(-3deg); 
+  transform: scale(1.1) rotate(-3deg);
   box-shadow: 0 0 20px rgba(0, 180, 255, 0.5); 
 }
 
@@ -108,18 +101,10 @@ header#siteHeader.smaller {
   background-color: rgba(0, 180, 255, 0.05); 
 }
 
-/* ===== LIVE SCORE TICKER (REVISI UTAMA: Penambahan position: sticky) ===== */
+/* ===== LIVE SCORE TICKER (TIDAK LAGI STICKY, HANYA CHILD) ===== */
 .live-score-ticker{
   margin-top:0;
-  
-  /* FIX UTAMA: Ticker harus sticky */
-  position: sticky; 
-  
-  /* FIX UTAMA: Ticker menempel 60px dari atas (sesuai tinggi header saat mengecil) */
-  top: 60px; 
-  
-  z-index: 990; /* Harus di bawah z-index header (1000) */
-  
+  /* Dihapus: position: sticky; top: 60px; */
   border-top: 1px solid rgba(255, 255, 255, 0.05);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
   background: rgba(2, 20, 40, 0.5); 
@@ -160,7 +145,7 @@ header#siteHeader.smaller {
   100% { transform: translateX(-50%); }
 }
 
-/* ===== MAIN CONTENT ===== */
+/* ===== MAIN CONTENT & LAINNYA (TIDAK BERUBAH) ===== */
 main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
 .main-article-content{ 
     display: flex; gap: 20px; align-items: center; 
@@ -201,7 +186,7 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
 .article-info{ padding:16px }
 .article-info .meta{ color:var(--muted); font-size:0.86rem; margin-bottom:6px }
 .article-info h3{ color: var(--card-title); margin: 6px 0; transition: color 0.3s ease; }
-.article-card:hover .article-info h3 { color: var(--accent); } /* Efek warna judul saat hover */
+.article-card:hover .article-info h3 { color: var(--accent); } 
 
 .article-info p{ color:#dff7ff; opacity:.95; line-height:1.45; font-size:0.95rem }
 .read-more-btn{ 
@@ -217,8 +202,7 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* ===== ANIMATION STYLES (AOS) ===== */
-/* CSS ini digunakan oleh AOS library */
+/* ===== ANIMATION STYLES (AOS) & MODAL/FOOTER (TIDAK BERUBAH) ===== */
 [data-aos] {
   opacity: 0;
   transition-property: opacity, transform;
