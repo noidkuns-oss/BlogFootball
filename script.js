@@ -6,17 +6,16 @@ const API_BASE = "https://v3.football.api-sports.io";
 const API_KEY = "692e81ef84f51509360a8539fa45a9df"; // <--- your new key
 
 // =======================================================
-// ⭐ INIT AOS (Animate On Scroll)
-// HARUS dipanggil sebelum atau saat DOMContentLoaded
+// INIT AOS (Animate On Scroll)
+// Easing yang lebih dinamis untuk efek 'pop' yang halus
 // =======================================================
-// Pastikan kamu sudah menautkan AOS.js via CDN di index.html sebelum script.js ini.
 if (typeof AOS !== 'undefined') {
     AOS.init({
-        duration: 800,      // Durasi animasi 0.8 detik
-        easing: 'ease-out', // Kurva transisi smooth
-        once: true,         // Animasi hanya berjalan satu kali saat pertama kali terlihat
-        mirror: false,      // Jangan ulangi animasi saat scrolling ke atas
-        offset: 50,         // Mulai animasi 50px sebelum elemen terlihat
+        duration: 900,      
+        easing: 'ease-out-cubic', 
+        once: true,         
+        mirror: false,      
+        offset: 80,         
     });
 }
 // =======================================================
@@ -27,7 +26,6 @@ async function apiFetch(path) {
     const res = await fetch(`${API_BASE}${path}`, {
         headers: { "x-apisports-key": API_KEY }
     });
-    // Menambahkan pemeriksaan agar API key tidak bocor di console.error
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const json = await res.json();
     return json.response ?? [];
@@ -108,28 +106,31 @@ async function loadArticles() {
                     </div>
                 </div>
             `;
-            // ⭐ Tambahkan atribut AOS di HTML kamu (di file index.html)
-            // Contoh: mainArticleEl.setAttribute("data-aos", "fade-up");
         }
 
         // render up to 30 article cards
         if (articlesContainer) {
             articlesContainer.innerHTML = "";
             
-            // ⭐ LOGIKA UNTUK DELAY AOS PADA KARTU ARTIKEL
-            let delayTime = 300; // Mulai delay dari 300ms
-            const delayIncrement = 200; // Tambah 200ms untuk kartu berikutnya
+            // LOGIKA DELAY untuk efek staggering yang halus
+            let delayTime = 0; 
+            const delayIncrement = 120; // Tambah 120ms per kartu
 
-            list.slice(0, 30).forEach(a => {
+            list.slice(0, 30).forEach((a, index) => {
                 const card = document.createElement("div");
                 card.className = "article-card";
                 
-                // ⭐ Menambahkan atribut AOS secara dinamis di sini
-                card.setAttribute("data-aos", "fade-up");
+                // Menentukan efek AOS yang lebih beragam
+                let aosEffect = "fade-up";
+                if (index % 3 === 0) aosEffect = "fade-up-right"; 
+                else if (index % 5 === 0) aosEffect = "zoom-in"; 
+                
+                card.setAttribute("data-aos", aosEffect);
                 card.setAttribute("data-aos-delay", delayTime);
-                delayTime += delayIncrement;
-                // ⭐ Akhir penambahan AOS
+                card.setAttribute("data-aos-duration", "800"); 
 
+                delayTime += delayIncrement;
+                
                 card.innerHTML = `
                     <img src="${a.image}" alt="${escapeHtml(a.title)}" />
                     <div class="article-info">
