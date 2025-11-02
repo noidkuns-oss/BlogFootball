@@ -1,70 +1,76 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BlogFootball — Berita & Hasil Sepak Bola Terbaru</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>BlogFootball — Berita & Hasil Sepak Bola Terbaru</title>
+    
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    
+    <link rel="stylesheet" href="style.css" />
+    
+    <meta name="description" content="Situs berita dan hasil skor sepak bola terkini, dilengkapi live score ticker." />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
 </head>
 <body>
-  <header id="siteHeader">
-    <div class="header-inner">
-      <div class="logo-area">
-        <img src="images/logo.png" alt="Logo BlogFootball" class="site-logo" />
-        <div>
-          <h1 class="site-title">Blog<span>Football</span></h1>
-          <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
+    <header id="siteHeader" data-aos="fade-down">
+        <div class="header-inner">
+            <div class="logo-area">
+                <img src="images/logo.png" alt="Logo BlogFootball" class="site-logo" />
+                <div>
+                    <h1 class="site-title">Blog<span>Football</span></h1>
+                    <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
+                </div>
+            </div>
+
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="#" class="active">Home</a></li>
+                    <li><a href="#">Trending</a></li>
+                    <li><a href="#">Eropa</a></li>
+                    <li><a href="#">Dunia</a></li>
+                    <li><a href="#">Jadwal & Skor</a></li>
+                    <li><a href="#">Bolatainment</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </nav>
         </div>
-      </div>
+    </header>
 
-      <nav class="site-nav" aria-label="Main navigation">
-        <ul>
-          <li><a href="#" class="active">Home</a></li>
-          <li><a href="#">Trending</a></li>
-          <li><a href="#">Eropa</a></li>
-          <li><a href="#">Dunia</a></li>
-          <li><a href="#">Jadwal & Skor</a></li>
-          <li><a href="#">Bolatainment</a></li>
-          <li><a href="#">Contact</a></li>
-        </ul>
-      </nav>
+    <div class="live-score-ticker" role="region" aria-label="Live scores" data-aos="fade-in" data-aos-delay="200">
+        <div class="ticker-wrapper">
+            <div id="liveScores" class="ticker-content" aria-live="polite">
+                <div class="no-match">⚽ Memuat skor langsung...</div>
+            </div>
+        </div>
     </div>
-  </header>
 
-  <!-- LIVE SCORE TICKER (glass) -->
-  <div class="live-score-ticker" role="region" aria-label="Live scores">
-    <div class="ticker-wrapper">
-      <div id="liveScores" class="ticker-content" aria-live="polite">
-        <div class="no-match">⚽ Memuat skor langsung...</div>
-      </div>
+    <div id="matchModal" class="match-details-modal" aria-hidden="true">
+        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="matchTitle">
+            <div class="modal-header">
+                <h3 id="matchTitle">Detail Pertandingan</h3>
+                <button id="closeModal" class="close-btn" aria-label="Tutup">✖</button>
+            </div>
+            <div id="matchStats" class="stats-list">Memuat statistik...</div>
+        </div>
     </div>
-  </div>
 
-  <!-- Modal for match stats -->
-  <div id="matchModal" class="match-details-modal" aria-hidden="true">
-    <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="matchTitle">
-      <div class="modal-header">
-        <h3 id="matchTitle">Detail Pertandingan</h3>
-        <button id="closeModal" class="close-btn" aria-label="Tutup">✖</button>
-      </div>
-      <div id="matchStats" class="stats-list">Memuat statistik...</div>
-    </div>
-  </div>
+    <main>
+        <section class="main-article-section" data-aos="fade-up" data-aos-duration="1000">
+            <div class="main-article"></div>
+        </section>
 
-  <main>
-    <section class="main-article-section">
-      <div class="main-article"></div>
-    </section>
+        <section class="articles-section">
+            <div class="articles-container" aria-live="polite"></div>
+        </section>
+    </main>
 
-    <section class="articles-section">
-      <div class="articles-container" aria-live="polite"></div>
-    </section>
-  </main>
+    <footer>
+        <p>© 2025 BlogFootball. Semua hak cipta dilindungi.</p>
+    </footer>
 
-  <footer>
-    <p>© 2025 BlogFootball. Semua hak cipta dilindungi.</p>
-  </footer>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
-  <script src="script.js" defer></script>
+    <script src="script.js" defer></script>
 </body>
 </html>
