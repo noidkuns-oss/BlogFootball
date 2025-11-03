@@ -3,32 +3,32 @@
     ======================= */
 
 :root{
-  --bg: #0a0f1a;
-  --panel: #0d1b2a;
-  --accent: #00b4ff;
-  --muted: #9fc7db;
-  --glass-alpha: 0.14;
-  --card-title: #7fe5ff;
-  --shadow-color: rgba(0, 0, 0, 0.7);
-  /* TAMBAHAN BARU */
-  --sidebar-bg: #111a24; 
-  --ucl-color: #38bdf8; /* Biru muda untuk UCL */
-  --relegation-color: #f87171; /* Merah muda untuk zona degradasi */
+    --bg: #0a0f1a;
+    --panel: #0d1b2a;
+    --accent: #00b4ff;
+    --muted: #9fc7db;
+    --glass-alpha: 0.14;
+    --card-title: #7fe5ff;
+    --shadow-color: rgba(0, 0, 0, 0.7);
+    /* TAMBAHAN BARU */
+    --sidebar-bg: #111a24;
+    --ucl-color: #38bdf8; /* Biru muda untuk UCL */
+    --relegation-color: #f87171; /* Merah muda untuk zona degradasi */
 }
 
 /* Global Reset & Smooth Transition */
 *, *::before, *::after {
-  box-sizing: border-box;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
 html, body { height: 100%; }
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: #e6f7ff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: #e6f7ff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, p, ul { margin: 0; padding: 0; }
@@ -38,144 +38,144 @@ a:hover { color: #53d6ff; }
 
 /* ===== HEADER (STICKY UTAMA) ===== */
 header#siteHeader {
-  width: 100%;
-  position: sticky; /* HANYA HEADER YANG STICKY */
-  top: 0;          
-  z-index: 1000;
-  backdrop-filter: blur(8px);
-  background: rgba(0, 31, 51, 0.85); /* Background sedikit gelap */
-  border-bottom: 1px solid rgba(0, 180, 255, 0.15);
+    width: 100%;
+    position: sticky; /* HANYA HEADER YANG STICKY */
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    background: rgba(0, 31, 51, 0.85); /* Background sedikit gelap */
+    border-bottom: 1px solid rgba(0, 180, 255, 0.15);
 }
 
 .header-inner {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 /* Logo Area */
 .logo-area {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 .site-logo {
-  width: 40px;
-  height: 40px;
-  border-radius: 8px;
-  background-color: var(--accent);
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    background-color: var(--accent);
 }
 .site-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #fff;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
 }
 .site-title span {
-  color: var(--accent);
-  font-weight: 900;
+    color: var(--accent);
+    font-weight: 900;
 }
 .small-tagline {
-  font-size: 0.75rem;
-  color: var(--muted);
-  margin-top: -4px;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-top: -4px;
 }
 
 /* Navigation */
 .site-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 25px;
+    list-style: none;
+    display: flex;
+    gap: 25px;
 }
 .site-nav a {
-  color: #fff;
-  font-weight: 600;
-  padding: 5px 0;
-  position: relative;
-  opacity: 0.8;
-  transition: opacity 0.2s;
+    color: #fff;
+    font-weight: 600;
+    padding: 5px 0;
+    position: relative;
+    opacity: 0.8;
+    transition: opacity 0.2s;
 }
 .site-nav a:hover, .site-nav a.active {
-  opacity: 1;
-  color: var(--accent);
+    opacity: 1;
+    color: var(--accent);
 }
 .site-nav a.active::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -5px;
-  width: 100%;
-  height: 2px;
-  background-color: var(--accent);
-  border-radius: 1px;
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent);
+    border-radius: 1px;
 }
 
 
 /* ===== LIVE SCORE TICKER ===== */
 .live-score-ticker {
-  background-color: rgba(2, 38, 64, 0.6); /* Slightly darker background */
-  border-top: 1px solid rgba(0, 180, 255, 0.05);
-  padding: 6px 0;
-  overflow: hidden;
-  white-space: nowrap;
+    background-color: rgba(2, 38, 64, 0.6); /* Slightly darker background */
+    border-top: 1px solid rgba(0, 180, 255, 0.05);
+    padding: 6px 0;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .ticker-wrapper {
-  max-width: 1300px;
-  margin: 0 auto;
+    max-width: 1300px;
+    margin: 0 auto;
 }
 .ticker-content {
-  display: flex;
-  animation: scroll-left 60s linear infinite; /* Animasi default */
-  padding: 0 20px;
+    display: flex;
+    animation: scroll-left 60s linear infinite; /* Animasi default */
+    padding: 0 20px;
 }
 
 .score-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0 15px;
-  margin-right: 25px; /* Jarak antar item */
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #e9fbff;
-  border-radius: 5px;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.05);
-  transition: background-color 0.2s, transform 0.1s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 15px;
+    margin-right: 25px; /* Jarak antar item */
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #e9fbff;
+    border-radius: 5px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.2s, transform 0.1s;
 }
 .score-item:hover {
-  background: rgba(0, 180, 255, 0.1);
-  transform: translateY(-1px);
+    background: rgba(0, 180, 255, 0.1);
+    transform: translateY(-1px);
 }
 .score-item:active {
-  transform: translateY(0);
+    transform: translateY(0);
 }
 
 .status {
-  font-size: 0.75rem;
-  padding: 2px 6px;
-  border-radius: 4px;
-  font-weight: 700;
-  min-width: 32px;
-  text-align: center;
+    font-size: 0.75rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 700;
+    min-width: 32px;
+    text-align: center;
 }
 .status.LIVE { background-color: #ef4444; color: white; }
 .status.HT { background-color: #f59e0b; color: white; }
 .score-home, .score-away {
-  color: var(--accent);
-  font-size: 1.1rem;
+    color: var(--accent);
+    font-size: 1.1rem;
 }
 .no-match {
-  padding: 0 20px;
-  color: var(--muted);
-  font-style: italic;
+    padding: 0 20px;
+    color: var(--muted);
+    font-style: italic;
 }
 
 @keyframes scroll-left {
-  0% { transform: translateX(0%); }
-  100% { transform: translateX(-100%); }
+    0% { transform: translateX(0%); }
+    100% { transform: translateX(-100%); }
 }
 
 /* Hentikan animasi saat tidak ada pertandingan live */
@@ -558,34 +558,35 @@ header#siteHeader {
 }
 
 /* modal */
-.match-details-modal{ 
-  display:none; position:fixed; inset:0; 
-  background:rgba(2,8,18,0.85); 
-  backdrop-filter: blur(10px); 
-  align-items:center; justify-content:center; z-index:2000 
+.match-details-modal{
+    display:none; position:fixed; inset:0;
+    background:rgba(2,8,18,0.85);
+    backdrop-filter: blur(10px);
+    align-items:center; justify-content:center; z-index:2000
 }
-.match-details-modal .modal-content{ 
-  width:min(92%,520px); 
-  background:linear-gradient(180deg,#0a1e38,#0f2e4c); 
-  padding:20px; 
-  border-radius:16px; 
-  color:#e9fbff; 
-  box-shadow:0 18px 50px rgba(0,0,0,0.9);
-  border: 1px solid rgba(0, 180, 255, 0.3);
+.match-details-modal .modal-content{
+    width:min(92%,520px);
+    background:linear-gradient(180deg,#0a1e38,#0f2e4c);
+    padding:20px;
+    border-radius:16px;
+    color:#e9fbff;
+    box-shadow:0 18px 50px rgba(0,0,0,0.9);
+    border: 1px solid rgba(0, 180, 255, 0.3);
 }
 .modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px }
 .modal-header h3 { color: var(--card-title); font-size: 1.5rem; }
-.close-btn{ 
-    background:transparent; border:0; color:var(--muted); font-size:24px; cursor:pointer; 
-    transition: color .2s ease; padding: 5px; line-height: 1; 
+.close-btn{
+    background:transparent; border:0; color:var(--muted); font-size:24px; cursor:pointer;
+    padding: 5px; line-height: 1;
+    transition: color .2s ease, transform .3s ease; /* Transisi ditambahkan untuk rotasi */
 }
 .close-btn:hover { color: var(--accent); transform: rotate(90deg); }
 
 .stats-list h4 { margin: 15px 0 5px!important; color: #fff; font-size: 1.1rem; }
 .stats-list-group { list-style: none; padding: 0; margin: 0 0 10px 0; }
-.stats-list-group li { 
-    display: flex; justify-content: space-between; padding: 5px 0; 
-    border-bottom: 1px dotted rgba(255, 255, 255, 0.1); 
+.stats-list-group li {
+    display: flex; justify-content: space-between; padding: 5px 0;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.1);
     font-size: 0.95rem;
 }
 .stats-list-group li:last-child { border-bottom: none; }
@@ -631,7 +632,7 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
 
 @media (max-width: 768px) {
     .header-inner {
-        padding-left: 10px; 
+        padding-left: 10px;
         padding-right: 10px;
     }
     .main-layout-grid {
@@ -639,7 +640,7 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
         padding-right: 10px;
     }
     .ticker-wrapper {
-        padding-left: 0; 
+        padding-left: 0;
         padding-right: 20px;
     }
     .horizontal-card {
