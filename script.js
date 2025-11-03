@@ -22,7 +22,8 @@ if (typeof AOS !== 'undefined') {
 let articleList = [];
 let currentArticleIndex = 0;
 let articleRotationInterval;
-const ROTATION_DELAY = 6000; // 6 detik untuk transisi antar berita utama
+// Kecepatan transisi: harus lebih lama dari durasi scroll headline (15 detik di CSS)
+const ROTATION_DELAY = 16000; // 16 detik untuk memberi waktu headline selesai scroll
 
 /* Helper fetch & elements */
 async function apiFetch(path) {
@@ -45,7 +46,7 @@ const headerEl = document.getElementById("siteHeader");
 function renderMainArticle(article) {
     if (!mainArticleEl || !article) return;
 
-    // 1. Tambahkan kelas transisi cepat untuk membuat pergantian halus
+    // 1. Tambahkan kelas transisi cepat untuk membuat pergantian halus (fade)
     mainArticleEl.classList.add('fading');
 
     // Beri jeda singkat agar CSS transisi bekerja (fading)
@@ -77,6 +78,7 @@ function rotateMainArticle() {
     renderMainArticle(articleList[currentArticleIndex]);
 
     // Pindah ke artikel berikutnya (loop kembali ke 0 jika sudah mencapai akhir)
+    // Gunakan modulo operator untuk mengulang array dari awal
     currentArticleIndex = (currentArticleIndex + 1) % articleList.length;
 }
 
@@ -88,7 +90,7 @@ async function loadArticles() {
         if (!resp.ok) throw new Error("articles.json not found");
         const list = await resp.json();
         
-        // 🚨 PENTING: MENGAMBIL SEMUA BERITA, TIDAK ADA PENGULANGAN (placeholder)
+        // 🚨 PENTING: MENGAMBIL SEMUA BERITA UNIK, TIDAK ADA PENGULANGAN (placeholder logic dihapus)
         articleList = Array.isArray(list) ? list : [];
         
         if (articleList.length === 0) {
@@ -98,16 +100,17 @@ async function loadArticles() {
 
         // Mulai rotasi artikel utama
         rotateMainArticle();
+        // Set interval untuk rotasi otomatis
         articleRotationInterval = setInterval(rotateMainArticle, ROTATION_DELAY);
 
-        // render article cards (mulai dari indeks 1, karena indeks 0 dipakai untuk rotasi utama)
+        // render article cards (Mengambil semua artikel dari articles.json)
         if (articlesContainer) {
             articlesContainer.innerHTML = "";
             let delayTime = 0; 
             const delayIncrement = 120;
 
-            // Mengambil 30 artikel untuk kartu (mengabaikan yang pertama/main article)
-            articleList.slice(1, 31).forEach((a, index) => { 
+            // Mengambil semua artikel yang ada di articles.json (maks 30, tapi tidak ada placeholder)
+            articleList.slice(0, 30).forEach((a, index) => { 
                 const card = document.createElement("div");
                 card.className = "article-card";
                 
@@ -126,7 +129,7 @@ async function loadArticles() {
                     <div class="article-info">
                         <div class="meta">${escapeHtml(a.category)} • ${escapeHtml(a.date)}</div>
                         <h3>${escapeHtml(a.title)}</h3>
-                        <p class="card-excerpt">${escapeHtml(a.excerpt)}</p>
+                        <p>${escapeHtml(a.excerpt)}</p>
                         <a class="read-more-btn" href="${a.link}">Baca Selengkapnya</a>
                     </div>
                 `;
@@ -142,7 +145,6 @@ async function loadArticles() {
 
 
 /* --- Ticker & Modal Functions (Unchanged but included for completeness) --- */
-
 /* Sticky header shrink effect */
 let isTicking = false;
 function updateHeaderClass() {
@@ -224,7 +226,33 @@ async function loadLiveScores(){
 
 /* Show match stats modal */
 async function showMatchDetails(fixtureId, title) {
-    // ... (modal logic remains the same)
+    const modal = document.getElementById("matchModal");
+    const matchStatsEl = document.getElementById("matchStats");
+    const matchTitleEl = document.getElementById("matchTitle");
+    
+    if (!fixtureId) return;
+    try {
+        matchTitleEl.textContent = title || "Detail Pertandingan";
+        matchStatsEl.textContent = "Memuat statistik...";
+        modal.style.display = "flex";
+        modal.setAttribute("aria-hidden","false");
+
+        const stats = await apiFetch(`/fixtures/statistics?fixture=${fixtureId}`);
+        if (!stats || stats.length === 0) {
+            matchStatsEl.textContent = "Statistik belum tersedia.";
+            return;
+        }
+        let html = "";
+        stats.forEach(team => {
+            html += `<h4 style="margin:8px 0 6px">${escapeHtml(team.team?.name || "")}</h4><ul>`;
+            team.statistics.forEach(s => html += `<li>${escapeHtml(s.type)}: ${escapeHtml(String(s.value ?? 0))}</li>`);
+            html += "</ul>";
+        });
+        matchStatsEl.innerHTML = html;
+    } catch (err) {
+        console.error("showMatchDetails err:", err);
+        matchStatsEl.textContent = "Gagal memuat statistik.";
+    }
 }
 
 /* modal close handlers */
