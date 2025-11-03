@@ -12,13 +12,14 @@
   --shadow-color: rgba(0, 0, 0, 0.7);
   /* TAMBAHAN BARU */
   --sidebar-bg: #111a24; 
+  --ucl-color: #38bdf8; /* Biru muda untuk UCL */
+  --relegation-color: #f87171; /* Merah muda untuk zona degradasi */
 }
 
 /* Global Reset & Smooth Transition */
 *, *::before, *::after {
   box-sizing: border-box;
-  /* Transisi halus untuk perubahan warna, bayangan, dan ukuran */
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.2s ease;
 }
 html, body { height: 100%; }
 body {
@@ -31,35 +32,23 @@ body {
 }
 
 h1, h2, h3, h4, p, ul { margin: 0; padding: 0; }
-a { text-decoration: none; color: var(--accent); }
-a:hover { color: #53d2ff; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: #53d6ff; }
 
-/* Main Content Area */
-main {
-  max-width: 1200px;
-  margin: 20px auto 50px;
-  padding: 0 20px;
-  display: grid;
-  grid-template-columns: 2fr 1fr; /* Kolom utama dan sidebar */
-  gap: 30px;
-}
 
-/* ====================================
-    HEADER (STICKY UTAMA)
-    ==================================== */
+/* ===== HEADER (STICKY UTAMA) ===== */
 header#siteHeader {
   width: 100%;
   position: sticky; /* HANYA HEADER YANG STICKY */
   top: 0;          
   z-index: 1000;
   backdrop-filter: blur(8px);
-  background: rgba(0, 31, 61, var(--glass-alpha)); /* Warna background glass */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
-  border-bottom: 1px solid rgba(0, 180, 255, 0.1);
+  background: rgba(0, 31, 51, 0.85); /* Background sedikit gelap */
+  border-bottom: 1px solid rgba(0, 180, 255, 0.15);
 }
 
 .header-inner {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 10px 20px;
   display: flex;
@@ -67,694 +56,482 @@ header#siteHeader {
   align-items: center;
 }
 
+/* Logo Area */
 .logo-area {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
-
 .site-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    box-shadow: 0 0 10px var(--accent);
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background-color: var(--accent);
 }
-
 .site-title {
   font-size: 1.5rem;
-  font-weight: 800;
-  letter-spacing: -0.5px;
+  font-weight: 700;
   color: #fff;
 }
 .site-title span {
-    color: var(--accent);
+  color: var(--accent);
+  font-weight: 900;
 }
 .small-tagline {
-    font-size: 0.75rem;
-    color: var(--muted);
-    margin-top: -3px;
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: -4px;
 }
 
+/* Navigation */
 .site-nav ul {
   list-style: none;
   display: flex;
   gap: 25px;
 }
-
 .site-nav a {
   color: #fff;
-  font-weight: 500;
+  font-weight: 600;
   padding: 5px 0;
   position: relative;
-  opacity: 0.85;
+  opacity: 0.8;
+  transition: opacity 0.2s;
 }
-
-.site-nav a.active,
-.site-nav a:hover {
-  color: var(--accent);
+.site-nav a:hover, .site-nav a.active {
   opacity: 1;
+  color: var(--accent);
 }
-
 .site-nav a.active::after {
-    content: '';
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    width: 100%;
-    height: 3px;
-    background: var(--accent);
-    border-radius: 2px;
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -5px;
+  width: 100%;
+  height: 2px;
+  background-color: var(--accent);
+  border-radius: 1px;
 }
 
 
-/* ====================================
-    LIVE SCORE TICKER
-    ==================================== */
+/* ===== LIVE SCORE TICKER ===== */
 .live-score-ticker {
-  background: var(--panel);
-  color: #fff;
-  padding: 10px 0;
+  background-color: rgba(2, 38, 64, 0.6); /* Slightly darker background */
+  border-top: 1px solid rgba(0, 180, 255, 0.05);
+  padding: 6px 0;
   overflow: hidden;
-  position: relative;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
-  border-bottom: 2px solid var(--accent);
+  white-space: nowrap;
 }
-
 .ticker-wrapper {
-  overflow: hidden;
+  max-width: 1300px;
+  margin: 0 auto;
 }
-
-/* Konten ticker akan dianimasikan secara horizontal di script.js */
 .ticker-content {
   display: flex;
-  white-space: nowrap;
-  padding: 0 100%; /* Agar ticker mulai dari luar viewport */
-  /* Transisi hanya digunakan saat memuat. Setelah dimuat, animasi CSS di script.js yang mengambil alih */
-  transition: opacity 0.5s ease;
+  animation: scroll-left 60s linear infinite; /* Animasi default */
+  padding: 0 20px;
 }
 
-.ticker-item {
+.score-item {
   display: inline-flex;
   align-items: center;
-  gap: 15px;
-  margin-right: 30px;
+  gap: 8px;
   padding: 0 15px;
-  background: rgba(0, 180, 255, 0.1);
-  border-radius: 8px;
-  line-height: 1;
+  margin-right: 25px; /* Jarak antar item */
   font-size: 0.95rem;
   font-weight: 600;
-  flex-shrink: 0;
+  color: #e9fbff;
+  border-radius: 5px;
   cursor: pointer;
-  border: 1px solid rgba(0, 180, 255, 0.2);
+  background: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.2s, transform 0.1s;
+}
+.score-item:hover {
+  background: rgba(0, 180, 255, 0.1);
+  transform: translateY(-1px);
+}
+.score-item:active {
+  transform: translateY(0);
 }
 
-.ticker-item:hover {
-    background: rgba(0, 180, 255, 0.2);
-    box-shadow: 0 0 15px rgba(0, 180, 255, 0.5);
-}
-
-.team-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.team-logo {
-  width: 24px;
-  height: 24px;
-  object-fit: contain;
-  border-radius: 2px;
-}
-
-.score {
-  color: var(--accent);
-  font-size: 1.1rem;
-  font-weight: 900;
-}
-
-.match-status {
-  font-size: 0.8rem;
-  color: #ff9900;
-  background: rgba(255, 153, 0, 0.2);
+.status {
+  font-size: 0.75rem;
   padding: 2px 6px;
   border-radius: 4px;
+  font-weight: 700;
+  min-width: 32px;
+  text-align: center;
+}
+.status.LIVE { background-color: #ef4444; color: white; }
+.status.HT { background-color: #f59e0b; color: white; }
+.score-home, .score-away {
+  color: var(--accent);
+  font-size: 1.1rem;
 }
 .no-match {
-    color: var(--muted);
-    width: 100%;
-    text-align: center;
-    padding: 5px 0;
+  padding: 0 20px;
+  color: var(--muted);
+  font-style: italic;
+}
+
+@keyframes scroll-left {
+  0% { transform: translateX(0%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* Hentikan animasi saat tidak ada pertandingan live */
+.no-match + .ticker-content {
+    animation-play-state: paused;
 }
 
 
-/* ====================================
-    HOME PAGE - ARTICLES
-    ==================================== */
+/* ===== MAIN LAYOUT GRID ===== */
+.main-layout-grid {
+    max-width: 1300px;
+    margin: 20px auto 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* 2 bagian konten, 1 bagian sidebar */
+    gap: 30px;
+}
 
-/* Main Article Section */
+.content-wrapper {
+    min-width: 0; /* Penting untuk flex/grid children */
+}
+
+
+/* ===== ARTICLES SECTION ===== */
 .main-article-section {
-    grid-column: 1 / 3; /* Ambil seluruh lebar di desktop */
-    margin-bottom: 20px;
+    margin-bottom: 40px;
 }
 
-.main-article {
-    height: 400px; /* Tinggi default */
-    background: var(--panel);
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
-    box-shadow: 0 10px 30px var(--shadow-color);
-}
-
-.main-headline-card {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    background: linear-gradient(0deg, rgba(10, 15, 26, 0.95) 0%, rgba(10, 15, 26, 0.6) 50%, rgba(10, 15, 26, 0) 100%);
-    color: #fff;
-    cursor: pointer;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-}
-
-.main-headline-card:hover h2 {
-    color: var(--accent);
-    text-shadow: 0 0 10px var(--accent);
-}
-
-.main-article-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-.main-headline-card h2 {
+.section-title {
     font-size: 2rem;
-    margin-bottom: 10px;
-    line-height: 1.2;
-    transition: color 0.3s ease, text-shadow 0.3s ease;
-}
-
-.main-headline-card p {
-    font-size: 1rem;
-    color: var(--muted);
-}
-
-/* Other Articles Grid */
-.articles-section {
-    grid-column: 1 / 3;
+    font-weight: 700;
+    margin-bottom: 25px;
+    color: #fff;
+    border-left: 5px solid var(--accent);
+    padding-left: 15px;
+    line-height: 1;
 }
 
 .articles-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
 }
 
-.article-card {
+/* Card Styles (Umum) */
+.standard-card, .main-headline-card {
     background: var(--panel);
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    height: 100%;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(0, 180, 255, 0.1);
+}
+.standard-card:hover, .main-headline-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px var(--shadow-color);
 }
 
-.article-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px var(--accent);
-}
 
-.card-image-wrapper {
-    position: relative;
-    height: 200px;
+/* Standard Card */
+.standard-card .article-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+.standard-card .article-content-area {
+    padding: 15px;
+}
+.standard-card .article-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 10px 0 8px;
+    line-height: 1.3;
+    min-height: 4.6em; /* 3 baris */
+    overflow: hidden;
+}
+.standard-card .article-excerpt {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 12px;
+    min-height: 2.7em; /* 2 baris */
     overflow: hidden;
 }
 
-.card-image {
+
+/* Main Headline (Horizontal Card) */
+.main-headline-card {
+    display: flex;
+    flex-direction: row;
+    min-height: 300px;
+    text-align: left;
+}
+.main-headline-card .article-image-area {
+    width: 60%;
+    min-width: 60%;
+    max-height: 450px;
+}
+.main-headline-card .article-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    display: block;
-    transition: transform 0.5s ease;
 }
-
-.article-card:hover .card-image {
-    transform: scale(1.05);
-}
-
-.card-content {
-    padding: 15px;
-    flex-grow: 1;
+.main-headline-card .article-content-area {
+    width: 40%;
+    padding: 25px;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
-
-.card-content h3 {
-    font-size: 1.2rem;
+.main-headline-card .article-title {
+    font-size: 2rem;
+    font-weight: 900;
+    margin: 10px 0 15px;
+    line-height: 1.2;
     color: var(--card-title);
-    margin-bottom: 10px;
-    line-height: 1.3;
+}
+.main-headline-card .article-excerpt {
+    font-size: 1rem;
+    color: #e9fbff;
+    margin-bottom: 20px;
+    line-height: 1.5;
 }
 
-.card-content p {
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-bottom: 15px;
-    flex-grow: 1;
-}
 
-.card-meta {
+/* Tags */
+.article-tags {
     display: flex;
-    justify-content: space-between;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.article-tag {
     font-size: 0.75rem;
-    color: var(--muted);
-    padding-top: 10px;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* ====================================
-    SIDEBAR - FIXTURES/STANDINGS
-    ==================================== */
-
-.sidebar {
-    grid-column: 2 / 3;
-    padding-top: 0;
-}
-
-.sidebar-panel {
-    background: var(--sidebar-bg);
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 30px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.sidebar-panel h3 {
+    font-weight: 600;
     color: var(--accent);
-    font-size: 1.4rem;
-    margin-bottom: 15px;
-    border-bottom: 2px solid rgba(0, 180, 255, 0.3);
-    padding-bottom: 5px;
+    background: rgba(0, 180, 255, 0.1);
+    padding: 3px 8px;
+    border-radius: 4px;
 }
 
-/* Fixtures List */
-.fixture-list {
+.read-more-link {
+    display: inline-block;
+    margin-top: auto; /* Dorong ke bawah di card standar */
+    font-weight: 600;
+    color: var(--accent);
+}
+
+/* ===== SIDEBAR (JADWAL & KLASEMEN BARU) ===== */
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.sidebar-card {
+    background: var(--sidebar-bg);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(0, 180, 255, 0.08);
+}
+
+.sidebar-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    color: var(--card-title);
+    padding-bottom: 5px;
+    border-bottom: 2px solid rgba(0, 180, 255, 0.15);
+}
+
+/* Jadwal Pertandingan (Fixtures) */
+.fixtures-list {
     list-style: none;
     padding: 0;
     margin: 0;
 }
-
 .fixture-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 10px 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    font-size: 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
 }
-
 .fixture-item:last-child {
     border-bottom: none;
 }
-
-.teams-fixture {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    flex-grow: 1;
-}
-
-.team-name {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 500;
-}
-
-.fixture-time {
+.date-time {
     font-size: 0.8rem;
-    color: var(--muted);
-    text-align: right;
-    width: 80px;
-    flex-shrink: 0;
+    color: var(--accent);
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+.teams {
+    font-size: 1rem;
+    font-weight: 400;
+}
+.home-team, .away-team {
+    font-weight: 600;
+}
+.muted-text { color: var(--muted); font-style: italic; }
+.error-text { color: var(--relegation-color); font-weight: 500; }
+
+/* Klasemen Liga (Standings) */
+.standings-table-wrapper {
+    overflow-x: auto; /* Untuk mobile */
 }
 
-/* Standings Table */
 .standings-table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
-
 .standings-table th, .standings-table td {
-    padding: 8px 5px;
+    padding: 10px 8px;
     text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
-
 .standings-table th {
-    background: rgba(0, 180, 255, 0.1);
-    font-weight: 600;
-    color: var(--accent);
-    text-transform: uppercase;
     font-size: 0.8rem;
-}
-
-.standings-table td:nth-child(1) { /* Rank */
     font-weight: 700;
-    color: var(--card-title);
-    width: 30px;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+}
+.standings-table td:nth-child(1) { width: 10%; text-align: center; font-weight: 700; } /* Rank */
+.standings-table td:nth-child(2) { width: 55%; } /* Team Name */
+.standings-table td:nth-child(3) { width: 15%; text-align: center; color: var(--muted); } /* Matches Played */
+.standings-table td:nth-child(4) { width: 20%; text-align: center; } /* Points */
+
+.team-logo-small {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 
-.standings-table td:nth-child(2) { /* Team Name */
-    font-weight: 500;
-}
-
-.standings-table td:nth-child(3),
-.standings-table td:nth-child(4) { /* P, W, D, L, GF, GA, GD, Pts */
-    text-align: center;
-    width: 30px;
-}
-.standings-table .team-name-cell {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-
-/* ====================================
-    GENERIC CONTENT PAGES (ABOUT & CONTACT)
-    ==================================== */
-.content-page, .contact-container {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 40px;
-    background: var(--panel);
-    border-radius: 16px;
-    box-shadow: 0 10px 30px var(--shadow-color);
-}
-
-.content-page h2, .contact-container h2 {
-    color: var(--accent);
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-    border-bottom: 2px solid rgba(0, 180, 255, 0.3);
-    padding-bottom: 10px;
-}
-
-.content-page p {
-    line-height: 1.8;
-    margin-bottom: 20px;
-    color: #e6f7ff;
-}
-
-/* Contact Form Styling */
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 20px;
-}
-
-.contact-form label {
+/* Zona Warna Klasemen */
+.ucl-zone {
+    background-color: rgba(56, 189, 248, 0.1);
+    color: var(--ucl-color);
     font-weight: 600;
-    color: var(--card-title);
-    font-size: 1.1rem;
-    margin-top: 5px;
+}
+.relegation-zone {
+    background-color: rgba(248, 113, 113, 0.1);
+    color: var(--relegation-color);
+}
+.ucl-zone td, .relegation-zone td {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.contact-form input[type="text"],
-.contact-form input[type="email"],
-.contact-form textarea {
-    padding: 12px;
-    border: 1px solid rgba(0, 180, 255, 0.3);
-    border-radius: 8px;
-    background-color: var(--bg);
-    color: #e6f7ff;
-    font-size: 1rem;
-    width: 100%;
-    resize: vertical;
-    outline: none;
-}
 
-.contact-form input:focus,
-.contact-form textarea:focus {
-    border-color: var(--accent);
-    box-shadow: 0 0 10px rgba(0, 180, 255, 0.5);
-}
+/* footer */
+footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid rgba(255,255,255,0.05); margin-top: 40px;}
 
-.contact-form textarea {
-    min-height: 150px;
-}
 
-.contact-form button[type="submit"] {
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    padding: 15px 25px;
-    border-radius: 8px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(0, 180, 255, 0.4);
-    transition: background-color 0.3s ease, transform 0.1s ease;
-    margin-top: 10px;
-}
 
-.contact-form button[type="submit"]:hover {
-    background: #53d2ff;
-    transform: translateY(-2px);
-}
-
-#formStatus {
-    margin-top: 15px;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 8px;
-    text-align: center;
-    color: #fff;
-    background: rgba(0, 180, 255, 0.2);
-    border: 1px solid var(--accent);
-}
-
-/* ====================================
-    MODAL / POPUP
-    ==================================== */
+/* modal */
 .match-details-modal{ 
-  display:none; 
-  position:fixed; 
-  inset:0; 
+  display:none; position:fixed; inset:0; 
   background:rgba(2,8,18,0.85); 
   backdrop-filter: blur(10px); 
-  align-items:center; 
-  justify-content:center; 
-  z-index:2000 
+  align-items:center; justify-content:center; z-index:2000 
 }
 .match-details-modal .modal-content{ 
   width:min(92%,520px); 
   background:linear-gradient(180deg,#0a1e38,#0f2e4c); 
-  padding:25px; 
+  padding:20px; 
   border-radius:16px; 
   color:#e9fbff; 
   box-shadow:0 18px 50px rgba(0,0,0,0.9);
   border: 1px solid rgba(0, 180, 255, 0.3);
-  max-height: 90vh;
-  overflow-y: auto;
 }
-.modal-header{ 
-    display:flex; 
-    justify-content:space-between; 
-    align-items:center; 
-    margin-bottom:15px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    padding-bottom: 10px;
-}
-.modal-header h3 {
-    color: var(--accent);
-}
+.modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px }
+.modal-header h3 { color: var(--card-title); font-size: 1.5rem; }
 .close-btn{ 
-    background:transparent; 
-    border:0; 
-    color:var(--muted); 
-    font-size:24px; 
-    cursor:pointer; 
-    transition: color .2s ease; 
+    background:transparent; border:0; color:var(--muted); font-size:24px; cursor:pointer; 
+    transition: color .2s ease; padding: 5px; line-height: 1; 
 }
-.close-btn:hover { 
-    color: var(--accent); 
-    transform: rotate(90deg);
-}
+.close-btn:hover { color: var(--accent); transform: rotate(90deg); }
 
-.stats-list h4 {
-    color: var(--card-title);
-    margin: 15px 0 5px;
-    font-size: 1.1rem;
+.stats-list h4 { margin: 15px 0 5px!important; color: #fff; font-size: 1.1rem; }
+.stats-list-group { list-style: none; padding: 0; margin: 0 0 10px 0; }
+.stats-list-group li { 
+    display: flex; justify-content: space-between; padding: 5px 0; 
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.1); 
+    font-size: 0.95rem;
 }
-.stats-list ul {
-    list-style: none;
-    padding-left: 15px;
-}
-.stats-list li {
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 8px;
-    border-radius: 6px;
-    margin-bottom: 5px;
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    border-left: 3px solid var(--accent);
-}
-
-/* ====================================
-    FOOTER
-    ==================================== */
-footer{ 
-    text-align:center; 
-    padding:30px 0; 
-    color:#9db9cf; 
-    border-top:1px solid rgba(255,255,255,0.1);
-    background: var(--bg);
-}
+.stats-list-group li:last-child { border-bottom: none; }
+.stats-list-group .stat-type { color: var(--muted); }
+.stats-list-group .stat-value { font-weight: 600; color: #fff; }
 
 
-/* ====================================
-    AOS STYLING (Hanya untuk referensi,
-    properti AOS ada di script.js)
-    ==================================== */
-/* Default state (hidden) */
-[data-aos] {
-  opacity: 0;
-  transition: opacity 0.8s, transform 0.8s;
-}
-/* State when visible */
-.aos-animate {
-  opacity: 1;
-}
-
-
-/* ====================================
-    RESPONSIVE DESIGN (Mobile First)
-    ==================================== */
-
-/* Tablet and Smaller Desktop adjustments (<= 1024px) */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
-    main {
-        grid-template-columns: 1fr; /* Kolom tunggal */
+    .main-layout-grid {
+        grid-template-columns: 1fr; /* Kolom tunggal di tablet/mobile */
     }
-    .sidebar {
-        grid-column: 1 / 2; /* Sidebar pindah ke bawah, ambil lebar penuh */
-        padding-left: 0; 
-        padding-right: 0;
+    .main-headline-card {
+        flex-direction: column;
+        min-height: auto;
     }
-    .main-article-section {
-        grid-column: 1 / 2; /* Kolom tunggal */
+    .main-headline-card .article-image-area {
+        width: 100%;
+        min-height: 250px;
     }
-    .articles-section {
-        grid-column: 1 / 2; /* Kolom tunggal */
+    .main-headline-card .article-content-area {
+        width: 100%;
+        padding: 20px;
     }
-    .main-article {
-        height: 300px; /* Kurangi tinggi sedikit di tablet */
+    .main-headline-card .article-title {
+        font-size: 1.5rem;
+    }
+    .site-nav ul {
+        gap: 15px;
     }
 }
 
-/* Mobile adjustments (<= 600px) */
+@media (max-width: 768px) {
+    .header-inner {
+        padding-left: 10px; 
+        padding-right: 10px;
+    }
+    .main-layout-grid {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    .ticker-wrapper {
+        padding-left: 0; 
+        padding-right: 20px;
+    }
+    .horizontal-card {
+        width: 85%; /* Card horizontal menjadi lebih lebar di mobile */
+    }
+}
+
 @media (max-width: 600px) {
     .header-inner {
         flex-direction: column;
         align-items: flex-start;
-        gap: 10px;
-    }
-    .site-nav {
-        width: 100%;
     }
     .site-nav ul {
-        gap: 15px;
+        gap: 10px;
         justify-content: space-around;
         width: 100%;
         flex-wrap: wrap;
     }
+    .site-nav {
+        width: 100%;
+    }
     .site-title {
         font-size: 1.3rem;
     }
-    .small-tagline {
-        font-size: 0.7rem;
-    }
-    
-    .main-article-section {
-        margin-bottom: 10px;
-    }
-    .main-article {
-        height: 250px; /* Tinggi di mobile */
-        border-radius: 12px;
-    }
     .main-headline-card {
-        padding: 15px;
+        padding: 10px;
     }
-    .main-headline-card h2 {
-        font-size: 1.4rem;
-        margin-bottom: 5px;
-    }
-    .main-headline-card p {
-        font-size: 0.85rem;
-    }
-    
     .articles-container {
-        grid-template-columns: 1fr; /* Kolom tunggal untuk semua card */
-        gap: 20px;
-    }
-    .article-card {
-        flex-direction: row; /* Card dibuat horizontal */
-        height: auto;
-    }
-    .card-image-wrapper {
-        width: 40%;
-        height: 120px;
-        flex-shrink: 0;
-    }
-    .card-content {
-        padding: 15px;
-    }
-    .card-content h3 {
-        font-size: 1.05rem;
-    }
-    .card-content p {
-        display: none; /* Sembunyikan deskripsi di card horizontal mobile */
-    }
-    .card-meta {
-        font-size: 0.7rem;
-    }
-    
-    main {
-        padding: 0 15px;
-        gap: 20px;
-    }
-    
-    .content-page, .contact-container {
-        margin: 20px auto;
-        padding: 25px;
-    }
-    .content-page h2, .contact-container h2 {
-        font-size: 1.8rem;
-    }
-    
-    .ticker-item {
-        font-size: 0.85rem;
-        gap: 10px;
-        margin-right: 20px;
-    }
-    .score {
-        font-size: 1rem;
-    }
-    .team-logo {
-        width: 20px;
-        height: 20px;
+        grid-template-columns: 1fr;
     }
 }
