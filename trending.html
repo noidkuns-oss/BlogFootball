@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Trending — BlogFootball</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8WdIRuVBL4eQWn2A7n4S2kK8lB6c8J/s1c4pG1rG5Wb2G0C4F6aQvL3F/lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+</head>
+<body>
+    <header id="siteHeader" data-aos="fade-down" data-aos-duration="600">
+        <div class="header-inner">
+            <div class="logo-area">
+                <img src="https://placehold.co/40x40/00b4ff/0a0f1a?text=BF" alt="Logo BlogFootball" class="site-logo" />
+                <div>
+                    <h1 class="site-title">Blog<span>Football</span></h1>
+                    <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
+                </div>
+            </div>
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="trending.html" class="active">Trending</a></li>
+                    <li><a href="eropa.html">Eropa</a></li>
+                    <li><a href="dunia.html">Dunia</a></li>
+                    <li><a href="jadwal-skor.html">Jadwal & Skor</a></li>
+                    <li><a href="bokstainment.html">Bokstainment</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="live-score-ticker" role="region" aria-label="Live scores">
+            <div class="ticker-wrapper"><div id="liveScores" class="ticker-content"><div class="no-match">⚽ Memuat skor langsung...</div></div></div>
+        </div>
+    </header>
+
+    <div class="main-page-wrapper">
+        <aside class="left-sidebar sidebar">
+            <div class="sidebar-block" data-aos="fade-right">
+                <h3>Filter Waktu</h3>
+                <ul class="category-links">
+                    <li><a href="#">Hari Ini</a></li>
+                    <li><a href="#">Pekan Ini (Aktif)</a></li>
+                    <li><a href="#">Bulan Ini</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-right" data-aos-delay="100">
+                <h3>Tag Populer</h3>
+                <div class="category-links" style="display:flex; flex-wrap:wrap; gap:5px;">
+                    <a href="#" style="padding: 5px 10px; background: rgba(0, 180, 255, 0.1); border-radius: 4px; font-size:0.85rem;">#VarDrama</a>
+                    <a href="#" style="padding: 5px 10px; background: rgba(0, 180, 255, 0.1); border-radius: 4px; font-size:0.85rem;">#TransferNews</a>
+                    <a href="#" style="padding: 5px 10px; background: rgba(0, 180, 255, 0.1); border-radius: 4px; font-size:0.85rem;">#UCLFinal</a>
+                </div>
+            </div>
+            <div class="ad-unit ad-vertical sticky-ad-placeholder" data-aos="fade-in" data-aos-delay="200">
+                Ruang Iklan Vertikal 250x600px
+            </div>
+        </aside>
+
+        <main>
+            <section class="articles-section">
+                <h2 class="section-title">Berita Paling Viral Saat Ini</h2>
+                <div class="articles-container trending-grid" aria-live="polite">
+                    <!-- 8 Placeholder Cards (menggunakan gaya trending-grid/4 kolom) -->
+                    <a href="articles/trending-1.html" class="article-card" data-aos="zoom-in-up" data-aos-delay="50">
+                        <img src="https://placehold.co/400x150/ff4444/ffffff?text=TREND+1" alt="Trending 1" class="card-image" />
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">Premier League</span> | 🔥 2K Shares</div>
+                            <h3 class="card-title">Kekalahan Man City di Derby Merah yang Mengguncang Media</h3>
+                        </div>
+                    </a>
+                    <a href="articles/trending-2.html" class="article-card" data-aos="zoom-in-up" data-aos-delay="100">
+                        <img src="https://placehold.co/400x150/44ff44/ffffff?text=TREND+2" alt="Trending 2" class="card-image" />
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">Transfer</span> | 🔥 1.5K Shares</div>
+                            <h3 class="card-title">Agen Haaland Konfirmasi Tawaran Gila dari Arab Saudi</h3>
+                        </div>
+                    </a>
+                    <a href="articles/trending-3.html" class="article-card" data-aos="zoom-in-up" data-aos-delay="150">
+                        <img src="https://placehold.co/400x150/4444ff/ffffff?text=TREND+3" alt="Trending 3" class="card-image" />
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">Dunia</span> | 🔥 1.1K Shares</div>
+                            <h3 class="card-title">Kontroversi Gol Tangan Tuhan di Kualifikasi Piala Dunia Asia</h3>
+                        </div>
+                    </a>
+                    <a href="articles/trending-4.html" class="article-card" data-aos="zoom-in-up" data-aos-delay="200">
+                        <img src="https://placehold.co/400x150/ffaa44/ffffff?text=TREND+4" alt="Trending 4" class="card-image" />
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">La Liga</span> | 🔥 980 Shares</div>
+                            <h3 class="card-title">Keputusan Kontroversial Wasit yang Membantu Real Madrid</h3>
+                        </div>
+                    </a>
+                    <a href="articles/trending-5.html" class="article-card" data-aos="zoom-in-up" data-aos-delay="250">
+                        <img src="https://placehold.co/400x150/ff44ff/ffffff?text=TREND+5" alt="Trending 5" class="card-image" />
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">Serie A</span> | 🔥 850 Shares</div>
+                            <h3 class="card-title">AS Roma Pecat Mourinho, Siapa Penggantinya?</h3>
+                        </div>
+                    </a>
+                     <a href="articles/trending-6.html" class="article-card" data-aos="zoom-in-up" data-aos-delay="300">
+                        <img src="https://placehold.co/400x150/44ffff/ffffff?text=TREND+6" alt="Trending 6" class="card-image" />
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">Bokstainment</span> | 🔥 750 Shares</div>
+                            <h3 class="card-title">Pemain Bola Jadi Bintang Iklan Makanan Cepat Saji</h3>
+                        </div>
+                    </a>
+                     <a href="articles/trending-7.html" class="article-card" data-aos="zoom-in-up" data-aos-delay="350">
+                        <img src="https://placehold.co/400x150/111111/ffffff?text=TREND+7" alt="Trending 7" class="card-image" />
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">Liga Champions</span> | 🔥 600 Shares</div>
+                            <h3 class="card-title">Analisis Taktik Xabi Alonso yang Mengguncang Eropa</h3>
+                        </div>
+                    </a>
+                     <a href="articles/trending-8.html" class="article-card" data-aos="zoom-in-up" data-aos-delay="400">
+                        <img src="https://placehold.co/400x150/888888/ffffff?text=TREND+8" alt="Trending 8" class="card-image" />
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">Eropa</span> | 🔥 550 Shares</div>
+                            <h3 class="card-title">Kontrak Baru Vini Jr di Real Madrid yang Fantastis</h3>
+                        </div>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-sidebar sidebar">
+            <!-- Isi sidebar sama dengan index.html -->
+            <div class="sidebar-block" data-aos="fade-left">
+                <h3>Jadwal Mendatang</h3>
+                <ul class="schedule-list">
+                    <li><span class="team">Madrid</span> vs <span class="team">Barca</span> (Besok)</li>
+                    <li><span class="team">Liverpool</span> vs <span class="team">City</span> (Sabtu)</li>
+                    <li><span class="team">Juve</span> vs <span class="team">Milan</span> (Minggu)</li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-left" data-aos-delay="100">
+                <h3>Top 5 Populer</h3>
+                <ul class="popular-list">
+                    <li><a href="#">Analisis mendalam taktik baru Xavi di Barca</a></li>
+                    <li><a href="#">Mengapa Liga Inggris masih menjadi yang terbaik?</a></li>
+                    <li><a href="#">Kisah dramatis transfer Mbappe ke klub misterius</a></li>
+                    <li><a href="#">10 Pemain muda yang wajib Anda tonton musim ini</a></li>
+                    <li><a href="#">Kontroversi VAR terbaru: keputusan yang mengubah hasil</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-left" data-aos-delay="200">
+                <h3>Kategori Cepat</h3>
+                <ul class="category-links">
+                    <li><a href="eropa.html">Premier League</a></li>
+                    <li><a href="eropa.html">La Liga</a></li>
+                    <li><a href="eropa.html">Liga Champions</a></li>
+                    <li><a href="trending.html">Transfer</a></li>
+                    <li><a href="jadwal-skor.html">Statistik</a></li>
+                    <li><a href="bokstainment.html">WAGs</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>© 2025 BlogFootball. Semua hak cipta dilindungi.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
