@@ -44,7 +44,7 @@ const horizontalCarouselEl = document.getElementById("auto-carousel"); // Elemen
 // Fungsi utilitas untuk mengamankan string HTML
 function escapeHtml(unsafe) {
     if (typeof unsafe !== 'string') return unsafe;
-    return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;");
+    return unsafe.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#039;');
 }
 
 /* =======================================================
@@ -108,28 +108,37 @@ function createArticleCardHtml(article) {
     const isHorizontal = article.style === 'horizontal';
     const cardClass = isHorizontal ? 'article-card horizontal-card' : 'article-card';
     
+    // Pastikan link tersedia
+    const link = escapeHtml(article.link || '#'); 
+    const excerpt = escapeHtml(article.excerpt || ''); // Pastikan excerpt tidak null
+
     return `
         <article class="${cardClass}" data-aos="fade-up" data-aos-easing="ease-out-quad">
-            <a href="${escapeHtml(article.link)}" class="card-link">
+            <a href="${link}" class="card-link">
                 <!-- PENTING: Menerapkan Image Wrapper untuk Konsistensi Rasio -->
                 <div class="image-wrapper">
-                    <img src="${escapeHtml(article.image)}" alt="${escapeHtml(article.title)}"/>
+                    <img src="${escapeHtml(article.image || 'images/placeholder.jpg')}" alt="${escapeHtml(article.title)}"/>
                 </div>
                 <div class="card-content">
-                    <span class="article-meta">${escapeHtml(article.category)} • ${escapeHtml(article.date)}</span>
+                    <span class="article-meta">${escapeHtml(article.category || 'Berita')} • ${escapeHtml(article.date || 'Tgl Tidak Ada')}</span>
                     <h3>${escapeHtml(article.title)}</h3>
-                    <p>${escapeHtml(article.excerpt)}</p>
+                    ${!isHorizontal ? `<p>${excerpt}</p>` : ''}
                 </div>
             </a>
         </article>
     `;
 }
 
-// ... (lanjutan fungsi-fungsi Anda yang sudah ada)
-
 async function loadArticles() {
     try {
-        const articles = await fetch('/articles.json').then(res => res.json());
+        // PERBAIKAN: Memastikan pemanggilan fetch('/articles.json')
+        const articles = await fetch('articles.json').then(res => {
+            if (!res.ok) {
+                // Memberikan pesan error yang jelas jika file tidak ditemukan
+                throw new Error(`Gagal memuat articles.json: HTTP ${res.status}`);
+            }
+            return res.json();
+        });
 
         const mainArticle = articles.find(a => a.type === 'main');
         const carouselArticles = articles.filter(a => a.type === 'carousel');
@@ -139,6 +148,8 @@ async function loadArticles() {
         // 1. Render Headline Utama
         if (mainArticle) {
             mainArticleEl.innerHTML = createArticleCardHtml(mainArticle).replace(/article-card/g, 'main-headline-card');
+        } else {
+             mainArticleEl.innerHTML = '<p style="text-align:center; color:var(--muted); padding:20px;">Artikel utama tidak ditemukan.</p>';
         }
 
         // 2. Render Carousel (Horizontal Scroll)
@@ -149,27 +160,31 @@ async function loadArticles() {
             }).join('');
             startAutoScroll(); // Mulai Auto Scroll setelah konten dimuat
         } else {
-            horizontalCarouselEl.innerHTML = `<div style="text-align:center; color:var(--muted); padding:20px;">Belum ada artikel trending.</div>`;
+            horizontalCarouselEl.innerHTML = `<p style="text-align:center; color:var(--muted); padding:20px;">Belum ada artikel trending.</p>`;
         }
 
         // 3. Render Grid Articles
         if (articlesContainerEl && gridArticles.length > 0) {
             articlesContainerEl.innerHTML = gridArticles.map(createArticleCardHtml).join('');
+        } else if (articlesContainerEl) {
+             articlesContainerEl.innerHTML = '<p style="text-align:center; color:var(--muted); padding:20px;">Belum ada artikel berita lainnya.</p>';
         }
 
         // 4. Render Popular List (Sidebar Kanan)
         const popularListEl = document.getElementById('popularList');
         if (popularListEl && popularArticles.length > 0) {
-            popularListEl.innerHTML = popularArticles.map((article, index) => `
-                <li><a href="${escapeHtml(article.link)}"><span>${index + 1}.</span> ${escapeHtml(article.title)}</a></li>
-            `).join('');
+            popularListEl.innerHTML = popularArticles.map((article, index) => {
+                const link = escapeHtml(article.link || '#');
+                return `<li><a href="${link}"><span>${index + 1}.</span> ${escapeHtml(article.title)}</a></li>`;
+            }).join('');
         }
 
 
     } catch (err) {
         console.error("Failed to load articles:", err);
+        // Menampilkan error di UI jika gagal memuat (misalnya, file tidak ditemukan)
         if (articlesContainerEl) {
-            articlesContainerEl.innerHTML = '<p style="text-align:center; color:#ff6666;">Gagal memuat artikel dari articles.json.</p>';
+            articlesContainerEl.innerHTML = `<p style="text-align:center; color:#ff6666; padding:20px;">⚠️ Gagal memuat artikel: ${err.message}. Pastikan file articles.json ada.</p>`;
         }
     }
 }
@@ -209,14 +224,8 @@ function updateTicker(scores) {
     wrapper.innerHTML = html;
 }
 
-// ... (lanjutan logika Live Scores Anda)
-
 async function loadLiveScores() {
     try {
-        // ... (Logika fetch data dari API Anda)
-
-        // API Key dan Base URL tetap dipertahankan
-
         // Dapatkan tanggal hari ini (YYYY-MM-DD)
         const today = new Date().toISOString().split('T')[0];
 
@@ -284,7 +293,7 @@ if (closeModalBtn) closeModalBtn.addEventListener("click", () => { modal.style.d
 document.addEventListener("DOMContentLoaded", () => {
     loadArticles();
     loadLiveScores();
-    setInterval(loadLiveScores, 60000); // Update setiap 1 menit (ditingkatkan)
+    setInterval(loadLiveScores, 60000); // Update setiap 1 menit
     
     // PENTING: Mulai auto-scroll hanya setelah DOM siap
     if (horizontalCarouselEl) {
