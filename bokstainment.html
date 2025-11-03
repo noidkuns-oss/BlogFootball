@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Bokstainment — BlogFootball</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8WdIRuVBL4eQWn2A7n4S2kK8lB6c8J/s1c4pG1rG5Wb2G0C4F6aQvL3F/lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+</head>
+<body>
+    <header id="siteHeader" data-aos="fade-down" data-aos-duration="600">
+        <div class="header-inner">
+            <div class="logo-area">
+                <img src="https://placehold.co/40x40/00b4ff/0a0f1a?text=BF" alt="Logo BlogFootball" class="site-logo" />
+                <div>
+                    <h1 class="site-title">Blog<span>Football</span></h1>
+                    <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
+                </div>
+            </div>
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="trending.html">Trending</a></li>
+                    <li><a href="eropa.html">Eropa</a></li>
+                    <li><a href="dunia.html">Dunia</a></li>
+                    <li><a href="jadwal-skor.html">Jadwal & Skor</a></li>
+                    <li><a href="bokstainment.html" class="active">Bokstainment</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="live-score-ticker" role="region" aria-label="Live scores">
+            <div class="ticker-wrapper"><div id="liveScores" class="ticker-content"><div class="no-match">⚽ Memuat skor langsung...</div></div></div>
+        </div>
+    </header>
+
+    <div class="main-page-wrapper">
+        <aside class="left-sidebar sidebar">
+            <div class="sidebar-block" data-aos="fade-right">
+                <h3>Gaya Hidup</h3>
+                <ul class="category-links">
+                    <li><a href="#" style="font-weight: 700; color: var(--accent);">WAGs</a></li>
+                    <li><a href="#">Fashion Pemain</a></li>
+                    <li><a href="#">Mobil Mewah</a></li>
+                    <li><a href="#">Koleksi Jam Tangan</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-right" data-aos-delay="100">
+                <h3>Video Populer</h3>
+                <ul class="popular-list">
+                    <li><a href="#">Tour Rumah Mewah Ronaldo</a></li>
+                    <li><a href="#">Aksi Prank Pemain Top</a></li>
+                    <li><a href="#">Challenge Bola Lucu</a></li>
+                </ul>
+            </div>
+            <div class="ad-unit ad-vertical sticky-ad-placeholder" data-aos="fade-in" data-aos-delay="200">
+                Ruang Iklan Vertikal 250x600px
+            </div>
+        </aside>
+
+        <main>
+            <section class="articles-section">
+                <h2 class="section-title">Bokstainment: Gaya Hidup & Hiburan Sepak Bola</h2>
+                
+                <div class="main-article">
+                     <!-- Artikel Utama Bokstainment -->
+                    <a href="articles/boks-main.html" class="main-headline-card" data-aos="fade-down">
+                        <img src="https://placehold.co/800x450/351a7a/ffffff?text=WAGS+MILIARDER" alt="WAGS Mewah" class="card-image"/>
+                        <div class="card-content">
+                            <div class="card-meta"><span class="category">WAGs</span> | 2 Jam Lalu</div>
+                            <h3 class="card-title" style="font-size: 1.8rem;">Daftar 5 WAGs Paling Fashionable dan Terkaya di Tahun 2025</h3>
+                            <p class="card-summary">Siapa saja pasangan pemain top yang memiliki kekayaan dan gaya paling menonjol? Simak profil lengkapnya...</p>
+                        </div>
+                    </a>
+                </div>
+
+                <h2 class="section-title">Cerita Ringan Lainnya</h2>
+                <div class="articles-container bokstainment-grid" aria-live="polite">
+                    <!-- 6 Placeholder Cards (menggunakan bokstainment-grid/2 kolom) -->
+                    <a href="articles/boks-1.html" class="article-card" data-aos="fade-right">
+                        <img src="https://placehold.co/400x250/114444/ffffff?text=FASHION+1" alt="Bokstainment 1" class="card-image" />
+                        <div class="card-content"><div class="card-meta"><span class="category">Fashion</span></div><h3 class="card-title">Gaya Rambut Terbaru Beckham yang Kembali Jadi Tren Dunia</h3></div>
+                    </a>
+                    <a href="articles/boks-2.html" class="article-card" data-aos="fade-left">
+                        <img src="https://placehold.co/400x250/441144/ffffff?text=MOBIL+2" alt="Bokstainment 2" class="card-image" />
+                        <div class="card-content"><div class="card-meta"><span class="category">Gaya Hidup</span></div><h3 class="card-title">Mengintip Koleksi Mobil Sport Langka Milik Kylian Mbappe</h3></div>
+                    </a>
+                    <a href="articles/boks-3.html" class="article-card" data-aos="fade-right" data-aos-delay="50">
+                        <img src="https://placehold.co/400x250/117777/ffffff?text=JAM+3" alt="Bokstainment 3" class="card-image" />
+                        <div class="card-content"><div class="card-meta"><span class="category">Aksesoris</span></div><h3 class="card-title">Jam Tangan Termahal yang Dipakai Pemain Real Madrid</h3></div>
+                    </a>
+                    <a href="articles/boks-4.html" class="article-card" data-aos="fade-left" data-aos-delay="50">
+                        <img src="https://placehold.co/400x250/774411/ffffff?text=VIDEO+4" alt="Bokstainment 4" class="card-image" />
+                        <div class="card-content"><div class="card-meta"><span class="category">Hiburan</span></div><h3 class="card-title">Video: 10 Momen Paling Lucu di Ruang Ganti Klub Eropa</h3></div>
+                    </a>
+                    <a href="articles/boks-5.html" class="article-card" data-aos="fade-right" data-aos-delay="100">
+                        <img src="https://placehold.co/400x250/444477/ffffff?text=BISNIS+5" alt="Bokstainment 5" class="card-image" />
+                        <div class="card-content"><div class="card-meta"><span class="category">Bisnis</span></div><h3 class="card-title">Investasi Pintar Para Pemain Top Setelah Pensiun</h3></div>
+                    </a>
+                    <a href="articles/boks-6.html" class="article-card" data-aos="fade-left" data-aos-delay="100">
+                        <img src="https://placehold.co/400x250/777777/ffffff?text=LIFESTYLE+6" alt="Bokstainment 6" class="card-image" />
+                        <div class="card-content"><div class="card-meta"><span class="category">Gaya Hidup</span></div><h3 class="card-title">Menu Diet Ketat Bintang Liverpool untuk Jaga Stamina</h3></div>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-sidebar sidebar">
+            <!-- Isi sidebar sama dengan index.html -->
+            <div class="sidebar-block" data-aos="fade-left">
+                <h3>Jadwal Mendatang</h3>
+                <ul class="schedule-list">
+                    <li><span class="team">Madrid</span> vs <span class="team">Barca</span> (Besok)</li>
+                    <li><span class="team">Liverpool</span> vs <span class="team">City</span> (Sabtu)</li>
+                    <li><span class="team">Juve</span> vs <span class="team">Milan</span> (Minggu)</li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-left" data-aos-delay="100">
+                <h3>Top 5 Populer</h3>
+                <ul class="popular-list">
+                    <li><a href="#">Analisis mendalam taktik baru Xavi di Barca</a></li>
+                    <li><a href="#">Mengapa Liga Inggris masih menjadi yang terbaik?</a></li>
+                    <li><a href="#">Kisah dramatis transfer Mbappe ke klub misterius</a></li>
+                    <li><a href="#">10 Pemain muda yang wajib Anda tonton musim ini</a></li>
+                    <li><a href="#">Kontroversi VAR terbaru: keputusan yang mengubah hasil</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-left" data-aos-delay="200">
+                <h3>Kategori Cepat</h3>
+                <ul class="category-links">
+                    <li><a href="eropa.html">Premier League</a></li>
+                    <li><a href="eropa.html">La Liga</a></li>
+                    <li><a href="eropa.html">Liga Champions</a></li>
+                    <li><a href="trending.html">Transfer</a></li>
+                    <li><a href="jadwal-skor.html">Statistik</a></li>
+                    <li><a href="bokstainment.html">WAGs</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>© 2025 BlogFootball. Semua hak cipta dilindungi.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
