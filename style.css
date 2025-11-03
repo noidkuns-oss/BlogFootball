@@ -254,7 +254,7 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
 }
 
 /* ======================================= */
-/* ===== PERBAIKAN & AUTO SCROLL HEADLINE UTAMA (Baru) ===== */
+/* ===== PERBAIKAN FINAL & AUTO SCROLL HEADLINE UTAMA (2a, 2b, 2c) ===== */
 /* ======================================= */
 
 /* 2a. Tambahkan padding atas dan jarak antar elemen */
@@ -268,9 +268,9 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
 /* 2b. Wadah Headline & Meta (Pembatas Window Scroll) */
 .headline-scroll-wrapper {
     width: 100%;
-    overflow: hidden; /* Menyembunyikan teks yang keluar */
-    height: auto; 
-    margin: 0 0 5px 0; /* Memberi jarak antara wrapper dengan paragraf excerpt di bawahnya */
+    overflow: hidden; 
+    height: 2.6rem; /* FIX: Tinggi eksplisit untuk mencegah pemotongan vertikal */
+    margin: 0 0 5px 0; 
 }
 
 /* Teks Headline yang Bergerak (H2) */
@@ -278,16 +278,17 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
     margin: 0 !important;
     color: var(--accent);
     font-size: 2rem; 
+    line-height: 1.2; /* FIX: Line height eksplisit untuk mencegah pemotongan vertikal */
     display: inline-block;
-    white-space: nowrap; /* Mencegah teks turun baris */
-    padding-left: 100%; /* Memulai teks dari luar kanan wadah */
+    white-space: nowrap; 
+    padding-left: 100%; 
     animation: smooth-scroll-marquee 25s linear infinite; 
 }
 
 /* Meta info (Tanggal & Kategori) di dalam wrapper (tampil di bawah H2) */
 .headline-scroll-wrapper .meta{ 
     color:var(--muted); 
-    margin: 5px 0 0 0; /* Jarak dari headline */
+    margin: 5px 0 0 0; 
     display: block;
 }
 
