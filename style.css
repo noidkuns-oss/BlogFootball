@@ -3,28 +3,28 @@
     ======================= */
 
 :root{
-  --bg: #0a0f1a;
-  --panel: #0d1b2a;
-  --accent: #00b4ff;
-  --muted: #9fc7db;
-  --glass-alpha: 0.14;
-  --card-title: #7fe5ff;
-  --shadow-color: rgba(0, 0, 0, 0.7);
+    --bg: #0a0f1a;
+    --panel: #0d1b2a;
+    --accent: #00b4ff;
+    --muted: #9fc7db;
+    --glass-alpha: 0.14;
+    --card-title: #7fe5ff;
+    --shadow-color: rgba(0, 0, 0, 0.7);
 }
 
 /* Global Reset & Smooth Transition */
 *, *::before, *::after {
-  box-sizing: border-box;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
 }
 html, body { height: 100%; }
 body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: var(--bg);
-  color: #e6f7ff;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: #e6f7ff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 h1, h2, h3, h4, p, ul { margin: 0; padding: 0; }
@@ -32,32 +32,32 @@ h1, h2, h3, h4, p, ul { margin: 0; padding: 0; }
 
 /* ===== HEADER (STICKY UTAMA) ===== */
 header#siteHeader {
-  width: 100%;
-  position: sticky; /* HANYA HEADER YANG STICKY */
-  top: 0;          
-  z-index: 1000;
-  backdrop-filter: blur(8px);
-  background: rgba(0, 31, 63, 0.75);
-  box-shadow: 0 6px 20px var(--shadow-color);
-  transition: all .4s ease-in-out; 
+    width: 100%;
+    position: sticky; /* HANYA HEADER YANG STICKY */
+    top: 0;          
+    z-index: 1000;
+    backdrop-filter: blur(8px);
+    background: rgba(0, 31, 63, 0.75);
+    box-shadow: 0 6px 20px var(--shadow-color);
+    transition: all .4s ease-in-out; 
 }
 
 /* State Header Saat Digulir (Scrolling) */
 header#siteHeader.smaller {
-  background: rgba(0, 17, 40, 0.95);
-  box-shadow: 0 8px 36px var(--shadow-color);
+    background: rgba(0, 17, 40, 0.95);
+    box-shadow: 0 8px 36px var(--shadow-color);
 }
 
 .header-inner{
-  max-width:1200px;
-  margin:0 auto;
-  padding:14px 20px; /* Padding untuk konten nav dan logo */
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-  /* Transisi khusus untuk mengecilkan header-inner saat scrolling */
-  transition: padding 0.4s ease-in-out; 
+    max-width:1200px;
+    margin:0 auto;
+    padding:14px 20px; /* Padding untuk konten nav dan logo */
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    /* Transisi khusus untuk mengecilkan header-inner saat scrolling */
+    transition: padding 0.4s ease-in-out; 
 }
 /* Header Inner menyusut saat scrolling */
 header#siteHeader.smaller .header-inner {
@@ -67,13 +67,13 @@ header#siteHeader.smaller .header-inner {
 /* logo area */
 .logo-area{display:flex;align-items:center;gap:12px}
 .site-logo{
-  width: 44px; height: 44px; border-radius: 8px; object-fit: contain;
-  transition: transform .3s ease-out, box-shadow .3s ease-out;
-  filter: drop-shadow(0 2px 6px var(--shadow-color));
+    width: 44px; height: 44px; border-radius: 8px; object-fit: contain;
+    transition: transform .3s ease-out, box-shadow .3s ease-out;
+    filter: drop-shadow(0 2px 6px var(--shadow-color));
 }
 .site-logo:hover { 
-  transform: scale(1.1) rotate(-3deg);
-  box-shadow: 0 0 20px rgba(0, 180, 255, 0.5); 
+    transform: scale(1.1) rotate(-3deg);
+    box-shadow: 0 0 20px rgba(0, 180, 255, 0.5); 
 }
 
 .site-title { margin: 0; font-size: 1.15rem; font-weight: 700; letter-spacing: 0.2px; color: #e8f8ff; }
@@ -83,55 +83,55 @@ header#siteHeader.smaller .header-inner {
 /* nav */
 .site-nav ul{ list-style:none; display:flex; gap:22px; margin:0; padding:0; align-items:center; }
 .site-nav a{
-  text-decoration: none; color: rgba(230, 245, 255, 0.92);
-  font-weight: 500; font-size: 0.95rem; padding: 8px 10px;
-  border-radius: 8px;
-  transition: all .25s ease-in-out;
+    text-decoration: none; color: rgba(230, 245, 255, 0.92);
+    font-weight: 500; font-size: 0.95rem; padding: 8px 10px;
+    border-radius: 8px;
+    transition: all .25s ease-in-out;
 }
 .site-nav a:hover { 
-  color: var(--accent); 
-  text-shadow: 0 0 12px var(--accent); 
-  background-color: rgba(0, 180, 255, 0.1); 
+    color: var(--accent); 
+    text-shadow: 0 0 12px var(--accent); 
+    background-color: rgba(0, 180, 255, 0.1); 
 }
 .site-nav a.active { 
-  color: var(--accent); 
-  font-weight: 700; 
-  border-bottom: 3px solid var(--accent); 
-  padding-bottom: 5px;
-  background-color: rgba(0, 180, 255, 0.05); 
+    color: var(--accent); 
+    font-weight: 700; 
+    border-bottom: 3px solid var(--accent); 
+    padding-bottom: 5px;
+    background-color: rgba(0, 180, 255, 0.05); 
 }
 
 /* ===== LIVE SCORE TICKER (TIDAK LAGI STICKY, HANYA CHILD) ===== */
 .live-score-ticker{
-  margin-top:0;
-  /* Dihapus: position: sticky; top: 60px; */
-  border-top: 1px solid rgba(255, 255, 255, 0.05);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
-  background: rgba(2, 20, 40, 0.5); 
-  backdrop-filter: blur(6px);
+    margin-top:0;
+    /* Dihapus: position: sticky; top: 60px; */
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
+    background: rgba(2, 20, 40, 0.5); 
+    backdrop-filter: blur(6px);
 }
 .ticker-wrapper{
-  max-width:1200px; margin:0 auto; padding:8px 20px; overflow:hidden;
+    max-width:1200px; margin:0 auto; padding:8px 20px; overflow:hidden;
 }
 .ticker-content{
-  display:inline-flex; gap:36px; align-items:center; white-space:nowrap;
-  animation: ticker-scroll 140s linear infinite;
-  will-change:transform;
-  padding-left:2%;
+    display:inline-flex; gap:36px; align-items:center; white-space:nowrap;
+    animation: ticker-scroll 140s linear infinite;
+    will-change:transform;
+    padding-left:2%;
 }
 .ticker-content:hover{ animation-play-state:paused; }
 
 .match{
-  display: inline-flex; align-items: center; gap: 10px;
-  background: rgba(255, 255, 255, 0.03);
-  padding: 6px 12px; border-radius: 26px;
-  transition: transform .3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background .3s ease, box-shadow .3s ease; 
-  cursor: pointer;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 6px 12px; border-radius: 26px;
+    transition: transform .3s cubic-bezier(0.25, 0.46, 0.45, 0.94), background .3s ease, box-shadow .3s ease; 
+    cursor: pointer;
 }
 .match:hover { 
-  transform: scale(1.03); 
-  background: rgba(0, 160, 255, 0.2); 
-  box-shadow: 0 6px 15px rgba(0, 160, 255, 0.2);
+    transform: scale(1.03); 
+    background: rgba(0, 160, 255, 0.2); 
+    box-shadow: 0 6px 15px rgba(0, 160, 255, 0.2);
 }
 
 .match img{ width:26px; height:26px; border-radius:50%; object-fit:cover; background:#fff; padding:2px }
@@ -141,8 +141,8 @@ header#siteHeader.smaller .header-inner {
 .no-match{ color:#cfeafc; opacity:0.9; font-style:italic; padding-left:6px; }
 
 @keyframes ticker-scroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
 }
 
 /* ===== MAIN CONTENT & LAINNYA (TIDAK BERUBAH) ===== */
@@ -159,8 +159,10 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
     box-shadow: 0 10px 40px rgba(0, 180, 255, 0.25);
 }
 .main-article-content img.main-image{ width:420px; border-radius:10px; object-fit:cover; }
-.main-article-content .main-info h2{ margin:0 } /* Margin dipindahkan ke .headline-scroll-wrapper */
-.main-article-content .meta{ color:var(--muted); margin-bottom:12px }
+
+/* PERBAIKAN: Hapus margin lama dari h2 dan meta */
+.main-article-content .main-info h2{ margin:0 } 
+.main-article-content .meta{ display:none } /* Meta lama disembunyikan */
 
 .articles-container{ 
     margin-top:40px; 
@@ -178,8 +180,8 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
     transition: transform .4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow .4s ease; 
 }
 .article-card:hover {
-  transform: translateY(-8px); 
-  box-shadow: 0 15px 35px rgba(0, 180, 255, 0.3); 
+    transform: translateY(-8px); 
+    box-shadow: 0 15px 35px rgba(0, 180, 255, 0.3); 
 }
 
 .article-card img{ width:100%; height:180px; object-fit:cover; display:block }
@@ -197,35 +199,35 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
     transition: background .3s ease, transform .3s ease, box-shadow .3s ease;
 }
 .read-more-btn:hover {
-  background: #0088cc;
-  transform: scale(1.05); 
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    background: #0088cc;
+    transform: scale(1.05); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* ===== ANIMATION STYLES (AOS) & MODAL/FOOTER (TIDAK BERUBAH) ===== */
 [data-aos] {
-  opacity: 0;
-  transition-property: opacity, transform;
+    opacity: 0;
+    transition-property: opacity, transform;
 }
 .aos-animate {
-  opacity: 1;
+    opacity: 1;
 }
 
 /* modal */
 .match-details-modal{ 
-  display:none; position:fixed; inset:0; 
-  background:rgba(2,8,18,0.85); 
-  backdrop-filter: blur(10px); 
-  align-items:center; justify-content:center; z-index:2000 
+    display:none; position:fixed; inset:0; 
+    background:rgba(2,8,18,0.85); 
+    backdrop-filter: blur(10px); 
+    align-items:center; justify-content:center; z-index:2000 
 }
 .match-details-modal .modal-content{ 
-  width:min(92%,520px); 
-  background:linear-gradient(180deg,#0a1e38,#0f2e4c); 
-  padding:20px; 
-  border-radius:16px; 
-  color:#e9fbff; 
-  box-shadow:0 18px 50px rgba(0,0,0,0.9);
-  border: 1px solid rgba(0, 180, 255, 0.3);
+    width:min(92%,520px); 
+    background:linear-gradient(180deg,#0a1e38,#0f2e4c); 
+    padding:20px; 
+    border-radius:16px; 
+    color:#e9fbff; 
+    box-shadow:0 18px 50px rgba(0,0,0,0.9);
+    border: 1px solid rgba(0, 180, 255, 0.3);
 }
 .modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px }
 .close-btn{ background:transparent; border:0; color:var(--muted); font-size:24px; cursor:pointer; transition: color .2s ease; }
@@ -236,54 +238,66 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
 
 /* responsive tweaks */
 @media (max-width:900px){
-  .main-article-content{ flex-direction:column }
-  .main-article-content img.main-image{ width:100% }
-  .ticker-content{ gap:18px; animation-duration:120s }
-  .site-nav ul{ gap:14px }
-  .main-article-content{ padding:20px }
+    .main-article-content{ flex-direction:column }
+    .main-article-content img.main-image{ width:100% }
+    .ticker-content{ gap:18px; animation-duration:120s }
+    .site-nav ul{ gap:14px }
+    .main-article-content{ padding:20px }
 }
 @media (max-width:520px){
-  .header-inner{ padding:10px 14px }
-  .site-logo{ width:40px;height:40px }
-  .ticker-content{ gap:14px; animation-duration:90s }
-  .match img{ width:20px; height:20px }
-  .site-title{ font-size:1.05rem }
-  .articles-container { gap: 16px; }
+    .header-inner{ padding:10px 14px }
+    .site-logo{ width:40px;height:40px }
+    .ticker-content{ gap:14px; animation-duration:90s }
+    .match img{ width:20px; height:20px }
+    .site-title{ font-size:1.05rem }
+    .articles-container { gap: 16px; }
 }
 
-/* ===== AUTO SCROLL HEADLINE UTAMA ===== */
+/* ======================================= */
+/* ===== PERBAIKAN & AUTO SCROLL HEADLINE UTAMA (Baru) ===== */
+/* ======================================= */
+
+/* 2a. Tambahkan padding atas dan jarak antar elemen */
+.main-article-content .main-info {
+    padding-top: 5px; 
+}
+.main-article-content .main-info p{
+    margin-top: 15px; 
+}
+
+/* 2b. Wadah Headline & Meta (Pembatas Window Scroll) */
 .headline-scroll-wrapper {
-    /* Wadah Pembatas (Window) */
     width: 100%;
     overflow: hidden; /* Menyembunyikan teks yang keluar */
-    height: auto; /* Biarkan tingginya menyesuaikan H2 */
-    margin: 0 0 10px 0; /* Mengganti margin H2 yang sudah dihapus di bawah */
+    height: auto; 
+    margin: 0 0 5px 0; /* Memberi jarak antara wrapper dengan paragraf excerpt di bawahnya */
 }
 
+/* Teks Headline yang Bergerak (H2) */
 .scrolling-headline {
-    /* Teks yang bergerak */
-    margin: 0 !important; /* Hapus margin default dari H2 */
+    margin: 0 !important;
     color: var(--accent);
-    font-size: 2rem; /* Mempertahankan ukuran font agar tidak ada perubahan visual */
-
-    /* Efek Scroll */
+    font-size: 2rem; 
     display: inline-block;
     white-space: nowrap; /* Mencegah teks turun baris */
     padding-left: 100%; /* Memulai teks dari luar kanan wadah */
-    
-    /* Animasi Halus */
-    animation: smooth-scroll-marquee 25s linear infinite; /* 25s = Durasi gulir lambat dan halus */
+    animation: smooth-scroll-marquee 25s linear infinite; 
 }
 
-/* Jika headline terlalu pendek untuk digulirkan, jangan putar animasi */
-.scrolling-headline:hover,
-.headline-scroll-wrapper:not(:hover) .scrolling-headline:not(.is-long) {
+/* Meta info (Tanggal & Kategori) di dalam wrapper (tampil di bawah H2) */
+.headline-scroll-wrapper .meta{ 
+    color:var(--muted); 
+    margin: 5px 0 0 0; /* Jarak dari headline */
+    display: block;
+}
+
+/* Menghentikan animasi saat hover (agar pembaca bisa fokus) */
+.scrolling-headline:hover {
     animation-play-state: paused;
 }
 
-
-/* Keyframes untuk guliran horizontal yang sangat halus */
+/* 2c. Keyframes untuk guliran horizontal yang sangat halus */
 @keyframes smooth-scroll-marquee {
     0%   { transform: translateX(0); } 
-    100% { transform: translateX(-100%); } /* Bergerak ke kiri sejauh 100% lebar teks */
+    100% { transform: translateX(-100%); } 
 }
