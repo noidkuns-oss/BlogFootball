@@ -3,35 +3,73 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tentang Kami — BlogFootball</title>
+  <title>Tentang Kami | BlogFootball</title>
   <link rel="stylesheet" href="style.css">
+  <!-- AOS CSS untuk Animasi -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
   <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <h1>BlogFootball</h1>
-      <p>Berita & Hasil Sepak Bola Terbaru</p>
+  <header id="siteHeader">
+    <div class="header-inner">
+      <div class="logo-area">
+          <!-- Gambar logo disarankan:  -->
+          <div class="site-logo"></div>
+          <div>
+              <h1 class="site-title">Blog<span>Football</span></h1>
+              <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
+          </div>
+      </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html" class="active">About</a></li>
-        <li><a href="contact.html">Contact</a></li>
-      </ul>
-    </nav>
+    <!-- Ticker Live Score tidak perlu di halaman statis, cukup di index.html -->
   </header>
 
-  <main class="content-page">
+  <main class="content-page" data-aos="fade-up">
     <h2>Tentang BlogFootball</h2>
-    <p><strong>BlogFootball</strong> adalah situs yang menghadirkan berita sepak bola terkini, hasil pertandingan,
-    analisis mendalam, serta informasi dari liga-liga top dunia seperti Premier League, La Liga, Serie A, Bundesliga, hingga Liga Champions.</p>
 
-    <p>Kami berkomitmen untuk menyajikan informasi cepat, akurat, dan menarik bagi para pecinta sepak bola di Indonesia.</p>
+    <div class="about-content">
+        <p><strong>BlogFootball</strong> adalah sumber terpercaya Anda untuk semua hal tentang sepak bola. Kami hadir untuk menyajikan berita terkini, hasil pertandingan *real-time*, analisis mendalam, dan cerita-cerita menarik dari lapangan hijau di seluruh dunia.</p>
+
+        <h3>Visi Kami</h3>
+        <p>Menjadi platform berita sepak bola terkemuka di Indonesia yang tidak hanya cepat dalam menyampaikan informasi, tetapi juga akurat dan mudah diakses oleh semua kalangan penggemar.</p>
+
+        <h3>Apa yang Kami Sajikan?</h3>
+        <ul>
+            <li><strong>Berita Utama:</strong> Informasi terpanas dari liga-liga top seperti Premier League, La Liga, Serie A, Bundesliga, dan Liga Champions.</li>
+            <li><strong>Live Score:</strong> Pembaruan skor langsung yang cepat dan detail.</li>
+            <li><strong>Analisis Pertandingan:</strong> Ulasan taktis, prediksi, dan pandangan ahli setelah pertandingan berakhir.</li>
+            <li><strong>Transfer & Rumor:</strong> Perkembangan terbaru di bursa transfer pemain.</li>
+        </ul>
+
+        <h3>Tim Kami</h3>
+        <p>Kami adalah tim penggemar sepak bola yang berdedikasi, bersemangat dalam jurnalistik, dan berkomitmen untuk menyajikan konten berkualitas. Kami percaya bahwa setiap *goal*, setiap kartu, dan setiap drama di lapangan layak untuk diulas secara mendalam.</p>
+    </div>
+
   </main>
 
-  <footer>
-    <p>© 2025 BlogFootball. All rights reserved.</p>
+  <footer data-aos="fade-up" data-aos-delay="50">
+    <p>&copy; 2025 BlogFootball. Semua hak dilindungi.</p>
   </footer>
+
+  <!-- AOS Script untuk efek animasi -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 900,
+            easing: 'ease-out-cubic',
+            once: true,
+            mirror: false,
+            offset: 80,
+        });
+    }
+  </script>
 </body>
 </html>
