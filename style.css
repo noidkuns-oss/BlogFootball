@@ -184,7 +184,7 @@ header#siteHeader {
 }
 
 
-/* ===== MAIN LAYOUT GRID ===== */
+/* ===== MAIN LAYOUT GRID (Hanya untuk Index) ===== */
 .main-layout-grid {
     max-width: 1300px;
     margin: 20px auto 40px auto;
@@ -289,8 +289,8 @@ header#siteHeader {
     font-size: 2rem;
     font-weight: 900;
     margin: 10px 0 15px;
-    line-height: 1.2;
     color: var(--card-title);
+    line-height: 1.2;
 }
 .main-headline-card .article-excerpt {
     font-size: 1rem;
@@ -426,11 +426,136 @@ header#siteHeader {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* =======================================
+    GAYA BARU: Halaman Statis (About & Contact)
+    ======================================= */
+.content-page, .contact-container {
+    max-width: 900px; /* Ukuran konten halaman statis yang lebih ringkas */
+    margin: 40px auto;
+    padding: 0 20px;
+    background: var(--panel);
+    border-radius: 16px;
+    padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(0, 180, 255, 0.1);
+}
+.content-page h2, .contact-container h2 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--card-title);
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--accent);
+}
+.content-page h3 {
+    font-size: 1.5rem;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+.content-page p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+    color: #e6f7ff;
+}
+.content-page ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+.content-page ul li {
+    background: rgba(0, 180, 255, 0.05);
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border-left: 4px solid var(--accent);
+    line-height: 1.4;
+    font-weight: 500;
+}
+.content-page ul li strong {
+    color: var(--accent);
+    font-weight: 700;
+}
 
-/* footer */
-footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid rgba(255,255,255,0.05); margin-top: 40px;}
+/* Gaya Formulir Kontak */
+.contact-container {
+    padding: 40px;
+}
+.contact-form .form-group {
+    margin-bottom: 20px;
+}
+.contact-form label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--card-title);
+}
+.contact-form input[type="text"],
+.contact-form input[type="email"],
+.contact-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(0, 180, 255, 0.2);
+    border-radius: 8px;
+    background-color: var(--sidebar-bg);
+    color: #fff;
+    font-size: 1rem;
+    resize: vertical;
+}
+.contact-form textarea {
+    min-height: 150px;
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+    border-color: var(--accent);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 180, 255, 0.3);
+}
+.contact-form button[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 12px 20px;
+    background-color: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 180, 255, 0.4);
+    transition: background-color 0.2s ease, transform 0.1s;
+}
+.contact-form button[type="submit"]:hover {
+    background-color: #53d6ff;
+    transform: translateY(-2px);
+}
+.contact-form button[type="submit"]:active {
+    transform: translateY(0);
+}
 
-
+/* Status Pesan Formulir */
+.form-status-message {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-align: center;
+    opacity: 0; /* Sembunyikan secara default */
+    transition: opacity 0.3s ease;
+}
+.form-status-message:not(:empty) {
+    opacity: 1;
+}
+.form-status-message.success {
+    background-color: rgba(34, 197, 94, 0.2); /* Hijau muda */
+    color: #4ade80;
+    border: 1px solid #4ade80;
+}
+.form-status-message.error {
+    background-color: rgba(239, 68, 68, 0.2); /* Merah muda */
+    color: #f87171;
+    border: 1px solid #f87171;
+}
 
 /* modal */
 .match-details-modal{ 
@@ -468,6 +593,10 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
 .stats-list-group .stat-value { font-weight: 600; color: #fff; }
 
 
+/* footer */
+footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid rgba(255,255,255,0.05); margin-top: 40px;}
+
+
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
     .main-layout-grid {
@@ -490,6 +619,13 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
     }
     .site-nav ul {
         gap: 15px;
+    }
+    .content-page, .contact-container {
+        padding: 30px 20px;
+        margin: 20px auto;
+    }
+    .content-page h2, .contact-container h2 {
+        font-size: 2rem;
     }
 }
 
@@ -533,5 +669,13 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
     }
     .articles-container {
         grid-template-columns: 1fr;
+    }
+    .content-page, .contact-container {
+        padding: 20px 15px;
+        margin: 15px auto;
+        border-radius: 10px;
+    }
+    .content-page h2, .contact-container h2 {
+        font-size: 1.8rem;
     }
 }
