@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Eropa — BlogFootball</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8WdIRuVBL4eQWn2A7n4S2kK8lB6c8J/s1c4pG1rG5Wb2G0C4F6aQvL3F/lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" href="images/favicon.png" type="image/png" />
+</head>
+<body>
+    <header id="siteHeader" data-aos="fade-down" data-aos-duration="600">
+        <div class="header-inner">
+            <div class="logo-area">
+                <img src="https://placehold.co/40x40/00b4ff/0a0f1a?text=BF" alt="Logo BlogFootball" class="site-logo" />
+                <div>
+                    <h1 class="site-title">Blog<span>Football</span></h1>
+                    <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
+                </div>
+            </div>
+            <nav class="site-nav" aria-label="Main navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="trending.html">Trending</a></li>
+                    <li><a href="eropa.html" class="active">Eropa</a></li>
+                    <li><a href="dunia.html">Dunia</a></li>
+                    <li><a href="jadwal-skor.html">Jadwal & Skor</a></li>
+                    <li><a href="bokstainment.html">Bokstainment</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="live-score-ticker" role="region" aria-label="Live scores">
+            <div class="ticker-wrapper"><div id="liveScores" class="ticker-content"><div class="no-match">⚽ Memuat skor langsung...</div></div></div>
+        </div>
+    </header>
+
+    <div class="main-page-wrapper">
+        <aside class="left-sidebar sidebar">
+            <div class="sidebar-block" data-aos="fade-right">
+                <h3>Liga Top</h3>
+                <ul class="category-links">
+                    <li><a href="#" style="font-weight: 700; color: var(--accent);">Premier League</a></li>
+                    <li><a href="#">La Liga</a></li>
+                    <li><a href="#">Serie A</a></li>
+                    <li><a href="#">Bundesliga</a></li>
+                    <li><a href="#">Ligue 1</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-right" data-aos-delay="100">
+                <h3>Klasemen Singkat</h3>
+                <ul class="popular-list">
+                    <li><span style="color: gold;">1.</span> Liverpool (78 Poin)</li>
+                    <li><span style="color: silver;">2.</span> Arsenal (77 Poin)</li>
+                    <li><span style="color: #cd7f32;">3.</span> Man City (75 Poin)</li>
+                </ul>
+            </div>
+            <div class="ad-unit ad-vertical sticky-ad-placeholder" data-aos="fade-in" data-aos-delay="200">
+                Ruang Iklan Vertikal 250x600px
+            </div>
+        </aside>
+
+        <main>
+            <section class="articles-section">
+                <h2 class="section-title">Eropa: Sorotan Liga-Liga Terbaik</h2>
+                
+                <div class="magazine-layout">
+                    <!-- Artikel Utama (Magazine Style) -->
+                    <div class="magazine-main-article">
+                        <a href="articles/eropa-main.html" class="article-card" data-aos="fade-up">
+                            <img src="https://placehold.co/900x500/0f2e4c/ffffff?text=UCL+ANALYSIS" alt="Analisis UCL" class="card-image" style="height: 350px;" />
+                            <div class="card-content">
+                                <div class="card-meta"><span class="category">Liga Champions</span> | 3 Jam Lalu</div>
+                                <h3 class="card-title" style="font-size: 1.6rem; color: #fff;">ANALISIS TAKTIS: Bagaimana Tuchel Meruntuhkan Dominasi City di Semifinal UCL</h3>
+                                <p class="card-summary">Laporan mendalam tentang penempatan formasi, perubahan pemain, dan kunci kemenangan dramatis...</p>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- Sidebar Artikel Kecil (Magazine Style) -->
+                    <div class="magazine-sidebar">
+                        <h3 class="section-title" style="margin-bottom: 5px; border-left: none; padding-left: 0;">Berita Cepat</h3>
+                        <a href="articles/eropa-side-1.html" class="article-card" data-aos="fade-left">
+                            <img src="https://placehold.co/400x120/1a457a/ffffff?text=LA+LIGA" alt="La Liga" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">La Liga</span></div><h3 class="card-title">Krisis Keuangan Barca Memburuk, Mungkinkah Jual Pemain Bintang?</h3></div>
+                        </a>
+                        <a href="articles/eropa-side-2.html" class="article-card" data-aos="fade-left" data-aos-delay="100">
+                            <img src="https://placehold.co/400x120/4a1a7a/ffffff?text=BUNDESLIGA" alt="Bundesliga" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">Bundesliga</span></div><h3 class="card-title">Bayer Leverkusen Hancurkan Rekor Tak Terkalahkan Sepanjang Sejarah</h3></div>
+                        </a>
+                        <a href="articles/eropa-side-3.html" class="article-card" data-aos="fade-left" data-aos-delay="200">
+                            <img src="https://placehold.co/400x120/7a1a1a/ffffff?text=SERIE+A" alt="Serie A" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">Serie A</span></div><h3 class="card-title">Inter Milan Amankan Scudetto, Pesta Kembang Api di San Siro</h3></div>
+                        </a>
+                    </div>
+                </div>
+
+                <div style="margin-top: 40px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px;">
+                    <h2 class="section-title">Semua Berita Eropa</h2>
+                    <div class="articles-container" aria-live="polite">
+                        <!-- 6 Placeholder Grid Cards -->
+                        <a href="articles/eropa-grid-1.html" class="article-card" data-aos="fade-up">
+                            <img src="https://placehold.co/400x225/112a44/ffffff?text=PREMIER+1" alt="Grid 1" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">Premier League</span></div><h3 class="card-title">Mikel Arteta Tegaskan Komitmen Arsenal Bertarung Hingga Akhir</h3></div>
+                        </a>
+                        <a href="articles/eropa-grid-2.html" class="article-card" data-aos="fade-up" data-aos-delay="50">
+                            <img src="https://placehold.co/400x225/223b55/ffffff?text=PREMIER+2" alt="Grid 2" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">Premier League</span></div><h3 class="card-title">Manchester United Tawarkan Kontrak Baru untuk Bruno Fernandes</h3></div>
+                        </a>
+                        <a href="articles/eropa-grid-3.html" class="article-card" data-aos="fade-up" data-aos-delay="100">
+                            <img src="https://placehold.co/400x225/334c66/ffffff?text=LA+LIGA+3" alt="Grid 3" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">La Liga</span></div><h3 class="card-title">Gavi Siap Kembali ke Lapangan Setelah Cedera Panjang</h3></div>
+                        </a>
+                        <a href="articles/eropa-grid-4.html" class="article-card" data-aos="fade-up" data-aos-delay="150">
+                            <img src="https://placehold.co/400x225/445d77/ffffff?text=SERIE+A+4" alt="Grid 4" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">Serie A</span></div><h3 class="card-title">AC Milan Dekati Pelatih Baru dari Liga Portugal</h3></div>
+                        </a>
+                        <a href="articles/eropa-grid-5.html" class="article-card" data-aos="fade-up" data-aos-delay="200">
+                            <img src="https://placehold.co/400x225/556e88/ffffff?text=BUNDESLIGA+5" alt="Grid 5" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">Bundesliga</span></div><h3 class="card-title">Harry Kane Pecahkan Rekor Gol dalam Musim Debutnya di Jerman</h3></div>
+                        </a>
+                        <a href="articles/eropa-grid-6.html" class="article-card" data-aos="fade-up" data-aos-delay="250">
+                            <img src="https://placehold.co/400x225/667f99/ffffff?text=LIGUE+1+6" alt="Grid 6" class="card-image" />
+                            <div class="card-content"><div class="card-meta"><span class="category">Ligue 1</span></div><h3 class="card-title">Kisah Ousmane Dembele: Dari Cedera ke Performa Puncak di PSG</h3></div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-sidebar sidebar">
+            <!-- Isi sidebar sama dengan index.html -->
+            <div class="sidebar-block" data-aos="fade-left">
+                <h3>Jadwal Mendatang</h3>
+                <ul class="schedule-list">
+                    <li><span class="team">Madrid</span> vs <span class="team">Barca</span> (Besok)</li>
+                    <li><span class="team">Liverpool</span> vs <span class="team">City</span> (Sabtu)</li>
+                    <li><span class="team">Juve</span> vs <span class="team">Milan</span> (Minggu)</li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-left" data-aos-delay="100">
+                <h3>Top 5 Populer</h3>
+                <ul class="popular-list">
+                    <li><a href="#">Analisis mendalam taktik baru Xavi di Barca</a></li>
+                    <li><a href="#">Mengapa Liga Inggris masih menjadi yang terbaik?</a></li>
+                    <li><a href="#">Kisah dramatis transfer Mbappe ke klub misterius</a></li>
+                    <li><a href="#">10 Pemain muda yang wajib Anda tonton musim ini</a></li>
+                    <li><a href="#">Kontroversi VAR terbaru: keputusan yang mengubah hasil</a></li>
+                </ul>
+            </div>
+            <div class="sidebar-block" data-aos="fade-left" data-aos-delay="200">
+                <h3>Kategori Cepat</h3>
+                <ul class="category-links">
+                    <li><a href="eropa.html">Premier League</a></li>
+                    <li><a href="eropa.html">La Liga</a></li>
+                    <li><a href="eropa.html">Liga Champions</a></li>
+                    <li><a href="trending.html">Transfer</a></li>
+                    <li><a href="jadwal-skor.html">Statistik</a></li>
+                    <li><a href="bokstainment.html">WAGs</a></li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <p>© 2025 BlogFootball. Semua hak cipta dilindungi.</p>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
