@@ -22,7 +22,7 @@ if (typeof AOS !== 'undefined') {
 let articleList = [];
 let currentArticleIndex = 0;
 let articleRotationInterval;
-const ROTATION_DELAY = 16000; // 16 detik (lebih lama dari durasi scroll headline 15s)
+const ROTATION_DELAY = 16000; // 16 detik (lebih lama dari durasi scroll headline 15s di CSS)
 
 /* Helper fetch & elements */
 async function apiFetch(path) {
@@ -48,6 +48,7 @@ const matchTitleEl = document.getElementById("matchTitle");
 
 
 /* Function to render the main article (rotates) */
+// KODE INI MENGATASI JUDUL YANG HILANG SAAT ROTASI
 function renderMainArticle(article) {
     if (!mainArticleEl || !article) return;
 
@@ -100,7 +101,7 @@ async function loadArticles() {
         if (!resp.ok) throw new Error("articles.json not found");
         const list = await resp.json();
         
-        // Mengambil semua berita unik, tidak ada pengulangan
+        // Mengambil semua berita unik, tidak ada pengulangan (FIX PENGULANGAN)
         articleList = Array.isArray(list) ? list : [];
         
         if (articleList.length === 0) {
