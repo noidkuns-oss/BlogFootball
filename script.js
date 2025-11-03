@@ -31,6 +31,10 @@ async function apiFetch(path) {
     return json.response ?? [];
 }
 
+/* Escape HTML to be safe */
+function escapeHtml(str){ return String(str || "").replace(/[&<>"']/g, s=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[s])); }
+
+
 /* Elements */
 const liveScoresEl = () => document.getElementById("liveScores");
 const modal = document.getElementById("matchModal");
@@ -58,39 +62,14 @@ window.addEventListener("scroll", () => {
 });
 
 
-/* Load articles.json, generate placeholders up to 30 if needed */
+/* Load articles.json */
 async function loadArticles() {
     try {
         const resp = await fetch("articles.json");
         if (!resp.ok) throw new Error("articles.json not found");
-        const arr = await resp.json();
-        const list = Array.isArray(arr) ? arr.slice() : [];
-
-        // ensure 30 items (clone or placeholder)
-        if (list.length < 30) {
-            const need = 30 - list.length;
-            for (let i = 0; i < need; i++) {
-                const base = list[i % (list.length || 1)] || null;
-                const idx = list.length + 1;
-                list.push(
-                    base ? {
-                        title: `${base.title} (Update ${idx})`,
-                        date: base.date,
-                        category: base.category,
-                        image: base.image,
-                        excerpt: base.excerpt,
-                        link: base.link
-                    } : {
-                        title: `Berita Bola ${idx}`,
-                        date: new Date().toLocaleDateString('id-ID'),
-                        category: "Berita",
-                        image: "images/thumb-placeholder.png",
-                        excerpt: "Ringkasan berita sepak bola terbaru.",
-                        link: "#"
-                    }
-                );
-            }
-        }
+        const list = await resp.json();
+        
+        // 🚨 PENTING: LOGIKA PLACEHOLDER YANG LAMA TELAH DIHAPUS TOTAL UNTUK MENCEGAH PENGULANGAN BERITA
 
         // render main article
         if (list.length > 0 && mainArticleEl) {
@@ -111,15 +90,16 @@ async function loadArticles() {
             `;
         }
 
-        // render up to 30 article cards
+        // render article cards
         if (articlesContainer) {
             articlesContainer.innerHTML = "";
             
-            // LOGIKA DELAY untuk efek staggering yang halus
+            // Logika AOS (dipertahankan)
             let delayTime = 0; 
-            const delayIncrement = 120; // Tambah 120ms per kartu
+            const delayIncrement = 120;
 
-            list.slice(0, 30).forEach((a, index) => {
+            // Iterate over the actual list content, skipping index 0 (main article)
+            list.slice(1).forEach((a, index) => { 
                 const card = document.createElement("div");
                 card.className = "article-card";
                 
@@ -153,8 +133,6 @@ async function loadArticles() {
     }
 }
 
-/* Escape HTML to be safe */
-function escapeHtml(str){ return String(str || "").replace(/[&<>"']/g, s=> ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[s])); }
 
 /* Render ticker items and duplicate for smooth loop */
 function renderTicker(matches, label = "Hari Ini") {
