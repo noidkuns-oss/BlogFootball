@@ -1,242 +1,92 @@
 [
   {
-    "title": "AC Milan Panaskan Scudetto: Gol Pavlovic Tumbangkan AS Roma di Olimpico",
-    "date": "03 Nov 2025",
-    "category": "Serie A",
-    "image": "images/thumb1.png",
-    "excerpt": "Gol tunggal Strahinja Pavlovic dan penyelamatan krusial Mike Maignan atas penalti Dybala memastikan kemenangan 1-0 Milan di laga sengit.",
-    "link": "#"
-  },
-  {
-    "title": "Harry Kane Pertimbangkan Pindah Sensasional ke Barcelona Musim Panas 2026",
-    "date": "03 Nov 2025",
-    "category": "Transfer Rumour",
-    "image": "images/thumb2.png",
-    "excerpt": "Striker Bayern Munchen, Harry Kane, dikabarkan mempertimbangkan opsi transfer besar-besaran ke Barcelona berkat adanya klausul pelepasan dalam kontraknya.",
-    "link": "#"
-  },
-  {
-    "title": "Liverpool Akhiri Tren Negatif: The Reds Taklukkan Aston Villa 2-0 di Anfield",
-    "date": "02 Nov 2025",
+    "type": "main",
+    "title": "Manchester United Meraih Kemenangan Krusial 2-1 Atas Liverpool",
+    "excerpt": "Manchester United berhasil mematahkan dominasi dan memperburuk krisis 'The Reds' di Premier League.",
     "category": "Premier League",
-    "image": "images/thumb3.png",
-    "excerpt": "Liverpool kembali ke jalur kemenangan dengan skor 2-0, mengakhiri rentetan kekalahan, meski Man City masih unggul di klasemen.",
-    "link": "#"
-  },
-  {
-    "title": "Chelsea Tekuk Tottenham 1-0 dalam Derby London Penuh Tensi",
-    "date": "02 Nov 2025",
-    "category": "Premier League",
-    "image": "images/thumb4.png",
-    "excerpt": "Gol tunggal Joao Pedro membawa Chelsea menang 1-0 di kandang Spurs dan mempertegas posisi mereka di empat besar klasemen.",
-    "link": "#"
-  },
-  {
-    "title": "Persebaya Comeback Dramatis, Taklukkan Persis Solo 2-1 di GBT",
-    "date": "02 Nov 2025",
-    "category": "BRI Super League",
-    "image": "images/thumb5.png",
-    "excerpt": "Persebaya Surabaya bangkit dari ketertinggalan untuk meraih kemenangan 2-1 atas Persis Solo dalam laga pekan ke-11.",
-    "link": "#"
-  },
-  {
-    "title": "Man City Naik ke Posisi Dua Klasemen Usai Hajar Bournemouth 3-1",
-    "date": "02 Nov 2025",
-    "category": "Premier League",
-    "image": "images/thumb6.png",
-    "excerpt": "Kemenangan 3-1 atas Bournemouth membawa Manchester City menempel ketat Arsenal di puncak klasemen Liga Inggris.",
-    "link": "#"
-  },
-  {
-    "title": "Barcelona Kembali ke Jalur Kemenangan, Hajar Elche 3-1",
-    "date": "02 Nov 2025",
-    "category": "La Liga",
-    "image": "images/thumb7.png",
-    "excerpt": "Gol dari Yamal dan Marcus Rashford membantu Blaugrana menang 3-1, menempel ketat Real Madrid di puncak La Liga.",
-    "link": "#"
-  },
-  {
-    "title": "Bayern Munich Hancurkan Leverkusen 3-0, Hentikan Rekor Tak Terkalahkan",
-    "date": "02 Nov 2025",
-    "category": "Bundesliga",
-    "image": "images/thumb8.png",
-    "excerpt": "Bayern Munich tampil dominan dan menghajar Bayer Leverkusen 3-0, sekaligus mengakhiri laju impresif Xabi Alonso di Bundesliga.",
-    "link": "#"
-  },
-  {
-    "title": "West Ham Bangkit, Balikkan Keadaan Kalahkan Newcastle 3-1",
-    "date": "02 Nov 2025",
-    "category": "Premier League",
-    "image": "images/thumb9.png",
-    "excerpt": "West Ham United menunjukkan karakter kuat dengan *comeback* dan menaklukkan Newcastle 3-1 di London Stadium.",
-    "link": "#"
-  },
-  {
-    "title": "Inter Milan Geser Napoli, Menang 2-1 di Laga Kontra Hellas Verona",
-    "date": "02 Nov 2025",
-    "category": "Serie A",
-    "image": "images/thumb10.png",
-    "excerpt": "Inter Milan meraih kemenangan tipis 2-1 atas Hellas Verona, membawa mereka naik ke posisi atas klasemen Serie A.",
-    "link": "#"
-  },
-  {
-    "title": "Debut Manis Spalletti: Juventus Tumbangkan Cremonese 2-1",
-    "date": "01 Nov 2025",
-    "category": "Serie A",
-    "image": "images/thumb11.png",
-    "excerpt": "Luciano Spalletti memulai masa kepelatihannya di Juventus dengan kemenangan 2-1, mengakhiri rentetan hasil buruk Bianconeri.",
-    "link": "#"
-  },
-  {
-    "title": "Real Madrid Libas Valencia 4-0 di Bernabeu, Dominasi Los Blancos Berlanjut",
-    "date": "01 Nov 2025",
-    "category": "La Liga",
-    "image": "images/thumb12.png",
-    "excerpt": "Pasukan Carlo Ancelotti menampilkan performa menyerang yang tajam dan menang telak 4-0, memperkuat posisi mereka di puncak klasemen La Liga.",
-    "link": "#"
-  },
-  {
-    "title": "Forest Tahan Imbang Man United 2-2, Setan Merah Gagal Geser Spurs",
-    "date": "01 Nov 2025",
-    "category": "Premier League",
-    "image": "images/thumb13.png",
-    "excerpt": "Manchester United harus puas dengan skor 2-2 saat bertandang ke markas Nottingham Forest, melewatkan kesempatan naik ke posisi empat.",
-    "link": "#"
-  },
-  {
-    "title": "Arsenal Menang Tipis 2-0 Atas Burnley, Kokoh di Puncak Klasemen",
-    "date": "01 Nov 2025",
-    "category": "Premier League",
-    "image": "images/thumb14.png",
-    "excerpt": "Arsenal mempertahankan posisi teratas mereka setelah meraih kemenangan 2-0 yang solid saat melawan Burnley.",
-    "link": "#"
-  },
-  {
-    "title": "Napoli Ditahan Imbang Como 0-0, Gagal Pertahankan Jarak di Puncak Klasemen",
-    "date": "01 Nov 2025",
-    "category": "Serie A",
-    "image": "images/thumb15.png",
-    "excerpt": "Napoli bermain imbang tanpa gol melawan tim promosi Como, membuat mereka hanya berjarak 1 poin dari tim di bawahnya.",
-    "link": "#"
-  },
-  {
-    "title": "Atletico Madrid Pesta Gol, Hajar Sevilla 3-0 di La Liga",
-    "date": "01 Nov 2025",
-    "category": "La Liga",
-    "image": "images/thumb16.png",
-    "excerpt": "Atletico Madrid menampilkan performa dominan dan meraih kemenangan meyakinkan 3-0 atas Sevilla di kandang sendiri.",
-    "link": "#"
-  },
-  {
-    "title": "Persija Lumat PSBS Biak 3-1, Tembus Lima Besar Klasemen",
-    "date": "31 Okt 2025",
-    "category": "BRI Super League",
-    "image": "images/thumb17.png",
-    "excerpt": "Kemenangan 3-1 atas PSBS Biak di Manahan membawa Persija Jakarta merangsek ke papan atas klasemen liga domestik.",
-    "link": "#"
-  },
-  {
-    "title": "Inter Hajar Fiorentina 3-0, Rebut Puncak Klasemen Serie A Sementara",
-    "date": "30 Okt 2025",
-    "category": "Serie A",
-    "image": "images/thumb18.png",
-    "excerpt": "Inter Milan tampil dominan di San Siro dan menang 3-0 atas Fiorentina, untuk sementara merebut posisi puncak klasemen Liga Italia.",
-    "link": "#"
-  },
-  {
-    "title": "AS Roma Bangkit Dramatis, Kalahkan Parma 2-1 dengan Gol Telat",
-    "date": "30 Okt 2025",
-    "category": "Serie A",
-    "image": "images/thumb19.png",
-    "excerpt": "Roma menunjukkan semangat pantang menyerah setelah bangkit dari ketertinggalan untuk meraih kemenangan 2-1 atas Parma di menit akhir.",
-    "link": "#"
-  },
-  {
-    "title": "Kim Min-Jae Masuk Radar AC Milan, Ingin Tinggalkan Bayern Munchen",
-    "date": "30 Okt 2025",
-    "category": "Transfer Rumour",
-    "image": "images/thumb20.png",
-    "excerpt": "Bek Korea Selatan, Kim Min-Jae, dikabarkan sedang mencari peluang kembali ke Serie A, dengan AC Milan menjadi peminat utama.",
-    "link": "#"
-  },
-  {
-    "title": "Real Madrid Terancam Ditinggal Ancelotti, Everton Siapkan Tawaran Sensasional",
-    "date": "28 Okt 2025",
-    "category": "Transfer Rumour",
-    "image": "images/thumb21.png",
-    "excerpt": "Carlo Ancelotti dikabarkan menjadi target utama Everton, mengancam posisinya di Real Madrid menjelang bursa transfer Januari.",
-    "link": "#"
-  },
-  {
-    "title": "Persib Kalahkan Persis 2-0, Jaga Jarak di Puncak Klasemen Super League",
-    "date": "27 Okt 2025",
-    "category": "BRI Super League",
-    "image": "images/thumb22.png",
-    "excerpt": "Persib Bandung tampil solid dan menang 2-0 atas Persis Solo, menjaga momentum mereka sebagai pemuncak klasemen liga.",
-    "link": "#"
-  },
-  {
-    "title": "Liverpool Telan Kekalahan ke-4 Beruntun di Liga Inggris, Tumbang 2-3 dari Brentford",
-    "date": "26 Okt 2025",
-    "category": "Premier League",
-    "image": "images/thumb23.png",
-    "excerpt": "Liverpool menderita kekalahan beruntun keempat mereka di Premier League musim ini setelah takluk 2-3 dari Brentford di Gtech Community Stadium.",
-    "link": "#"
-  },
-  {
-    "title": "Arema FC Tumbang di Kandang Sendiri, Dihajar Borneo FC 1-3",
-    "date": "26 Okt 2025",
-    "category": "BRI Super League",
-    "image": "images/thumb24.png",
-    "excerpt": "Arema FC harus mengakui keunggulan Borneo FC dengan skor telak 1-3 dalam lanjutan kompetisi liga domestik.",
-    "link": "#"
-  },
-  {
-    "title": "Chelsea Lumat Forest 3-0, Tiga Poin Penting untuk Maresca",
-    "date": "25 Okt 2025",
-    "category": "Premier League",
-    "image": "images/thumb25.png",
-    "excerpt": "Chelsea meraih kemenangan meyakinkan 3-0 atas Nottingham Forest, menunjukkan perkembangan positif di bawah Enzo Maresca.",
-    "link": "#"
-  },
-  {
-    "title": "Real Madrid vs Shakhtar Donetsk: Los Blancos Menang Tipis 1-0 di Liga Champions",
-    "date": "24 Okt 2025",
-    "category": "Liga Champions",
-    "image": "images/thumb26.png",
-    "excerpt": "Real Madrid harus berjuang keras sebelum mengamankan kemenangan 1-0 atas Shakhtar Donetsk di fase grup Liga Champions.",
-    "link": "#"
-  },
-  {
-    "title": "Arsenal Hancurkan Sporting Lisbon 4-1, Pesta Gol di Emirates",
-    "date": "24 Okt 2025",
-    "category": "Liga Champions",
-    "image": "images/thumb27.png",
-    "excerpt": "Arsenal memastikan satu tempat di babak gugur Liga Champions setelah membantai Sporting Lisbon 4-1 di kandang.",
-    "link": "#"
-  },
-  {
-    "title": "Bayern Munich vs Union SG: Die Roten Menang Besar 4-0 di Liga Champions",
-    "date": "23 Okt 2025",
-    "category": "Liga Champions",
-    "image": "images/thumb28.png",
-    "excerpt": "Bayern Munich melanjutkan dominasi mereka di Eropa dengan kemenangan telak 4-0 atas Union Saint-Gilloise di fase grup.",
-    "link": "#"
-  },
-  {
-    "title": "PSG vs RB Salzburg: Mbappe Jadi Pahlawan Kemenangan 2-1 di Paris",
-    "date": "23 Okt 2025",
-    "category": "Liga Champions",
-    "image": "images/thumb29.png",
-    "excerpt": "Gol Kylian Mbappe di babak kedua memastikan kemenangan sulit PSG 2-1 atas RB Salzburg di Liga Champions.",
-    "link": "#"
-  },
-  {
-    "title": "MU Tundukkan Liverpool 2-1, Setan Merah Raih Kemenangan Derby Penting",
     "date": "19 Okt 2025",
+    "image": "images/thumb1.png",
+    "link": "article-mu.html"
+  },
+  {
+    "type": "carousel",
+    "title": "Harry Kane Pertimbangkan Pindah Sensasional ke Barcelona",
+    "excerpt": "Striker Bayern Munchen, Harry Kane, dikabarkan mempertimbangkan opsi transfer besar-besaran ke Barcelona berkat adanya...",
+    "category": "Transfer Rumor",
+    "date": "03 Nov 2025",
+    "image": "images/thumb2.png",
+    "link": "article-kane.html"
+  },
+  {
+    "type": "carousel",
+    "title": "Liverpool Akhiri Tren Negatif: The Reds Taklukkan Aston Villa 2-0",
+    "excerpt": "Liverpool kembali ke jalur kemenangan dengan skor 2-0, menaikkan mentalitas tim setelah serangkaian hasil buruk.",
     "category": "Premier League",
-    "image": "images/thumb30.png",
-    "excerpt": "Manchester United meraih kemenangan *derby* yang krusial 2-1 atas Liverpool, memperburuk krisis *The Reds* di Premier League.",
-    "link": "#"
+    "date": "02 Nov 2025",
+    "image": "images/thumb3.png",
+    "link": "article-liverpool.html"
+  },
+  {
+    "type": "carousel",
+    "title": "AC Milan Panaskan Scudetto: Gol Pavlovic Tumbangkan AS Roma",
+    "excerpt": "Gol tunggal Strahinja Pavlovic memastikan kemenangan 1-0 Milan di laga sengit Serie A.",
+    "category": "Serie A",
+    "date": "03 Nov 2025",
+    "image": "images/thumb4.png",
+    "link": "article-milan.html"
+  },
+  {
+    "type": "grid",
+    "title": "Arsenal Tahan Imbang Man City di Etihad, Persaingan Gelar Memanas",
+    "excerpt": "Pertandingan sengit berakhir tanpa gol, membuat puncak klasemen semakin ketat dan seru.",
+    "category": "Premier League",
+    "date": "04 Nov 2025",
+    "image": "images/thumb5.png",
+    "link": "article-arsenal.html"
+  },
+  {
+    "type": "grid",
+    "title": "Vinicius Jr Cetak Hattrick, Real Madrid Pesta Gol di Bernabeu",
+    "excerpt": "Performa gemilang dari penyerang asal Brazil itu mengamankan tiga poin sempurna bagi El Real di La Liga.",
+    "category": "La Liga",
+    "date": "04 Nov 2025",
+    "image": "images/thumb6.png",
+    "link": "article-madrid.html"
+  },
+  {
+    "type": "grid",
+    "title": "Rekor Baru Liga: Wonderkid Brasil Pindah ke Chelsea dengan Biaya Fantastis",
+    "excerpt": "Transfer yang memecahkan rekor klub ini menunjukkan ambisi besar 'The Blues' di bursa transfer musim dingin.",
+    "category": "Transfer",
+    "date": "01 Nov 2025",
+    "image": "images/thumb7.png",
+    "link": "article-wonderkid.html"
+  },
+  {
+    "type": "popular",
+    "title": "Mengapa Xabi Alonso Menjadi Pelatih Paling Diburu di Eropa Saat Ini",
+    "excerpt": "",
+    "category": "Analisis",
+    "date": "05 Nov 2025",
+    "image": "images/thumb8.png",
+    "link": "article-alonso.html"
+  },
+  {
+    "type": "popular",
+    "title": "10 Momen Paling Kontroversial di Liga Champions Sepanjang Masa",
+    "excerpt": "",
+    "category": "Bokstainment",
+    "date": "04 Nov 2025",
+    "image": "images/thumb9.png",
+    "link": "article-ucl.html"
+  },
+  {
+    "type": "popular",
+    "title": "Prediksi Juara World Cup 2026: Prancis atau Argentina?",
+    "excerpt": "",
+    "category": "Dunia",
+    "date": "03 Nov 2025",
+    "image": "images/thumb10.png",
+    "link": "article-worldcup.html"
   }
 ]
