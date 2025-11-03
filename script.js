@@ -1,4 +1,4 @@
-/* script.js - FINAL VERSION WITH AUTO SLIDESHOW & FIXES
+/* script.js - VERSI FINAL 100% LENGKAP DAN KOREKSI BUG
     API base: https://v3.football.api-sports.io
     API key: the one you provided
 */
@@ -22,8 +22,7 @@ if (typeof AOS !== 'undefined') {
 let articleList = [];
 let currentArticleIndex = 0;
 let articleRotationInterval;
-// Kecepatan transisi: harus lebih lama dari durasi scroll headline (15 detik di CSS)
-const ROTATION_DELAY = 16000; // 16 detik untuk memberi waktu headline selesai scroll
+const ROTATION_DELAY = 16000; // 16 detik (lebih lama dari durasi scroll headline 15s)
 
 /* Helper fetch & elements */
 async function apiFetch(path) {
@@ -41,6 +40,12 @@ const mainArticleEl = document.querySelector(".main-article");
 const articlesContainer = document.querySelector(".articles-container");
 const headerEl = document.getElementById("siteHeader");
 
+// Ambil elemen modal (Penting untuk fungsi modal)
+const modal = document.getElementById("matchModal");
+const closeModalBtn = document.getElementById("closeModal");
+const matchStatsEl = document.getElementById("matchStats");
+const matchTitleEl = document.getElementById("matchTitle");
+
 
 /* Function to render the main article (rotates) */
 function renderMainArticle(article) {
@@ -49,26 +54,32 @@ function renderMainArticle(article) {
     // 1. Tambahkan kelas transisi cepat untuk membuat pergantian halus (fade)
     mainArticleEl.classList.add('fading');
 
+    // Buat HTML baru secara instan
+    const newHTML = `
+        <div class="main-article-content">
+            <img class="main-image" src="${article.image}" alt="${escapeHtml(article.title)}" />
+            <div class="main-info">
+                
+                <div class="headline-scroll-wrapper">
+                     <h2 class="scrolling-headline headline-title">${escapeHtml(article.title)}</h2>
+                     <div class="meta">${escapeHtml(article.date)} • ${escapeHtml(article.category)}</div> 
+                </div>
+                <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
+                <a class="read-more-btn" href="${article.link}">Baca Selengkapnya</a>
+            </div>
+        </div>
+    `;
+
     // Beri jeda singkat agar CSS transisi bekerja (fading)
     setTimeout(() => {
-        mainArticleEl.innerHTML = `
-            <div class="main-article-content">
-                <img class="main-image" src="${article.image}" alt="${escapeHtml(article.title)}" />
-                <div class="main-info">
-                    
-                    <div class="headline-scroll-wrapper">
-                         <h2 class="scrolling-headline headline-title">${escapeHtml(article.title)}</h2>
-                         <div class="meta">${escapeHtml(article.date)} • ${escapeHtml(article.category)}</div> 
-                    </div>
-                    <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
-                    <a class="read-more-btn" href="${article.link}">Baca Selengkapnya</a>
-                </div>
-            </div>
-        `;
-        // 2. Hapus kelas transisi setelah konten baru dimuat
+        // Ganti konten setelah fade-out
+        mainArticleEl.innerHTML = newHTML;
+
+        // Hapus kelas transisi setelah konten baru dimuat
         mainArticleEl.classList.remove('fading');
     }, 250); // Jeda 250ms (sesuai durasi transisi CSS)
 }
+
 
 /* Function to handle article rotation */
 function rotateMainArticle() {
@@ -78,7 +89,6 @@ function rotateMainArticle() {
     renderMainArticle(articleList[currentArticleIndex]);
 
     // Pindah ke artikel berikutnya (loop kembali ke 0 jika sudah mencapai akhir)
-    // Gunakan modulo operator untuk mengulang array dari awal
     currentArticleIndex = (currentArticleIndex + 1) % articleList.length;
 }
 
@@ -90,7 +100,7 @@ async function loadArticles() {
         if (!resp.ok) throw new Error("articles.json not found");
         const list = await resp.json();
         
-        // 🚨 PENTING: MENGAMBIL SEMUA BERITA UNIK, TIDAK ADA PENGULANGAN (placeholder logic dihapus)
+        // Mengambil semua berita unik, tidak ada pengulangan
         articleList = Array.isArray(list) ? list : [];
         
         if (articleList.length === 0) {
@@ -100,16 +110,14 @@ async function loadArticles() {
 
         // Mulai rotasi artikel utama
         rotateMainArticle();
-        // Set interval untuk rotasi otomatis
         articleRotationInterval = setInterval(rotateMainArticle, ROTATION_DELAY);
 
-        // render article cards (Mengambil semua artikel dari articles.json)
+        // render article cards
         if (articlesContainer) {
             articlesContainer.innerHTML = "";
             let delayTime = 0; 
             const delayIncrement = 120;
 
-            // Mengambil semua artikel yang ada di articles.json (maks 30, tapi tidak ada placeholder)
             articleList.slice(0, 30).forEach((a, index) => { 
                 const card = document.createElement("div");
                 card.className = "article-card";
@@ -144,7 +152,8 @@ async function loadArticles() {
 }
 
 
-/* --- Ticker & Modal Functions (Unchanged but included for completeness) --- */
+/* --- Ticker & Modal Functions (Dilampirkan sepenuhnya) --- */
+
 /* Sticky header shrink effect */
 let isTicking = false;
 function updateHeaderClass() {
@@ -226,10 +235,6 @@ async function loadLiveScores(){
 
 /* Show match stats modal */
 async function showMatchDetails(fixtureId, title) {
-    const modal = document.getElementById("matchModal");
-    const matchStatsEl = document.getElementById("matchStats");
-    const matchTitleEl = document.getElementById("matchTitle");
-    
     if (!fixtureId) return;
     try {
         matchTitleEl.textContent = title || "Detail Pertandingan";
@@ -256,8 +261,6 @@ async function showMatchDetails(fixtureId, title) {
 }
 
 /* modal close handlers */
-const modal = document.getElementById("matchModal");
-const closeModalBtn = document.getElementById("closeModal");
 document.addEventListener("click", (e) => {
     if (e.target === modal) { modal.style.display="none"; modal.setAttribute("aria-hidden","true"); }
 });
