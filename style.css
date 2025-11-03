@@ -159,7 +159,7 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
     box-shadow: 0 10px 40px rgba(0, 180, 255, 0.25);
 }
 .main-article-content img.main-image{ width:420px; border-radius:10px; object-fit:cover; }
-.main-article-content .main-info h2{ color:var(--accent); margin:0 0 10px }
+.main-article-content .main-info h2{ margin:0 } /* Margin dipindahkan ke .headline-scroll-wrapper */
 .main-article-content .meta{ color:var(--muted); margin-bottom:12px }
 
 .articles-container{ 
@@ -249,4 +249,41 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
   .match img{ width:20px; height:20px }
   .site-title{ font-size:1.05rem }
   .articles-container { gap: 16px; }
+}
+
+/* ===== AUTO SCROLL HEADLINE UTAMA ===== */
+.headline-scroll-wrapper {
+    /* Wadah Pembatas (Window) */
+    width: 100%;
+    overflow: hidden; /* Menyembunyikan teks yang keluar */
+    height: auto; /* Biarkan tingginya menyesuaikan H2 */
+    margin: 0 0 10px 0; /* Mengganti margin H2 yang sudah dihapus di bawah */
+}
+
+.scrolling-headline {
+    /* Teks yang bergerak */
+    margin: 0 !important; /* Hapus margin default dari H2 */
+    color: var(--accent);
+    font-size: 2rem; /* Mempertahankan ukuran font agar tidak ada perubahan visual */
+
+    /* Efek Scroll */
+    display: inline-block;
+    white-space: nowrap; /* Mencegah teks turun baris */
+    padding-left: 100%; /* Memulai teks dari luar kanan wadah */
+    
+    /* Animasi Halus */
+    animation: smooth-scroll-marquee 25s linear infinite; /* 25s = Durasi gulir lambat dan halus */
+}
+
+/* Jika headline terlalu pendek untuk digulirkan, jangan putar animasi */
+.scrolling-headline:hover,
+.headline-scroll-wrapper:not(:hover) .scrolling-headline:not(.is-long) {
+    animation-play-state: paused;
+}
+
+
+/* Keyframes untuk guliran horizontal yang sangat halus */
+@keyframes smooth-scroll-marquee {
+    0%   { transform: translateX(0); } 
+    100% { transform: translateX(-100%); } /* Bergerak ke kiri sejauh 100% lebar teks */
 }
