@@ -1,5 +1,5 @@
 /* =======================
-    STYLE - BlogFootball (Final Sticky Solusi)
+    STYLE - BlogFootball (Final Fixes for Scrolling & Rotation)
     ======================= */
 
 :root{
@@ -33,7 +33,7 @@ h1, h2, h3, h4, p, ul { margin: 0; padding: 0; }
 /* ===== HEADER (STICKY UTAMA) ===== */
 header#siteHeader {
     width: 100%;
-    position: sticky; /* HANYA HEADER YANG STICKY */
+    position: sticky; 
     top: 0;          
     z-index: 1000;
     backdrop-filter: blur(8px);
@@ -51,15 +51,13 @@ header#siteHeader.smaller {
 .header-inner{
     max-width:1200px;
     margin:0 auto;
-    padding:14px 20px; /* Padding untuk konten nav dan logo */
+    padding:14px 20px; 
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:20px;
-    /* Transisi khusus untuk mengecilkan header-inner saat scrolling */
     transition: padding 0.4s ease-in-out; 
 }
-/* Header Inner menyusut saat scrolling */
 header#siteHeader.smaller .header-inner {
     padding: 8px 20px;
 }
@@ -101,10 +99,9 @@ header#siteHeader.smaller .header-inner {
     background-color: rgba(0, 180, 255, 0.05); 
 }
 
-/* ===== LIVE SCORE TICKER (TIDAK LAGI STICKY, HANYA CHILD) ===== */
+/* ===== LIVE SCORE TICKER ===== */
 .live-score-ticker{
     margin-top:0;
-    /* Dihapus: position: sticky; top: 60px; */
     border-top: 1px solid rgba(255, 255, 255, 0.05);
     border-bottom: 1px solid rgba(255, 255, 255, 0.08); 
     background: rgba(2, 20, 40, 0.5); 
@@ -145,7 +142,7 @@ header#siteHeader.smaller .header-inner {
     100% { transform: translateX(-50%); }
 }
 
-/* ===== MAIN CONTENT & LAINNYA (TIDAK BERUBAH) ===== */
+/* ===== MAIN ARTICLE (CONTENT CONTAINER) ===== */
 main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
 .main-article-content{ 
     display: flex; gap: 20px; align-items: center; 
@@ -155,15 +152,76 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
     border: 1px solid rgba(255, 255, 255, 0.05);
     transition: box-shadow 0.4s ease;
 }
+.main-article.fading {
+    opacity: 0;
+    transition: opacity 0.25s ease-out;
+}
 .main-article-content:hover {
     box-shadow: 0 10px 40px rgba(0, 180, 255, 0.25);
 }
 .main-article-content img.main-image{ width:420px; border-radius:10px; object-fit:cover; }
 
-/* PERBAIKAN: Hapus margin lama dari h2 dan meta */
-.main-article-content .main-info h2{ margin:0 } 
-.main-article-content .meta{ display:none } /* Meta lama disembunyikan */
+/* FIX: Judul lama disembunyikan/dihapus agar tidak bertabrakan */
+.main-article-content .main-info h2,
+.main-article-content .meta { margin:0; display:none; } 
 
+/* FIX: Excerpt/Deskripsi yang tidak memanjang */
+.main-article-content .main-info p.article-excerpt {
+    margin: 15px 0;
+    display: block;
+    word-wrap: break-word; /* Memastikan teks panjang membatasi diri */
+    overflow-wrap: break-word; /* Alternatif untuk memastikan teks wrap */
+    white-space: normal; /* Memastikan teks tidak memanjang ke kanan */
+    line-height: 1.5;
+}
+
+
+/* ===== HEADLINE SCROLL FIXES (BARU & PENTING) ===== */
+
+/* 1. Wadah Headline & Meta (Menentukan Batas Scrolling) */
+.headline-scroll-wrapper {
+    width: 100%;
+    overflow: hidden; 
+    /* FIX: Tinggi eksplisit untuk mencegah pemotongan vertikal, disesuaikan dengan line-height h2 */
+    height: 2.6rem; 
+    margin: 5px 0 5px 0; 
+    position: relative; /* Penting untuk menjaga children di dalam batas */
+}
+
+/* 2. Teks Headline yang Bergerak (H2) */
+.scrolling-headline {
+    margin: 0 !important;
+    color: var(--accent);
+    font-size: 2rem; 
+    line-height: 1.2; 
+    display: inline-block;
+    white-space: nowrap; 
+    /* Mulai dari luar sisi kanan kotak */
+    padding-left: 100%; 
+    /* Kecepatan scroll dikurangi karena rotasi sudah diatur oleh JS */
+    animation: smooth-scroll-marquee 15s linear infinite; 
+}
+
+/* 3. Meta info (Tanggal & Kategori) di dalam wrapper (tampil di bawah H2) */
+.headline-scroll-wrapper .meta{ 
+    color:var(--muted); 
+    margin: 5px 0 0 0; 
+    display: block;
+    /* PENTING: Posisikan meta di bawah h2, tetapi pastikan h2 tidak bergerak ke meta */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 10;
+}
+
+/* 4. Keyframes untuk guliran horizontal */
+@keyframes smooth-scroll-marquee {
+    0%   { transform: translateX(0); } 
+    100% { transform: translateX(-100%); } 
+}
+
+
+/* ===== ARTICLE CARDS & LAINNYA ===== */
 .articles-container{ 
     margin-top:40px; 
     display:grid; 
@@ -190,7 +248,15 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
 .article-info h3{ color: var(--card-title); margin: 6px 0; transition: color 0.3s ease; }
 .article-card:hover .article-info h3 { color: var(--accent); } 
 
-.article-info p{ color:#dff7ff; opacity:.95; line-height:1.45; font-size:0.95rem }
+/* FIX: Excerpt card juga diatur agar tidak memanjang */
+.article-info p.card-excerpt{ 
+    color:#dff7ff; opacity:.95; line-height:1.45; font-size:0.95rem; 
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Batasi maksimal 3 baris */
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+}
 .read-more-btn{ 
     margin-top:12px; display:inline-block; 
     background:var(--accent); color:#062033; 
@@ -204,39 +270,7 @@ main{ max-width:1200px; margin:30px auto; padding:0 20px 60px; }
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* ===== ANIMATION STYLES (AOS) & MODAL/FOOTER (TIDAK BERUBAH) ===== */
-[data-aos] {
-    opacity: 0;
-    transition-property: opacity, transform;
-}
-.aos-animate {
-    opacity: 1;
-}
-
-/* modal */
-.match-details-modal{ 
-    display:none; position:fixed; inset:0; 
-    background:rgba(2,8,18,0.85); 
-    backdrop-filter: blur(10px); 
-    align-items:center; justify-content:center; z-index:2000 
-}
-.match-details-modal .modal-content{ 
-    width:min(92%,520px); 
-    background:linear-gradient(180deg,#0a1e38,#0f2e4c); 
-    padding:20px; 
-    border-radius:16px; 
-    color:#e9fbff; 
-    box-shadow:0 18px 50px rgba(0,0,0,0.9);
-    border: 1px solid rgba(0, 180, 255, 0.3);
-}
-.modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px }
-.close-btn{ background:transparent; border:0; color:var(--muted); font-size:24px; cursor:pointer; transition: color .2s ease; }
-.close-btn:hover { color: var(--accent); }
-
-/* footer */
-footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid rgba(255,255,255,0.05); background:var(--bg); font-size:0.9rem; }
-
-/* responsive tweaks */
+/* ===== RESPONSIVE TWEAKS (Unchanged) ===== */
 @media (max-width:900px){
     .main-article-content{ flex-direction:column }
     .main-article-content img.main-image{ width:100% }
@@ -251,54 +285,4 @@ footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid r
     .match img{ width:20px; height:20px }
     .site-title{ font-size:1.05rem }
     .articles-container { gap: 16px; }
-}
-
-/* ======================================= */
-/* ===== PERBAIKAN FINAL & AUTO SCROLL HEADLINE UTAMA (2a, 2b, 2c) ===== */
-/* ======================================= */
-
-/* 2a. Tambahkan padding atas dan jarak antar elemen */
-.main-article-content .main-info {
-    padding-top: 5px; 
-}
-.main-article-content .main-info p{
-    margin-top: 15px; 
-}
-
-/* 2b. Wadah Headline & Meta (Pembatas Window Scroll) */
-.headline-scroll-wrapper {
-    width: 100%;
-    overflow: hidden; 
-    height: 2.6rem; /* FIX: Tinggi eksplisit untuk mencegah pemotongan vertikal */
-    margin: 0 0 5px 0; 
-}
-
-/* Teks Headline yang Bergerak (H2) */
-.scrolling-headline {
-    margin: 0 !important;
-    color: var(--accent);
-    font-size: 2rem; 
-    line-height: 1.2; /* FIX: Line height eksplisit untuk mencegah pemotongan vertikal */
-    display: inline-block;
-    white-space: nowrap; 
-    padding-left: 100%; 
-    animation: smooth-scroll-marquee 25s linear infinite; 
-}
-
-/* Meta info (Tanggal & Kategori) di dalam wrapper (tampil di bawah H2) */
-.headline-scroll-wrapper .meta{ 
-    color:var(--muted); 
-    margin: 5px 0 0 0; 
-    display: block;
-}
-
-/* Menghentikan animasi saat hover (agar pembaca bisa fokus) */
-.scrolling-headline:hover {
-    animation-play-state: paused;
-}
-
-/* 2c. Keyframes untuk guliran horizontal yang sangat halus */
-@keyframes smooth-scroll-marquee {
-    0%   { transform: translateX(0); } 
-    100% { transform: translateX(-100%); } 
 }
