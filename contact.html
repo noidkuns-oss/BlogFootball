@@ -3,70 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Contact | BlogFootball</title>
+  <title>Hubungi Kami | BlogFootball</title>
   <link rel="stylesheet" href="style.css" />
+  <!-- AOS CSS untuk Animasi -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <h1>BlogFootball</h1>
-      <p>Berita & Hasil Sepak Bola Terbaru</p>
+  <header id="siteHeader">
+    <div class="header-inner">
+      <div class="logo-area">
+          <!-- Gambar logo disarankan:  -->
+          <div class="site-logo"></div>
+          <div>
+              <h1 class="site-title">Blog<span>Football</span></h1>
+              <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
+          </div>
+      </div>
+      <nav class="site-nav" aria-label="Main navigation">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+      </nav>
     </div>
-    <nav>
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li><a href="about.html">About</a></li>
-        <li><a href="contact.html" class="active">Contact</a></li>
-      </ul>
-    </nav>
   </header>
 
-  <main class="contact-container">
+  <main class="contact-container" data-aos="fade-up">
     <h2>Hubungi Kami</h2>
-    <p>Isi formulir di bawah untuk mengirim pesan atau saran kepada kami.</p>
+    <p>Kami sangat menghargai masukan, pertanyaan, atau saran Anda. Silakan isi formulir di bawah ini untuk mengirim pesan kepada kami.</p>
 
+    <!-- Pastikan action ini mengarah ke URL Formspree Anda yang sebenarnya -->
     <form action="https://formspree.io/f/xyzbljaw" method="POST" class="contact-form">
-      <label for="nama">Nama:</label>
-      <input type="text" id="nama" name="nama" placeholder="Nama kamu" required />
+      <div class="form-group">
+        <label for="nama">Nama Lengkap:</label>
+        <input type="text" id="nama" name="nama" placeholder="Masukkan nama kamu" required />
+      </div>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="_replyto" placeholder="Alamat email" required />
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <!-- name="_replyto" penting untuk Formspree agar bisa membalas email -->
+        <input type="email" id="email" name="_replyto" placeholder="alamat@email.com" required />
+      </div>
 
-      <label for="pesan">Pesan:</label>
-      <textarea id="pesan" name="pesan" placeholder="Tulis pesanmu di sini..." required></textarea>
+      <div class="form-group">
+        <label for="pesan">Pesan:</label>
+        <textarea id="pesan" name="pesan" placeholder="Tulis pesanmu di sini..." required></textarea>
+      </div>
 
-      <button type="submit">Kirim</button>
+      <button type="submit">Kirim Pesan</button>
 
-      <p id="formStatus"></p>
+      <!-- Status pesan akan ditampilkan di sini -->
+      <p id="formStatus" class="form-status-message" aria-live="polite"></p>
     </form>
   </main>
 
-  <footer>
+  <footer data-aos="fade-up" data-aos-delay="50">
     <p>&copy; 2025 BlogFootball. Semua hak dilindungi.</p>
   </footer>
 
+  <!-- AOS Script untuk efek animasi -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    // Inisialisasi AOS
+    if (typeof AOS !== 'undefined') {
+        AOS.init({
+            duration: 900,
+            easing: 'ease-out-cubic',
+            once: true,
+            mirror: false,
+            offset: 80,
+        });
+    }
+
+    // JavaScript untuk menangani pengiriman formulir menggunakan Formspree
     const form = document.querySelector(".contact-form");
     const statusText = document.getElementById("formStatus");
 
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const data = new FormData(form);
+      
+      // Tampilkan status loading
       statusText.textContent = "Mengirim...";
+      statusText.classList.remove('success', 'error');
+
       try {
         const response = await fetch(form.action, {
           method: "POST",
           body: data,
           headers: { Accept: "application/json" }
         });
+
         if (response.ok) {
-          statusText.textContent = "✅ Pesan berhasil dikirim!";
+          // Sukses
+          statusText.textContent = "✅ Pesan berhasil dikirim! Kami akan segera menghubungi Anda.";
+          statusText.classList.add('success');
           form.reset();
         } else {
-          statusText.textContent = "⚠️ Gagal mengirim pesan. Coba lagi nanti.";
+          // Gagal, coba ambil pesan error dari Formspree jika ada
+          const responseData = await response.json();
+          if (responseData.errors) {
+            statusText.textContent = `⚠️ Gagal mengirim: ${responseData.errors.map(err => err.message).join(", ")}`;
+          } else {
+            statusText.textContent = "⚠️ Gagal mengirim pesan. Coba lagi nanti.";
+          }
+          statusText.classList.add('error');
         }
-      } catch (error) {
-        statusText.textContent = "❌ Terjadi kesalahan koneksi.";
+      } catch (err) {
+        // Gagal karena masalah koneksi/jaringan
+        console.error("Kesalahan pengiriman form:", err);
+        statusText.textContent = "❌ Terjadi masalah koneksi. Periksa jaringan Anda.";
+        statusText.classList.add('error');
       }
     });
   </script>
