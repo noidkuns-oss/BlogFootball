@@ -30,8 +30,9 @@
                     <li><a href="#">Eropa</a></li>
                     <li><a href="#">Dunia</a></li>
                     <li><a href="#">Jadwal & Skor</a></li>
-                    <li><a href="#">Bolatainment</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Bokstainment</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -54,22 +55,104 @@
         </div>
     </div>
 
-    <main>
-        <section class="main-article-section" data-aos="fade-up-left" data-aos-duration="1200" data-aos-easing="ease-out-quad">
-            <div class="main-article"></div>
-        </section>
+    <!-- START: Tata Letak 3 Kolom -->
+    <div class="main-page-wrapper"> 
+        
+        <!-- 1. KOLOM KIRI (SIDEBAR KOMUNITAS) -->
+        <aside class="sidebar left-sidebar">
+            <div class="sidebar-block" data-aos="fade-right" data-aos-delay="100">
+                <h3>Gabung Komunitas</h3>
+                <p>Ikuti kami di media sosial untuk update tercepat!</p>
+                <div class="social-icons">
+                  <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10.5-5.9 14.7-14.7 12.3-.6-.3-1.4-.7-1.8-1.2 2.4-.2 4.1-1.3 5.3-3.4-1.3-.8-2.6-2.2-3.2-4.1 1.1-.3 2.2-.4 3.2-.3C4.8 7.3 3.5 5.2 2 4c.8.3 1.5.5 2.2.6C.4 7.6-1.5 12.1 2 16.5c2.9 3.2 6.7 4.7 10.5 4.7 1.2 0 2.3-.1 3.4-.3 1.8 1.9 4.3 2.7 7.1 2.3.5.1 1 0 1.5-.1 0-.1 0-.2 0-.3z"/></svg></a>
+                  <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                  <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.19 19.34a.97.97 0 0 1-.84.28c-.89.04-3.59-.09-6.38-2.67-4.14-3.8-5.83-7.51-5.83-7.51a.63.63 0 0 1 0-.87l.95-.94c.14-.13.33-.2.53-.2.2 0 .4.07.54.2l12.7 12.7c.14.13.21.33.21.53.01.2-.06.4-.2.54z"></path><path d="M16.14 7.55L2.12 19.34"></path></svg></a>
+                </div>
+            </div>
 
-        <section class="articles-section">
-            <div class="articles-container" aria-live="polite"></div>
-        </section>
-    </main>
+            <div class="sidebar-block" data-aos="fade-right" data-aos-delay="200">
+                <h3>Langganan Newsletter</h3>
+                <p>Dapatkan rangkuman berita utama setiap hari.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Email Anda" required>
+                    <button type="submit">Daftar</button>
+                </form>
+            </div>
+            
+            <div class="sidebar-block" data-aos="fade-right" data-aos-delay="300">
+                <h3>Jadwal Hari Ini</h3>
+                <ul class="schedule-list">
+                    <li><span class="team">Arsenal</span> vs <span class="team">Chelsea</span> (21:00 WIB)</li>
+                    <li><span class="team">Dortmund</span> vs <span class="team">Bayern</span> (00:30 WIB)</li>
+                    <!-- Data dummy, diganti oleh JS jika perlu -->
+                </ul>
+            </div>
+        </aside>
+        
+        <!-- 2. KOLOM TENGAH (KONTEN UTAMA) -->
+        <main>
+            <section class="main-article-section" data-aos="fade-up-left" data-aos-duration="1200" data-aos-easing="ease-out-quad">
+                <!-- Artikel Headline Utama akan dirender di sini oleh JS -->
+                <div class="main-article"></div>
+            </section>
+            
+            <!-- Tambahan: Area untuk Scroll Otomatis (Carousel) -->
+            <h2 class="section-title" data-aos="fade-up">Trending Pekan Ini</h2>
+            <section class="carousel-section" data-aos="fade-up" data-aos-delay="100">
+                <div class="horizontal-scroll-container auto-scroll-section" id="auto-carousel">
+                    <!-- Artikel Card Horizontal akan dirender di sini oleh JS -->
+                    <!-- JANGAN HAPUS, diganti oleh JS: -->
+                    <p style="text-align:center; color:var(--muted); padding:20px;">Memuat artikel trending...</p>
+                </div>
+            </section>
+            
+            <h2 class="section-title" data-aos="fade-up">Berita Lainnya</h2>
+            <section class="articles-section" data-aos="fade-up" data-aos-delay="100">
+                <div class="articles-container" aria-live="polite">
+                    <!-- Artikel Grid akan dirender di sini oleh JS -->
+                </div>
+            </section>
+        </main>
+        
+        <!-- 3. KOLOM KANAN (SIDEBAR IKLAN & POPULER) -->
+        <aside class="sidebar right-sidebar">
+            <div class="sidebar-block sticky-ad-placeholder" data-aos="fade-left" data-aos-delay="100">
+                <h3>Iklan Sponsor</h3>
+                <!-- WAJIB: Placeholder untuk AdSense/Iklan Vertikal (300x600) -->
+                <div class="ad-unit ad-vertical">
+                    <p>Iklan Anda Disini (300x600)</p>
+                </div>
+            </div>
+            
+            <div class="sidebar-block" data-aos="fade-left" data-aos-delay="200">
+                <h3>Top 5 Terpopuler</h3>
+                <ul class="popular-list" id="popularList">
+                    <!-- Daftar 5 artikel terpopuler/terbaru (dirender oleh JS) -->
+                    <li><a href="#">Memuat daftar...</a></li>
+                </ul>
+            </div>
+            
+            <div class="sidebar-block" data-aos="fade-left" data-aos-delay="300">
+                <h3>Kategori Cepat</h3>
+                <ul class="category-links">
+                    <li><a href="#">Premier League</a></li>
+                    <li><a href="#">La Liga</a></li>
+                    <li><a href="#">Liga 1 Indonesia</a></li>
+                    <li><a href="#">Transfer</a></li>
+                </ul>
+            </div>
+        </aside>
+        
+    </div>
+    <!-- END: Tata Letak 3 Kolom -->
 
     <footer data-aos="fade-up" data-aos-delay="50">
+        <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <p>© 2025 BlogFootball. Semua hak cipta dilindungi.</p>
     </footer>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <script src="script.js" defer></script>
+    
+    <script src="articles.js"></script>
+    <script src="script.js"></script>
+    
 </body>
 </html>
