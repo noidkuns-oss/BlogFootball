@@ -99,7 +99,9 @@ async function loadArticles() {
                 <div class="main-article-content">
                     <img class="main-image" src="${main.image}" alt="${escapeHtml(main.title)}" />
                     <div class="main-info">
-                        <h2>${escapeHtml(main.title)}</h2>
+                        <div class="headline-scroll-wrapper">
+                             <h2 class="scrolling-headline">${escapeHtml(main.title)}</h2>
+                        </div>
                         <div class="meta">${escapeHtml(main.date)} • ${escapeHtml(main.category)}</div>
                         <p>${escapeHtml(main.excerpt)}</p>
                         <a class="read-more-btn" href="${main.link}">Baca Selengkapnya</a>
