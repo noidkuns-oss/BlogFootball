@@ -17,7 +17,7 @@
 /* Global Reset & Smooth Transition */
 *, *::before, *::after {
   box-sizing: border-box;
-  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease, transform 0.3s ease;
 }
 html, body { height: 100%; }
 body {
@@ -30,26 +30,30 @@ body {
 }
 
 h1, h2, h3, h4, p, ul { margin: 0; padding: 0; }
+ul { list-style: none; }
+a { text-decoration: none; color: var(--accent); }
+a:hover { color: #5ad8ff; }
 
 
 /* ===== HEADER (STICKY UTAMA) ===== */
 header#siteHeader {
   width: 100%;
-  position: sticky; /* HANYA HEADER YANG STICKY */
+  position: sticky; 
   top: 0;          
   z-index: 1000;
   backdrop-filter: blur(8px);
-  background: rgba(0, 31, 57, var(--glass-alpha));
+  background: rgba(0, 31, 62, var(--glass-alpha)); /* Sedikit lebih gelap */
   border-bottom: 1px solid rgba(0, 180, 255, 0.1);
-  box-shadow: 0 4px 12px var(--shadow-color);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 .header-inner {
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 20px;
 }
 .logo-area {
   display: flex;
@@ -57,389 +61,468 @@ header#siteHeader {
   gap: 10px;
 }
 .site-logo {
-  height: 40px; 
-  width: auto;
+  width: 40px;
+  height: 40px;
 }
 .site-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: white;
-  text-shadow: 0 0 10px rgba(0, 180, 255, 0.5);
+  color: #fff;
+  line-height: 1;
 }
 .site-title span {
   color: var(--accent);
 }
 .small-tagline {
-  font-size: 0.75rem;
+  font-size: 0.7rem;
   color: var(--muted);
+  margin-top: 2px;
 }
-/* Navigasi */
 .site-nav ul {
-  list-style: none;
   display: flex;
   gap: 20px;
 }
 .site-nav a {
-  text-decoration: none;
-  color: #e6f7ff;
+  color: #fff;
+  padding: 5px 10px;
   font-weight: 500;
-  padding: 5px 0;
   position: relative;
+  transition: color 0.2s ease;
 }
-.site-nav a::after {
+.site-nav a:hover, .site-nav a.active {
+  color: var(--accent);
+}
+.site-nav a.active::after {
   content: '';
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
   height: 2px;
-  background: var(--accent);
-  transition: width 0.3s ease;
-}
-.site-nav a:hover::after, .site-nav a.active::after {
-  width: 100%;
+  background-color: var(--accent);
+  border-radius: 2px;
 }
 
-/* Live Score Ticker */
+/* ===== LIVE SCORE TICKER ===== */
 .live-score-ticker {
-  background: var(--panel);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 5px 0;
   overflow: hidden;
-  height: 35px;
-  display: flex;
-  align-items: center;
-  border-top: 1px solid rgba(255,255,255,0.05);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
 }
 .ticker-wrapper {
-  width: 100%;
-  overflow: hidden;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
 }
 .ticker-content {
   display: flex;
   white-space: nowrap;
-  animation: scrollTicker 30s linear infinite; /* Kecepatan default */
-  padding: 0 100%; /* Agar ada ruang kosong di awal/akhir */
+  animation: scroll-ticker 60s linear infinite;
+  padding: 5px 0;
 }
-@keyframes scrollTicker {
-  from { transform: translateX(0); }
-  to { transform: translateX(-100%); }
+.ticker-content:hover {
+  animation-play-state: paused;
 }
-.score-item {
-  display: inline-flex;
-  align-items: center;
-  gap: 15px;
-  margin-right: 30px;
-  font-size: 0.85rem;
-  font-weight: 600;
+.match-score {
+  display: inline-block;
   color: #fff;
-  padding: 0 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0 15px;
+  border-radius: 4px;
+  margin-right: 25px;
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.1s ease;
 }
-.score-item .status {
+.match-score:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1px);
+}
+.match-score .status {
   color: var(--accent);
-  margin-left: -5px;
+  margin-right: 5px;
+  font-size: 0.8rem;
   font-weight: 700;
 }
-.score-item .score {
-  color: #e6f7ff;
-  background-color: #333;
-  padding: 2px 6px;
-  border-radius: 4px;
-}
-.score-item .no-match {
+.no-match {
     color: var(--muted);
-    font-style: italic;
-    width: 100%;
-    text-align: center;
+    padding: 0 15px;
 }
-.score-item .team {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-.score-item img {
-    height: 16px;
-    width: 16px;
-    object-fit: contain;
-    border-radius: 50%;
+@keyframes scroll-ticker {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 }
 
 
-/* ===== TATA LETAK UTAMA 3 KOLOM (BARU) ===== */
+/* ======================================================
+   3-COLUMN LAYOUT (BARU) - MAIN PAGE WRAPPER
+   ====================================================== */
 .main-page-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 30px; /* Jarak antar kolom */
-    padding: 20px;
-    max-width: 1300px; /* Batasi lebar total */
-    margin: 0 auto;
+    display: grid;
+    /* Grid 3 kolom: 250px (kiri) | minmax(600px, 1fr) (tengah) | 300px (kanan) */
+    grid-template-columns: 250px minmax(600px, 1fr) 300px; 
+    gap: 30px;
+    max-width: 1300px;
+    margin: 30px auto;
+    padding: 0 20px;
 }
 
+/* Kolom Utama (main) */
 main {
-    flex-grow: 1; /* Konten utama akan mengambil ruang sisa */
-    min-width: 600px; /* Lebar minimum untuk kenyamanan membaca */
+    grid-column: 2; /* Di tengah */
 }
 
-/* Sidebar Styling */
+/* Sidebar (kiri dan kanan) */
 .sidebar {
-    width: 280px; /* Lebar Sidebar Tetap */
-    padding: 0;
-    margin: 0;
-}
-.sidebar-block {
-    background-color: var(--sidebar-bg); /* Latar belakang blok sidebar */
-    border-radius: 10px;
     padding: 15px;
+}
+.left-sidebar {
+    grid-column: 1; /* Di kiri */
+}
+.right-sidebar {
+    grid-column: 3; /* Di kanan */
+}
+
+.sidebar-block {
+    background: var(--sidebar-bg);
+    padding: 20px;
+    border-radius: 12px;
     margin-bottom: 25px;
-    border: 1px solid rgba(0, 180, 255, 0.1);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
 }
 .sidebar-block h3 {
-    color: var(--accent);
+    font-size: 1.15rem;
+    color: var(--card-title);
     margin-bottom: 15px;
-    font-size: 1.2rem;
-    border-bottom: 2px solid rgba(0, 180, 255, 0.2);
+    border-bottom: 2px solid var(--accent);
     padding-bottom: 5px;
+    display: inline-block;
 }
 
-/* Sidebar Kanan Sticky (Penting untuk Iklan) */
-.right-sidebar .sticky-ad-placeholder {
-    position: sticky;
-    top: 100px; /* Jarak dari atas (di bawah header) */
-    height: fit-content;
-}
-
-/* Social Icons */
-.social-icons {
-    display: flex;
-    gap: 15px;
-    margin-top: 10px;
-}
+/* Style Komunitas & Newsletter */
 .social-icons a {
+    font-size: 24px;
+    margin-right: 15px;
+    color: var(--muted);
+    transition: color 0.2s ease;
+}
+.social-icons a:hover {
     color: var(--accent);
 }
-.social-icons svg {
-    width: 30px;
-    height: 30px;
-    transition: transform 0.2s ease;
-}
-.social-icons svg:hover {
-    transform: scale(1.1);
-    color: white;
-}
-
-/* Newsletter Form */
 .newsletter-form input {
     width: 100%;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid var(--accent);
-    border-radius: 5px;
-    background-color: var(--bg);
-    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
 }
 .newsletter-form button {
     width: 100%;
     padding: 10px;
-    background-color: var(--accent);
+    background: var(--accent);
     color: var(--bg);
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
+    font-weight: 700;
     cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s ease;
 }
 .newsletter-form button:hover {
-    background-color: #007bff;
+    background: #5ad8ff;
 }
-
-/* Popular List & Category Links */
-.popular-list, .category-links {
-    list-style: none;
-    padding: 0;
-}
-.popular-list li, .category-links li {
+.schedule-list li {
     padding: 8px 0;
-    border-bottom: 1px dashed rgba(255,255,255,0.05);
-}
-.popular-list a, .category-links a {
-    color: var(--muted);
-    text-decoration: none;
-    transition: color 0.2s ease;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.1);
     font-size: 0.95rem;
 }
-.popular-list a:hover, .category-links a:hover {
-    color: var(--accent);
-    text-decoration: underline;
+.schedule-list li:last-child {
+    border-bottom: none;
+}
+.schedule-list .team {
+    font-weight: 600;
+    color: #fff;
 }
 
-
-/* Live Status Bar */
-.live-status-bar {
-    background: #1e2430;
-    color: #e6f7ff;
-    padding: 10px 15px;
-    margin-bottom: 20px;
+/* Iklan Placeholder */
+.ad-unit {
+    background: #202b3c;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     border-radius: 8px;
     font-size: 0.9rem;
-    border: 1px solid rgba(0, 180, 255, 0.1);
+    text-align: center;
+    border: 2px dashed rgba(255, 255, 255, 0.2);
+}
+.ad-vertical {
+    min-height: 600px; /* Tinggi standar iklan vertikal */
 }
 
-/* ===== KONSISTENSI GAMBAR (PENTING!) ===== */
-/* Wrapper untuk semua gambar artikel. Ini membuat rasio 16:9 yang konsisten */
-.image-wrapper {
-    width: 100%;
-    padding-top: 56.25%; /* 16:9 Aspect Ratio (9/16 * 100%) */
+/* Top Populer List */
+.popular-list li {
+    margin-bottom: 10px;
+    padding-left: 0;
     position: relative;
+    font-size: 0.95rem;
+}
+.popular-list li a {
+    color: #fff;
+    font-weight: 500;
+    display: block;
+    line-height: 1.4;
+}
+.popular-list li a:hover {
+    color: var(--accent);
+}
+.popular-list li::before {
+    content: '★';
+    color: var(--card-title);
+    margin-right: 8px;
+    font-size: 0.8em;
+}
+
+/* Kategori Cepat */
+.category-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.category-links li a {
+    display: inline-block;
+    background: rgba(0, 180, 255, 0.1);
+    color: var(--accent);
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+.category-links li a:hover {
+    background: var(--accent);
+    color: var(--bg);
+}
+
+/* STICKY ADS (tambahan dari style(3).css) */
+.sticky-ad-placeholder {
+    position: sticky;
+    top: 130px; /* Menyesuaikan agar di bawah header */
+}
+
+/* ======================================================
+   CONTENT CARDS
+   ====================================================== */
+
+/* Artikel Utama (Headline) */
+.section-title {
+    font-size: 2rem;
+    color: #fff;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    border-left: 5px solid var(--accent);
+    padding-left: 15px;
+    font-weight: 700;
+}
+.main-article-section {
+    padding-top: 10px;
+}
+.main-headline-card {
+    background: var(--panel);
+    border-radius: 16px;
     overflow: hidden;
-    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    display: flex;
+    min-height: 400px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.main-headline-card:hover .image-overlay {
+    background: rgba(0, 0, 0, 0.3);
+}
+.main-headline-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+}
+.main-headline-card:hover img {
+    transform: scale(1.03);
+}
+.headline-image {
+    width: 60%;
+    overflow: hidden;
+    position: relative;
+}
+.headline-content {
+    width: 40%;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.headline-content .tag {
+    color: var(--accent);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.headline-content h2 {
+    font-size: 1.8rem;
+    color: var(--card-title);
+    line-height: 1.3;
+    margin-bottom: 15px;
+    font-weight: 800;
+}
+.headline-content p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Agar deskripsi memenuhi ruang */
+}
+.headline-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+}
+.headline-meta span {
+    font-weight: 600;
+}
+
+/* Overlay Transparan */
+.image-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    transition: background 0.3s ease;
+}
+
+
+/* Area Horizontal Scroll (Trending) */
+.horizontal-scroll-container {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding: 10px 0 20px 0;
+    margin-bottom: 20px;
+    scrollbar-width: none; /* Firefox */
+}
+.horizontal-scroll-container::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+.horizontal-scroll-container.auto-scroll-section {
+    padding-bottom: 50px; /* Lebih banyak ruang untuk efek visual */
+}
+
+.horizontal-card {
+    flex: 0 0 350px; /* Lebar tetap untuk kartu horizontal */
+    background: var(--panel);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+.horizontal-card:hover {
+    transform: translateY(-5px);
+}
+.horizontal-card .card-image {
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+}
+.horizontal-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.horizontal-card:hover .card-image img {
+    transform: scale(1.05);
+}
+.horizontal-card .card-content {
+    padding: 15px;
+}
+.horizontal-card .card-content h4 {
+    font-size: 1.1rem;
+    color: var(--card-title);
+    margin-bottom: 10px;
+    font-weight: 700;
+    line-height: 1.4;
+}
+.horizontal-card .card-content p {
+    font-size: 0.9rem;
+    color: var(--muted);
     margin-bottom: 10px;
 }
 
-.image-wrapper img {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Kunci: Memastikan gambar mengisi ruang tanpa distorsi */
-}
-
-/* Card Styling (Diperbarui untuk mendukung Image Wrapper) */
-.main-headline-card .image-wrapper {
-    padding-top: 50%; /* Rasio lebih lebar untuk headline utama (2:1) */
-}
-.article-card {
-    background: var(--panel);
-    border-radius: 12px;
-    padding: 15px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-}
-.card-content h3 {
-    color: var(--card-title);
-    font-size: 1rem;
-    margin-bottom: 5px;
-    font-weight: 600;
-}
-.article-meta {
-    font-size: 0.75rem;
-    color: var(--muted);
-    display: block;
-    margin-bottom: 8px;
-}
-
-
-/* ===== SCROLL OTOMATIS (CAROUSEL) ===== */
-.horizontal-scroll-container {
-    overflow-x: scroll; 
-    white-space: nowrap; /* Mencegah item turun baris */
-    scroll-behavior: smooth;
-    padding-bottom: 15px; /* Ruang untuk scrollbar */
-    margin-bottom: 25px;
-}
-
-/* Scrollbar Kustom (Indikasi Biru) */
-.horizontal-scroll-container::-webkit-scrollbar {
-    height: 8px;
-}
-.horizontal-scroll-container::-webkit-scrollbar-thumb {
-    background: var(--accent); /* Warna biru menonjol */
-    border-radius: 4px;
-}
-.horizontal-scroll-container::-webkit-scrollbar-track {
-    background: var(--sidebar-bg); /* Latar belakang gelap */
-    border-radius: 4px;
-}
-
-/* Card di dalam Carousel */
-.horizontal-card {
-    display: inline-block;
-    width: 320px; /* Lebar card di carousel */
-    margin-right: 20px;
-    white-space: normal;
-    vertical-align: top;
-}
-
-/* Artikel Grid (Untuk di bawah carousel) */
-.articles-section {
-    padding: 0;
-}
+/* Artikel Grid (Berita Lainnya) */
 .articles-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 20px;
-}
-.section-title {
-    color: white;
-    font-size: 1.8rem;
-    margin-top: 20px;
-    margin-bottom: 15px;
-    border-left: 5px solid var(--accent);
-    padding-left: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
 }
 
-
-/* --- Responsive Adjustments --- */
-@media (max-width: 1100px) {
-    /* Hapus Layout 3 Kolom dan Ubah ke 1 Kolom */
-    .main-page-wrapper {
-        flex-direction: column;
-        gap: 0;
-    }
-    main {
-        min-width: unset;
-        width: 100%;
-        padding: 0 20px;
-        order: 1; /* Konten utama di atas */
-    }
-    .sidebar {
-        width: 100%;
-        padding: 0 20px;
-        order: 2; /* Sidebar di bawah konten utama */
-    }
-    .left-sidebar {
-        order: 3;
-    }
-    
-    /* Hapus Sticky di Mobile */
-    .right-sidebar .sticky-ad-placeholder {
-        position: static; 
-    }
-    
-    .horizontal-scroll-container {
-        /* Tambah padding agar scrollbar tidak menempel di pinggir */
-        padding-left: 0; 
-        padding-right: 20px;
-    }
-    .horizontal-card {
-        width: 85%; /* Card horizontal menjadi lebih lebar di mobile */
-    }
+.grid-card {
+    background: var(--panel);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+}
+.grid-card:hover {
+    transform: translateY(-5px);
+}
+.grid-card .card-image {
+    height: 160px;
+    overflow: hidden;
+    position: relative;
+}
+.grid-card .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+.grid-card:hover .card-image img {
+    transform: scale(1.05);
+}
+.grid-card .card-content {
+    padding: 15px;
+    flex-grow: 1;
+}
+.grid-card .card-content h4 {
+    font-size: 1rem;
+    color: var(--card-title);
+    margin-bottom: 8px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+.grid-card .card-content p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 10px;
 }
 
-@media (max-width: 600px) {
-    .header-inner {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    .site-nav ul {
-        gap: 10px;
-        justify-content: space-around;
-        width: 100%;
-        flex-wrap: wrap;
-    }
-    .site-nav {
-        width: 100%;
-    }
-    .site-title {
-        font-size: 1.3rem;
-    }
-    .main-headline-card {
-        padding: 10px;
-    }
-    .articles-container {
-        grid-template-columns: 1fr;
-    }
-}
 
+/* ===== ANIMATION ON SCROLL (AOS) Override ===== */
+.aos-init {
+  opacity: 0;
+  transition: opacity, transform;
+}
+.aos-animate {
+  opacity: 1;
+}
 
 /* modal */
 .match-details-modal{ 
@@ -460,6 +543,145 @@ main {
 .modal-header{ display:flex; justify-content:space-between; align-items:center; margin-bottom:15px }
 .close-btn{ background:transparent; border:0; color:var(--muted); font-size:24px; cursor:pointer; transition: color .2s ease; }
 .close-btn:hover { color: var(--accent); }
+.stats-list { font-size: 0.95rem; }
+.stats-list h4 { color: var(--accent); margin-top: 15px; margin-bottom: 5px; }
+.stats-list ul { margin-left: 20px; padding-left: 0; list-style-type: disc; color: var(--muted); }
+.stats-list li { margin-bottom: 3px; }
 
 /* footer */
-footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid rgba(255,255,255,0.05); margin-top: 40px; }
+footer{ text-align:center; padding:30px 0; color:#9db9cf; border-top:1px solid rgba(255,255,255,0.1) }
+
+/* ======================================================
+   RESPONSIVE (BARU)
+   ====================================================== */
+@media (max-width: 1200px) {
+    /* Penyesuaian tata letak untuk tablet besar */
+    .main-page-wrapper {
+        /* Mengurangi lebar kolom samping, dan menambah gap */
+        grid-template-columns: 200px minmax(1fr, 800px) 250px;
+        gap: 20px;
+    }
+}
+
+@media (max-width: 992px) {
+    /* Tablet & Desktop Kecil */
+    .main-page-wrapper {
+        /* 2 kolom: Sidebar Kiri dan Konten Utama + Sidebar Kanan di bawah */
+        grid-template-columns: 1fr;
+        max-width: 850px;
+    }
+    .left-sidebar {
+        grid-column: 1;
+        order: 1; /* Sidebar kiri di atas */
+    }
+    main {
+        grid-column: 1;
+        order: 2; /* Konten utama di tengah */
+    }
+    .right-sidebar {
+        grid-column: 1;
+        order: 3; /* Sidebar kanan di bawah konten utama */
+    }
+    
+    .sticky-ad-placeholder {
+        position: static; /* Hilangkan sticky di mobile/tablet */
+    }
+
+    .main-headline-card {
+        flex-direction: column;
+        min-height: 0;
+    }
+    .headline-image, .headline-content {
+        width: 100%;
+        height: auto;
+    }
+    .headline-image {
+        height: 250px;
+    }
+    .headline-content h2 {
+        font-size: 1.6rem;
+    }
+    .articles-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    /* Mobile Landscape & Tablet Kecil */
+    .header-inner {
+        flex-wrap: wrap;
+        padding-top: 15px;
+        padding-bottom: 5px;
+    }
+    .site-nav {
+        order: 3; /* Navigasi di bawah logo */
+        width: 100%;
+        margin-top: 10px;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-top: 10px;
+    }
+    .site-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px 10px;
+    }
+    .site-nav a.active::after {
+        bottom: -8px;
+    }
+    
+    .live-score-ticker {
+        padding: 8px 0;
+    }
+    .main-page-wrapper {
+        padding: 20px 10px;
+        gap: 20px;
+    }
+
+    .section-title {
+        font-size: 1.7rem;
+    }
+
+    .horizontal-scroll-container {
+        padding-left: 0; 
+        padding-right: 20px;
+    }
+    .horizontal-card {
+        flex: 0 0 80%; /* Card horizontal menjadi lebih lebar di mobile */
+    }
+}
+
+@media (max-width: 600px) {
+    /* Mobile Portrait */
+    .header-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding-top: 10px;
+        padding-bottom: 0;
+    }
+    .logo-area {
+        width: 100%;
+        justify-content: center;
+    }
+    .site-nav ul {
+        gap: 10px;
+        justify-content: space-around;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+    .site-nav {
+        width: 100%;
+        margin-top: 5px;
+    }
+    .site-title {
+        font-size: 1.3rem;
+    }
+    .headline-content {
+        padding: 20px;
+    }
+    .headline-content h2 {
+        font-size: 1.4rem;
+    }
+    .articles-container {
+        grid-template-columns: 1fr;
+    }
+}
