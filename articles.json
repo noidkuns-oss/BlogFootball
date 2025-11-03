@@ -23,220 +23,85 @@
     "excerpt": "Barca kembali gagal menang di laga tandang, memperpanjang tren negatif mereka.",
     "link": "#"
   },
+  [
   {
-    "title": "Liverpool Dominates at Anfield",
-    "date": "30 Okt 2025",
-    "category": "Premier League",
-    "image": "images/thumb4.png",
-    "excerpt": "Liverpool menundukkan Aston Villa 3–0 lewat permainan agresif dan penguasaan bola tinggi.",
+    "title": "AC Milan Panaskan Scudetto: Gol Pavlovic Tumbangkan AS Roma di Olimpico",
+    "date": "03 Nov 2025",
+    "category": "Serie A",
+    "image": "images/thumb1.png",
+    "excerpt": "Gol tunggal Strahinja Pavlovic dan penyelamatan krusial Mike Maignan atas penalti Dybala memastikan kemenangan 1-0 Milan di laga sengit.",
     "link": "#"
   },
   {
-    "title": "Man City Back on Top After Win",
-    "date": "29 Okt 2025",
+    "title": "Liverpool Akhiri Tren Negatif: The Reds Taklukkan Aston Villa 2-0 di Anfield",
+    "date": "02 Nov 2025",
+    "category": "Premier League",
+    "image": "images/thumb2.png",
+    "excerpt": "Liverpool kembali ke jalur kemenangan dengan skor 2-0, mengakhiri rentetan kekalahan, meski Man City masih unggul di klasemen.",
+    "link": "#"
+  },
+  {
+    "title": "Chelsea Tekuk Tottenham 1-0 dalam Derby London Penuh Tensi",
+    "date": "02 Nov 2025",
+    "category": "Premier League",
+    "image": "images/thumb3.png",
+    "excerpt": "Gol tunggal Joao Pedro membawa Chelsea menang 1-0 di kandang Spurs dan mempertegas posisi mereka di empat besar klasemen.",
+    "link": "#"
+  },
+  {
+    "title": "Persebaya Comeback Dramatis, Taklukkan Persis Solo 2-1",
+    "date": "02 Nov 2025",
+    "category": "BRI Super League",
+    "image": "images/thumb4.png",
+    "excerpt": "Persebaya Surabaya bangkit dari ketertinggalan untuk meraih kemenangan 2-1 atas Persis Solo di Stadion GBT.",
+    "link": "#"
+  },
+  {
+    "title": "Man City Naik ke Posisi Dua Klasemen Usai Hajar Bournemouth 3-1",
+    "date": "02 Nov 2025",
     "category": "Premier League",
     "image": "images/thumb5.png",
-    "excerpt": "Kemenangan 2–1 atas Chelsea membawa Manchester City kembali ke puncak klasemen.",
+    "excerpt": "Kemenangan 3-1 atas Bournemouth membawa Manchester City menempel ketat Arsenal di puncak klasemen Liga Inggris.",
     "link": "#"
   },
   {
-    "title": "PSG Held to Draw by Marseille",
-    "date": "28 Okt 2025",
-    "category": "Ligue 1",
+    "title": "Barcelona Kembali ke Jalur Kemenangan, Hajar Elche 3-1",
+    "date": "02 Nov 2025",
+    "category": "La Liga",
     "image": "images/thumb6.png",
-    "excerpt": "Derby panas antara PSG dan Marseille berakhir imbang 2–2 dalam laga penuh tensi.",
+    "excerpt": "Gol dari Yamal dan Marcus Rashford membantu Blaugrana menang 3-1, menempel ketat Real Madrid di puncak La Liga.",
     "link": "#"
   },
   {
-    "title": "Juventus Secure Late Victory",
-    "date": "27 Okt 2025",
+    "title": "Debut Manis Spalletti: Juventus Tumbangkan Cremonese 2-1",
+    "date": "01 Nov 2025",
     "category": "Serie A",
     "image": "images/thumb7.png",
-    "excerpt": "Gol menit akhir dari Chiesa memastikan kemenangan tipis Juventus atas Lazio.",
+    "excerpt": "Luciano Spalletti memulai masa kepelatihannya di Juventus dengan kemenangan 2-1, mengakhiri rentetan hasil buruk Bianconeri.",
     "link": "#"
   },
   {
-    "title": "Arsenal Grind Out Hard-Fought Win",
-    "date": "26 Okt 2025",
+    "title": "Forest Tahan Imbang Man United 2-2, Setan Merah Gagal Geser Spurs",
+    "date": "01 Nov 2025",
     "category": "Premier League",
     "image": "images/thumb8.png",
-    "excerpt": "Arsenal tampil disiplin untuk mengalahkan Brighton 1–0 lewat gol tunggal Martinelli.",
+    "excerpt": "Manchester United harus puas dengan skor 2-2 saat bertandang ke markas Nottingham Forest, melewatkan kesempatan naik ke posisi empat.",
     "link": "#"
   },
   {
-    "title": "Inter Milan in Strong Form",
-    "date": "25 Okt 2025",
-    "category": "Serie A",
+    "title": "Persija Lumat PSBS Biak 3-1, Tembus Lima Besar Klasemen",
+    "date": "31 Okt 2025",
+    "category": "BRI Super League",
     "image": "images/thumb9.png",
-    "excerpt": "Inter memperpanjang rekor tak terkalahkan mereka dengan kemenangan 3–1 atas Napoli.",
+    "excerpt": "Kemenangan 3-1 atas PSBS Biak di Manahan membawa Persija Jakarta merangsek ke papan atas klasemen liga domestik.",
     "link": "#"
   },
   {
-    "title": "Bayern Return to Winning Ways",
-    "date": "24 Okt 2025",
-    "category": "Bundesliga",
+    "title": "Arsenal Menang Tipis 2-0 Atas Burnley, Kokoh di Puncak Klasemen",
+    "date": "01 Nov 2025",
+    "category": "Premier League",
     "image": "images/thumb10.png",
-    "excerpt": "Bayern Munich kembali ke jalur kemenangan setelah mengalahkan Stuttgart 2–0.",
-    "link": "#"
-  },
-  {
-    "title": "Ten Hag Praises United’s Resilience",
-    "date": "23 Okt 2025",
-    "category": "Premier League",
-    "image": "images/thumb11.png",
-    "excerpt": "Erik ten Hag memuji semangat juang timnya usai comeback melawan Tottenham.",
-    "link": "#"
-  },
-  {
-    "title": "Chelsea Struggles Continue",
-    "date": "22 Okt 2025",
-    "category": "Premier League",
-    "image": "images/thumb12.png",
-    "excerpt": "Chelsea kembali gagal menang setelah hanya bermain imbang tanpa gol di Stamford Bridge.",
-    "link": "#"
-  },
-  {
-    "title": "Real Sociedad Stun Atletico Madrid",
-    "date": "21 Okt 2025",
-    "category": "La Liga",
-    "image": "images/thumb13.png",
-    "excerpt": "Real Sociedad mengejutkan Atletico dengan kemenangan 2–1 di Wanda Metropolitano.",
-    "link": "#"
-  },
-  {
-    "title": "Tottenham Edge Past West Ham",
-    "date": "20 Okt 2025",
-    "category": "Premier League",
-    "image": "images/thumb14.png",
-    "excerpt": "Spurs menang tipis 2–1 berkat gol telat Son Heung-min di menit ke-87.",
-    "link": "#"
-  },
-  {
-    "title": "Napoli’s Title Hopes Fade",
-    "date": "19 Okt 2025",
-    "category": "Serie A",
-    "image": "images/thumb15.png",
-    "excerpt": "Kekalahan dari Fiorentina membuat Napoli semakin tertinggal di perburuan Scudetto.",
-    "link": "#"
-  },
-  {
-    "title": "Leverkusen Thrash Dortmund",
-    "date": "18 Okt 2025",
-    "category": "Bundesliga",
-    "image": "images/thumb16.png",
-    "excerpt": "Leverkusen tampil trengginas dan menang 4–1 atas Borussia Dortmund di kandang sendiri.",
-    "link": "#"
-  },
-  {
-    "title": "AC Milan’s New Era Begins",
-    "date": "17 Okt 2025",
-    "category": "Serie A",
-    "image": "images/thumb17.png",
-    "excerpt": "Milan memulai era baru di bawah pelatih muda mereka dengan kemenangan meyakinkan.",
-    "link": "#"
-  },
-  {
-    "title": "Newcastle Keep European Dream Alive",
-    "date": "16 Okt 2025",
-    "category": "Premier League",
-    "image": "images/thumb18.png",
-    "excerpt": "Kemenangan atas Crystal Palace menjaga peluang Newcastle lolos ke Eropa musim depan.",
-    "link": "#"
-  },
-  {
-    "title": "Roma Fight Back for Dramatic Draw",
-    "date": "15 Okt 2025",
-    "category": "Serie A",
-    "image": "images/thumb19.png",
-    "excerpt": "AS Roma menunjukkan semangat pantang menyerah setelah bangkit dari ketertinggalan dua gol.",
-    "link": "#"
-  },
-  {
-    "title": "Ajax Youngsters Impress Again",
-    "date": "14 Okt 2025",
-    "category": "Eredivisie",
-    "image": "images/thumb20.png",
-    "excerpt": "Para pemain muda Ajax kembali menunjukkan performa gemilang saat menang 3–0 atas PSV.",
-    "link": "#"
-  },
-  {
-    "title": "Atalanta Continue Surprise Run",
-    "date": "13 Okt 2025",
-    "category": "Serie A",
-    "image": "images/thumb21.png",
-    "excerpt": "Atalanta melanjutkan tren positif dengan kemenangan tandang yang mengesankan.",
-    "link": "#"
-  },
-  {
-    "title": "Sevilla Claim Late Winner",
-    "date": "12 Okt 2025",
-    "category": "La Liga",
-    "image": "images/thumb22.png",
-    "excerpt": "Gol menit akhir dari En-Nesyri membawa Sevilla menang 2–1 atas Villarreal.",
-    "link": "#"
-  },
-  {
-    "title": "Porto Crush Braga in Derby",
-    "date": "11 Okt 2025",
-    "category": "Primeira Liga",
-    "image": "images/thumb23.png",
-    "excerpt": "FC Porto tampil dominan dan menang 4–0 dalam Derby Utara Portugal melawan Braga.",
-    "link": "#"
-  },
-  {
-    "title": "Benfica Slip in Title Race",
-    "date": "10 Okt 2025",
-    "category": "Primeira Liga",
-    "image": "images/thumb24.png",
-    "excerpt": "Kekalahan mengejutkan dari Gil Vicente membuat Benfica tertinggal dari Porto.",
-    "link": "#"
-  },
-  {
-    "title": "Celtic Extend Winning Streak",
-    "date": "9 Okt 2025",
-    "category": "Scottish Premiership",
-    "image": "images/thumb25.png",
-    "excerpt": "Celtic memperpanjang rekor kemenangan mereka menjadi tujuh laga berturut-turut.",
-    "link": "#"
-  },
-  {
-    "title": "Galatasaray Triumph in Istanbul Derby",
-    "date": "8 Okt 2025",
-    "category": "Super Lig",
-    "image": "images/thumb26.png",
-    "excerpt": "Galatasaray menaklukkan Fenerbahce 3–1 di derby sengit Istanbul.",
-    "link": "#"
-  },
-  {
-    "title": "Boca Juniors Win Copa Thriller",
-    "date": "7 Okt 2025",
-    "category": "Copa Libertadores",
-    "image": "images/thumb27.png",
-    "excerpt": "Drama penalti di menit akhir membawa Boca Juniors lolos ke semifinal Copa Libertadores.",
-    "link": "#"
-  },
-  {
-    "title": "River Plate Back to Form",
-    "date": "6 Okt 2025",
-    "category": "Copa Libertadores",
-    "image": "images/thumb28.png",
-    "excerpt": "River Plate tampil dominan dan memastikan kemenangan besar di kandang.",
-    "link": "#"
-  },
-  {
-    "title": "Flamengo Dominate Brazil Serie A",
-    "date": "5 Okt 2025",
-    "category": "Serie A Brazil",
-    "image": "images/thumb29.png",
-    "excerpt": "Flamengo terus menunjukkan keperkasaan mereka di puncak klasemen liga Brasil.",
-    "link": "#"
-  },
-  {
-    "title": "Japan Secure World Cup Qualification",
-    "date": "4 Okt 2025",
-    "category": "International",
-    "image": "images/thumb30.png",
-    "excerpt": "Timnas Jepang memastikan tiket ke Piala Dunia setelah menang besar 4–1 atas Australia.",
+    "excerpt": "Arsenal mempertahankan posisi teratas mereka setelah meraih kemenangan 2-0 yang solid saat melawan Burnley.",
     "link": "#"
   }
 ]
