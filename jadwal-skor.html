@@ -4,155 +4,129 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Jadwal & Skor — BlogFootball</title>
+    
+    <!-- Poppins Font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- AOS (Animate On Scroll) -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome (for icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8WdIRuVBL4eQWn2A7n4S2kK8lB6c8J/s1c4pG1rG5Wb2G0C4F6aQvL3F/lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
     <link rel="stylesheet" href="style.css" />
+    
+    <meta name="description" content="Jadwal pertandingan dan skor terkini dari liga-liga top Eropa, dilengkapi statistik mendalam." />
     <link rel="icon" href="images/favicon.png" type="image/png" />
 </head>
 <body>
+    <!-- ====================================================== -->
+    <!-- HEADER -->
+    <!-- ====================================================== -->
     <header id="siteHeader" data-aos="fade-down" data-aos-duration="600">
         <div class="header-inner">
             <div class="logo-area">
-                <img src="https://placehold.co/40x40/00b4ff/0a0f1a?text=BF" alt="Logo BlogFootball" class="site-logo" />
-                <div>
-                    <h1 class="site-title">Blog<span>Football</span></h1>
-                    <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
-                </div>
+                <img src="https://placehold.co/180x40/0d1b2a/00b4ff?text=BLOGFOOTBALL" alt="Logo BlogFootball" class="site-logo">
             </div>
-            <nav class="site-nav" aria-label="Main navigation">
+            
+            <!-- Navigasi Utama -->
+            <nav class="site-nav">
                 <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="trending.html">Trending</a></li>
+                    <li><a href="index.html">Beranda</a></li>
                     <li><a href="eropa.html">Eropa</a></li>
                     <li><a href="dunia.html">Dunia</a></li>
+                    <li><a href="trending.html">Trending</a></li>
                     <li><a href="jadwal-skor.html" class="active">Jadwal & Skor</a></li>
                     <li><a href="bokstainment.html">Bokstainment</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
                 </ul>
             </nav>
-        </div>
-        <div class="live-score-ticker" role="region" aria-label="Live scores">
-            <div class="ticker-wrapper"><div id="liveScores" class="ticker-content"><div class="no-match">⚽ Memuat skor langsung...</div></div></div>
+
+            <!-- Tombol Mobile (hamburger) -->
+            <button class="mobile-menu-toggle" aria-label="Toggle Menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
-
-    <div class="main-page-wrapper">
-        <aside class="left-sidebar sidebar">
-            <div class="sidebar-block" data-aos="fade-right">
-                <h3>Filter Liga</h3>
-                <ul class="category-links">
-                    <li><a href="#" style="font-weight: 700; color: var(--accent);">Semua Liga</a></li>
-                    <li><a href="#">Premier League</a></li>
-                    <li><a href="#">Liga Champions</a></li>
-                    <li><a href="#">Piala Dunia</a></li>
-                    <li><a href="#">Lainnya</a></li>
-                </ul>
+    <!-- ====================================================== -->
+    <!-- LIVE TICKER (Tidak Tampil di Mobile) -->
+    <!-- ====================================================== -->
+    <div class="ticker-container" data-aos="fade-up" data-aos-delay="100">
+        <div class="ticker-wrapper">
+            <span class="ticker-label"><i class="fas fa-bolt"></i> Live:</span>
+            <div class="ticker-scroll" id="liveScoreTicker">
+                <!-- Live Scores akan dimuat di sini oleh JS -->
+                <span>Tidak ada pertandingan yang berlangsung saat ini.</span>
             </div>
-            <div class="sidebar-block" data-aos="fade-right" data-aos-delay="100">
-                <h3>Statistik Pemain</h3>
-                <ul class="popular-list">
-                    <li><a href="#">Top Skor Liga Inggris</a></li>
-                    <li><a href="#">Top Assist La Liga</a></li>
-                    <li><a href="#">Rata-Rata Penyelamatan Kiper</a></li>
-                </ul>
-            </div>
-            <div class="ad-unit ad-vertical sticky-ad-placeholder" data-aos="fade-in" data-aos-delay="200">
-                Ruang Iklan Vertikal 250x600px
-            </div>
-        </aside>
+        </div>
+    </div>
 
-        <main>
-            <section class="articles-section">
-                <h2 class="section-title">Hasil dan Jadwal Pertandingan</h2>
-                
-                <div class="score-table-container" data-aos="fade-up">
-                    <h3 class="section-title" style="font-size: 1.4rem; border-left: none; padding-left: 0; margin-bottom: 10px;">Jadwal Hari Ini</h3>
-                    <table class="score-table">
-                        <thead>
-                            <tr>
-                                <th>Waktu</th>
-                                <th>Liga</th>
-                                <th>Pertandingan</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-aos="fade-up" data-aos-delay="50">
-                                <td>20:00 WIB</td>
-                                <td>Premier League</td>
-                                <td>Manchester United vs Chelsea</td>
-                                <td class="status">Segera</td>
-                            </tr>
-                            <tr data-aos="fade-up" data-aos-delay="100">
-                                <td>22:30 WIB</td>
-                                <td>La Liga</td>
-                                <td>Real Madrid vs Atletico Madrid</td>
-                                <td class="status">Segera</td>
-                            </tr>
-                            <tr data-aos="fade-up" data-aos-delay="150">
-                                <td><span class="score-time live-status">LIVE</span></td>
-                                <td>Serie A</td>
-                                <td>AC Milan vs Inter Milan</td>
-                                <td class="status live-status">LIVE (65')</td>
-                            </tr>
-                            <tr data-aos="fade-up" data-aos-delay="200">
-                                <td>01:45 WIB</td>
-                                <td>Liga Champions</td>
-                                <td>Bayern Munchen vs Barcelona</td>
-                                <td class="status">Besok</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+    <!-- ====================================================== -->
+    <!-- PEMBUNGKUS UTAMA 3 KOLOM -->
+    <!-- ====================================================== -->
+    <div class="main-layout-grid">
+        <!-- Kolom Utama (Konten) -->
+        <main class="main-content">
+            <h1 class="page-title" data-aos="fade-right">Jadwal & Skor Terbaru</h1>
+            <p class="page-subtitle" data-aos="fade-right" data-aos-delay="50">Rekapitulasi hasil, pertandingan yang akan datang, dan klasemen liga-liga top Eropa.</p>
 
-                 <div class="score-table-container" data-aos="fade-up" style="margin-top: 40px;">
-                    <h3 class="section-title" style="font-size: 1.4rem; border-left: none; padding-left: 0; margin-bottom: 10px;">Hasil Kemarin</h3>
-                    <table class="score-table">
-                        <thead>
-                            <tr>
-                                <th>Liga</th>
-                                <th>Pertandingan</th>
-                                <th>Skor Akhir</th>
-                                <th>Pencetak Gol</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr data-aos="fade-up" data-aos-delay="50">
-                                <td>Premier League</td>
-                                <td>Liverpool vs Arsenal</td>
-                                <td class="status" style="color: var(--card-title);">3 - 1</td>
-                                <td>Salah (2), Jota / Saka</td>
-                            </tr>
-                            <tr data-aos="fade-up" data-aos-delay="100">
-                                <td>Bundesliga</td>
-                                <td>Dortmund vs Leverkusen</td>
-                                <td class="status" style="color: var(--card-title);">0 - 0</td>
-                                <td>-</td>
-                            </tr>
-                             <tr data-aos="fade-up" data-aos-delay="150">
-                                <td>Piala Asia</td>
-                                <td>Korea Selatan vs Jepang</td>
-                                <td class="status" style="color: var(--card-title);">1 - 2</td>
-                                <td>Son / Minamino, Kubo</td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <!-- BAGIAN LIVE SCORES (Sudah Selesai/On-Going) -->
+            <section class="score-section" data-aos="fade-up" data-aos-delay="100">
+                <h2><i class="fas fa-bullseye"></i> Hasil Terbaru (Live/Selesai)</h2>
+                <div class="live-scores-container" id="liveScoresContainer">
+                    <!-- Skor Live akan dimuat di sini oleh loadLiveScores() di script.js -->
+                    <p class="loading-message">Memuat skor live...</p>
                 </div>
             </section>
+            
+            <!-- MODAL DETAIL PERTANDINGAN (Disembunyikan secara default) -->
+            <div id="matchModal" class="modal" role="dialog" aria-modal="true" aria-hidden="true">
+                <div class="modal-content">
+                    <span class="close-button" id="closeModalBtn"><i class="fas fa-times"></i></span>
+                    <div id="modalContentInner">
+                        <div class="match-detail-header">
+                            <h3 id="matchModalTitle" class="match-modal-title">Detail Pertandingan</h3>
+                            <p id="matchModalStatus" class="match-modal-status"></p>
+                        </div>
+
+                        <div class="match-score-summary">
+                            <div class="team-summary">
+                                <img id="teamHomeLogo" src="" alt="Logo Home" class="team-logo-small">
+                                <span id="teamHomeName" class="team-name">Home Team</span>
+                            </div>
+                            <div class="score-summary">
+                                <span id="scoreSummary" class="score-main">0 - 0</span>
+                            </div>
+                            <div class="team-summary">
+                                <img id="teamAwayLogo" src="" alt="Logo Away" class="team-logo-small">
+                                <span id="teamAwayName" class="team-name">Away Team</span>
+                            </div>
+                        </div>
+
+                        <!-- Area untuk statistik -->
+                        <div class="match-stats-area" id="matchStats">
+                            <p>Memuat statistik...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BAGIAN JADWAL PERTANDINGAN (Mendatang) -->
+            <section class="schedule-section" data-aos="fade-up" data-aos-delay="200">
+                <h2><i class="fas fa-calendar-alt"></i> Jadwal Mendatang</h2>
+                <!-- Kontainer untuk Jadwal -->
+                <div class="fixture-list-container" id="fixtureListContainer">
+                    <!-- Jadwal akan dimuat di sini oleh loadFixtures() di script.js -->
+                    <p class="loading-message">Memuat jadwal pertandingan...</p>
+                </div>
+            </section>
+        
         </main>
 
-        <aside class="right-sidebar sidebar">
-            <!-- Isi sidebar sama dengan index.html -->
-            <div class="sidebar-block" data-aos="fade-left">
-                <h3>Jadwal Mendatang</h3>
-                <ul class="schedule-list">
-                    <li><span class="team">Madrid</span> vs <span class="team">Barca</span> (Besok)</li>
-                    <li><span class="team">Liverpool</span> vs <span class="team">City</span> (Sabtu)</li>
-                    <li><span class="team">Juve</span> vs <span class="team">Milan</span> (Minggu)</li>
-                </ul>
-            </div>
+        <!-- ====================================================== -->
+        <!-- KOLOM SAMPING (SIDEBAR) -->
+        <!-- ====================================================== -->
+        <aside class="sidebar-content">
+            
+            <!-- Blok Populer -->
             <div class="sidebar-block" data-aos="fade-left" data-aos-delay="100">
                 <h3>Top 5 Populer</h3>
                 <ul class="popular-list">
@@ -163,6 +137,8 @@
                     <li><a href="#">Kontroversi VAR terbaru: keputusan yang mengubah hasil</a></li>
                 </ul>
             </div>
+
+            <!-- Blok Kategori Cepat -->
             <div class="sidebar-block" data-aos="fade-left" data-aos-delay="200">
                 <h3>Kategori Cepat</h3>
                 <ul class="category-links">
@@ -181,7 +157,9 @@
         <p>© 2025 BlogFootball. Semua hak cipta dilindungi.</p>
     </footer>
 
+    <!-- AOS Script -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- Your JavaScript File -->
     <script src="script.js"></script>
 </body>
 </html>
