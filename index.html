@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>BlogFootball — Berita & Hasil Sepak Bola Terbaru</title>
-    
+
     <!-- Poppins Font from Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -12,185 +12,220 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
     <!-- Font Awesome (for icons) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMDJ8WdIRuVBL4eQWn2A7n4S2kK8lB6c8J/s1c4pG1rG5Wb2G0C4F6aQvL3F/lA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
+
     <link rel="stylesheet" href="style.css" />
-    
+
     <meta name="description" content="Situs berita dan hasil skor sepak bola terkini, dilengkapi live score ticker." />
     <link rel="icon" href="images/favicon.png" type="image/png" />
 </head>
 <body>
+
+    <!-- ====================================================== -->
+    <!-- MODAL DETAIL PERTANDINGAN (Modal akan diisi via JS) -->
+    <!-- ====================================================== -->
+    <div id="matchDetailsModal" class="match-details-modal" aria-hidden="true">
+        <div class="modal-content">
+            <button class="close-modal-btn" id="closeModalBtn"><i class="fas fa-times"></i></button>
+            <h2 id="modalTitle">Detail Pertandingan</h2>
+            <div class="modal-body">
+                <!-- Info Umum Pertandingan -->
+                <div class="match-header-info">
+                    <p id="matchTime"></p>
+                    <p id="matchLeague"></p>
+                    <p id="matchVenue"></p>
+                </div>
+
+                <!-- Skor & Tim -->
+                <div id="modalScoreDisplay" class="modal-score-display">
+                    <!-- Konten ini diisi oleh JS (Tim A vs Tim B & Skor) -->
+                </div>
+
+                <hr class="modal-divider">
+
+                <!-- Statistik/Event (Tab-like simple switch) -->
+                <div class="modal-tabs">
+                    <button class="tab-button active" data-tab="events">Event</button>
+                    <button class="tab-button" data-tab="stats">Statistik</button>
+                </div>
+
+                <div id="modalEventContent" class="modal-tab-content events-content active-content">
+                    <div id="matchEvents" class="events-timeline">
+                        <!-- Timeline event diisi oleh JS -->
+                    </div>
+                </div>
+
+                <div id="modalStatsContent" class="modal-tab-content stats-content">
+                    <div id="matchStats">
+                        <!-- Statistik diisi oleh JS -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!-- ====================================================== -->
+    <!-- HEADER (Sticky) -->
+    <!-- ====================================================== -->
     <header id="siteHeader" data-aos="fade-down" data-aos-duration="600">
         <div class="header-inner">
-            <div class="logo-area" data-aos="zoom-in" data-aos-easing="ease-out-cubic" data-aos-delay="50">
-                <!-- Anda mungkin perlu mengganti logo.png dengan gambar Anda sendiri atau membuat SVG/text logo -->
-                <img src="https://placehold.co/40x40/00b4ff/0a0f1a?text=BF" alt="Logo BlogFootball" class="site-logo" />
-                <div>
-                    <h1 class="site-title">Blog<span>Football</span></h1>
-                    <div class="small-tagline">Berita & Hasil Sepak Bola Terbaru</div>
-                </div>
+            <div class="logo-area">
+                <img src="https://placehold.co/40x40/0a0f1a/00b4ff?text=BF" alt="Logo BlogFootball" class="logo-icon">
+                <a href="index.html" class="site-title">Blog<span class="highlight">Football</span></a>
             </div>
-
-            <nav class="site-nav" aria-label="Main navigation" data-aos="fade-left" data-aos-delay="200">
+            <nav class="site-nav">
                 <ul>
-                    <li><a href="index.html" class="active">Home</a></li>
-                    <li><a href="trending.html">Trending</a></li>
-                    <li><a href="eropa.html">Eropa</a></li>
-                    <li><a href="dunia.html">Dunia</a></li>
-                    <li><a href="jadwal-skor.html">Jadwal & Skor</a></li>
-                    <li><a href="bokstainment.html">Bokstainment</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="index.html" class="active-link"><i class="fas fa-home"></i> Beranda</a></li>
+                    <li><a href="jadwal-skor.html"><i class="fas fa-calendar-alt"></i> Jadwal & Skor</a></li>
+                    <li><a href="eropa.html"><i class="fas fa-trophy"></i> Eropa</a></li>
+                    <li><a href="dunia.html"><i class="fas fa-globe"></i> Dunia</a></li>
+                    <li><a href="trending.html"><i class="fas fa-fire"></i> Trending</a></li>
+                    <li><a href="bokstainment.html"><i class="fas fa-camera"></i> Bokstainment</a></li>
                 </ul>
             </nav>
-        </div>
-
-        <div class="live-score-ticker" role="region" aria-label="Live scores" data-aos="fade-in" data-aos-delay="400">
-            <div class="ticker-wrapper">
-                <div id="liveScores" class="ticker-content" aria-live="polite">
-                    <div class="no-match">⚽ Memuat skor langsung...</div>
-                </div>
+            <div class="search-icon-area">
+                <i class="fas fa-search"></i>
             </div>
         </div>
     </header>
 
-    <!-- Modal untuk Detail Pertandingan -->
-    <div id="matchModal" class="match-details-modal" aria-hidden="true">
-        <div class="modal-content" role="dialog" aria-modal="true" aria-labelledby="matchTitle">
-            <div class="modal-header">
-                <h3 id="matchTitle">Detail Pertandingan</h3>
-                <button id="closeModal" class="close-btn" aria-label="Tutup">✖</button>
+    <!-- ====================================================== -->
+    <!-- LIVE SCORE TICKER (Otomatis geser) -->
+    <!-- ====================================================== -->
+    <div class="ticker-wrapper" id="liveScoreTicker" data-aos="fade-up" data-aos-delay="100">
+        <div class="ticker-label"><i class="fas fa-bolt"></i> LIVE SCORE</div>
+        <div class="ticker-content">
+            <div class="ticker-inner" id="liveMatchesContainer">
+                <!-- Konten live match dari API akan dimasukkan di sini oleh JS -->
+                <span class="ticker-item placeholder-ticker"><i class="fas fa-sync-alt fa-spin"></i> Memuat skor langsung...</span>
             </div>
-            <div id="matchStats" class="stats-list">Memuat statistik...</div>
         </div>
     </div>
-    
+
     <!-- ====================================================== -->
-    <!-- PEMBUNGKUS UTAMA 3 KOLOM -->
+    <!-- PEMBUNGKUS UTAMA 3 KOLOM: Berita Utama, Sidebar, dan Jadwal -->
     <!-- ====================================================== -->
-    <div class="main-page-wrapper">
+    <div class="main-layout-grid">
 
-        <!-- ===== KOLOM KIRI (LEFT SIDEBAR) ===== -->
-        <aside class="left-sidebar sidebar">
-            <!-- Blok Komunitas -->
-            <div class="sidebar-block" data-aos="fade-right">
-                <h3>Bergabung di Komunitas</h3>
-                <div class="social-icons">
-                    <a href="#" aria-label="Facebook"><i class="fab fa-facebook-square"></i></a>
-                    <a href="#" aria-label="Twitter"><i class="fab fa-twitter-square"></i></a>
-                    <a href="#" aria-label="Instagram"><i class="fab fa-instagram-square"></i></a>
-                    <a href="#" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-                </div>
-            </div>
-            
-            <!-- Blok Newsletter -->
-            <div class="sidebar-block" data-aos="fade-right" data-aos-delay="100">
-                <h3>Newsletter Mingguan</h3>
-                <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 10px;">Dapatkan rangkuman berita terbaik langsung ke email Anda.</p>
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Email Anda" required />
-                    <button type="submit">Subscribe</button>
-                </form>
-            </div>
+        <!-- ====================================================== -->
+        <!-- KOLOM KIRI & TENGAH: BERITA UTAMA & ARTIKEL LAINNYA -->
+        <!-- ====================================================== -->
+        <main class="main-content-area">
 
-            <!-- Iklan Vertikal (Sticky) -->
-            <div class="ad-unit ad-vertical sticky-ad-placeholder" data-aos="fade-in" data-aos-delay="200">
-                Ruang Iklan Vertikal 250x600px
-            </div>
-        </aside>
+            <!-- Bagian 1: Artikel Utama (Headline) -->
+            <section class="headline-section">
+                <h2>Berita Utama</h2>
+                <div class="main-headline-card loading-skeleton" id="mainHeadlineCard" data-aos="fade-up">
+                    <!-- Artikel Utama diisi oleh JS -->
 
-        <!-- ===== KOLOM TENGAH (MAIN CONTENT/ARTICLES) ===== -->
-        <main>
-            <!-- Konten Artikel Utama (Headline) -->
-            <section class="main-article-section">
-                <h2 class="section-title">Headline Utama</h2>
-                <div class="main-article">
-                    <!-- Placeholder: Card Utama Besar -->
-                    <a href="articles/transfer-ronaldo-terkini.html" class="main-headline-card" data-aos="zoom-in" data-aos-delay="100">
-                        <img src="https://placehold.co/800x450/1f4f7a/ffffff?text=HEADLINE+UTAMA+FOTO" alt="Ronaldo di Al Nassr" class="card-image"/>
-                        <div class="card-content">
-                            <div class="card-meta"><span class="category">Transfer</span> | 1 Jam Lalu</div>
-                            <h3 class="card-title" style="font-size: 1.8rem;">EKSKLUSIF: Drama 72 Jam Terakhir Transfer Bintang Portugal ke Eropa!</h3>
-                            <p class="card-summary">Analisis mendalam mengenai manuver klub-klub raksasa yang mencoba merekrut Cristiano Ronaldo sebelum jendela transfer ditutup...</p>
+                    <!-- Contoh Struktur Placeholder -->
+                    <div class="article-image-area">
+                        <img src="https://placehold.co/600x400/0d1b2a/9fc7db?text=HEADER" alt="Gambar Utama Artikel" onerror="this.src='https://placehold.co/600x400/0d1b2a/9fc7db?text=GAMBAR+TIDAK+TERSEDIA';">
+                    </div>
+                    <div class="article-content-area">
+                        <span class="article-category">Kategori</span>
+                        <h1 class="article-title">Judul Berita Utama yang Sangat Panjang dan Menarik</h1>
+                        <p class="article-excerpt">Ringkasan singkat dari berita utama ini untuk menarik perhatian pembaca.</p>
+                        <div class="article-meta">
+                            <span class="article-date"><i class="fas fa-calendar-alt"></i> 1 Jan 2025</span>
+                            <span class="article-read-time"><i class="fas fa-clock"></i> 5 Menit Baca</span>
                         </div>
-                    </a>
-                </div>
-            </section>
-            
-            <!-- Konten Artikel Trending (Scroll Horizontal) -->
-            <section class="articles-section">
-                <h2 class="section-title">Trending Pekan Ini</h2>
-                <div id="trendingArticles" class="horizontal-scroll-container auto-scroll-section" aria-live="polite">
-                    <!-- Placeholder: 3 Trending Cards -->
-                    <a href="articles/messi-cup-review.html" class="article-card horizontal-card" data-aos="fade-up">
-                        <img src="https://placehold.co/300x180/7a1f1f/ffffff?text=TRENDING+1" alt="Lionel Messi di Inter Miami" class="card-image" />
-                        <div class="card-content">
-                            <div class="card-meta"><span class="category">Amerika</span> | 5 Jam Lalu</div>
-                            <h3 class="card-title">Hattrick Magis Messi Bawa Miami Raih Piala Perdana di Amerika</h3>
-                        </div>
-                    </a>
-                    <a href="articles/liga-eropa-fase-grup.html" class="article-card horizontal-card" data-aos="fade-up" data-aos-delay="100">
-                        <img src="https://placehold.co/300x180/1f7a3f/ffffff?text=TRENDING+2" alt="Liga Eropa" class="card-image" />
-                        <div class="card-content">
-                            <div class="card-meta"><span class="category">Eropa</span> | 1 Hari Lalu</div>
-                            <h3 class="card-title">Undian Liga Eropa: Grup Neraka Menanti Raksasa Italia</h3>
-                        </div>
-                    </a>
-                    <a href="articles/pelatih-baru-liverpool.html" class="article-card horizontal-card" data-aos="fade-up" data-aos-delay="200">
-                        <img src="https://placehold.co/300x180/7a5f1f/ffffff?text=TRENDING+3" alt="Pelatih Liverpool" class="card-image" />
-                        <div class="card-content">
-                            <div class="card-meta"><span class="category">Premier League</span> | 2 Hari Lalu</div>
-                            <h3 class="card-title">Profil Arne Slot: Taktisi Belanda Penerus Warisan Klopp</h3>
-                        </div>
-                    </a>
+                        <a href="#" class="read-more-btn">Baca Selengkapnya <i class="fas fa-arrow-right"></i></a>
+                    </div>
                 </div>
             </section>
 
-            <!-- Konten Artikel Grid (Berita Lainnya) -->
-            <section class="articles-section">
-                <h2 class="section-title">Berita Lainnya</h2>
-                <div id="moreArticles" class="articles-container" aria-live="polite">
-                    <!-- Placeholder: 4 Grid Cards -->
-                    <a href="articles/artikel-4.html" class="article-card" data-aos="fade-up">
-                        <img src="https://placehold.co/400x225/333333/ffffff?text=BERITA+4" alt="Berita 4" class="card-image" />
-                        <div class="card-content"><div class="card-meta"><span class="category">Dunia</span> | 3 Jam Lalu</div><h3 class="card-title">Pemain Kunci Senegal Absen di Piala Afrika Karena Cedera</h3></div>
-                    </a>
-                    <a href="articles/artikel-5.html" class="article-card" data-aos="fade-up" data-aos-delay="50">
-                        <img src="https://placehold.co/400x225/444444/ffffff?text=BERITA+5" alt="Berita 5" class="card-image" />
-                        <div class="card-content"><div class="card-meta"><span class="category">La Liga</span> | 6 Jam Lalu</div><h3 class="card-title">Preview El Clasico: Siapa Paling Diunggulkan Pekan Ini?</h3></div>
-                    </a>
-                    <a href="articles/artikel-6.html" class="article-card" data-aos="fade-up" data-aos-delay="100">
-                        <img src="https://placehold.co/400x225/555555/ffffff?text=BERITA+6" alt="Berita 6" class="card-image" />
-                        <div class="card-content"><div class="card-meta"><span class="category">Serie A</span> | 12 Jam Lalu</div><h3 class="card-title">Strategi Max Allegri di Juventus yang Kembali Dikritik Pedas</h3></div>
-                    </a>
-                    <a href="articles/artikel-7.html" class="article-card" data-aos="fade-up" data-aos-delay="150">
-                        <img src="https://placehold.co/400x225/666666/ffffff?text=BERITA+7" alt="Berita 7" class="card-image" />
-                        <div class="card-content"><div class="card-meta"><span class="category">Bokstainment</span> | 1 Hari Lalu</div><h3 class="card-title">Mengintip Gaya Hidup Mewah WAGs Pemain Top Eropa</h3></div>
-                    </a>
+            <!-- Bagian 2: Berita Terbaru (Carousel) -->
+            <section class="latest-news-section" data-aos="fade-up" data-aos-delay="100">
+                <h2>Terbaru di BlogFootball</h2>
+                <div class="carousel-container" id="latestNewsCarousel">
+                    <!-- Carousel Articles diisi oleh JS -->
+                    <div class="horizontal-card loading-skeleton">
+                        <div class="horizontal-card-image"></div>
+                        <div class="horizontal-card-content">
+                            <span class="article-category">Kategori</span>
+                            <h3 class="article-title">Judul Berita Terbaru</h3>
+                            <p class="article-excerpt">Ringkasan singkat...</p>
+                        </div>
+                    </div>
+                    <div class="horizontal-card loading-skeleton">
+                        <div class="horizontal-card-image"></div>
+                        <div class="horizontal-card-content">
+                            <span class="article-category">Kategori</span>
+                            <h3 class="article-title">Judul Berita Terbaru</h3>
+                            <p class="article-excerpt">Ringkasan singkat...</p>
+                        </div>
+                    </div>
                 </div>
             </section>
+
+            <!-- Bagian 3: Berita Pilihan (Grid 3 Kolom) -->
+            <section class="featured-articles-section" data-aos="fade-up" data-aos-delay="200">
+                <h2>Pilihan Editor</h2>
+                <div class="articles-container" id="featuredArticlesContainer">
+                    <!-- Artikel Grid diisi oleh JS -->
+                    <div class="article-card loading-skeleton">
+                        <div class="card-image-placeholder"></div>
+                        <div class="card-content">
+                            <span class="article-category">Kategori</span>
+                            <h3 class="article-title">Judul Pilihan Editor</h3>
+                            <p class="article-excerpt">Ringkasan singkat...</p>
+                        </div>
+                    </div>
+                    <div class="article-card loading-skeleton">
+                        <div class="card-image-placeholder"></div>
+                        <div class="card-content">
+                            <span class="article-category">Kategori</span>
+                            <h3 class="article-title">Judul Pilihan Editor</h3>
+                            <p class="article-excerpt">Ringkasan singkat...</p>
+                        </div>
+                    </div>
+                    <div class="article-card loading-skeleton">
+                        <div class="card-image-placeholder"></div>
+                        <div class="card-content">
+                            <span class="article-category">Kategori</span>
+                            <h3 class="article-title">Judul Pilihan Editor</h3>
+                            <p class="article-excerpt">Ringkasan singkat...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </main>
 
-        <!-- ===== KOLOM KANAN (RIGHT SIDEBAR) ===== -->
-        <aside class="right-sidebar sidebar">
-            <!-- Blok Jadwal -->
+        <!-- ====================================================== -->
+        <!-- KOLOM KANAN: SIDEBAR (Jadwal, Populer, Kategori) -->
+        <!-- ====================================================== -->
+        <aside class="sidebar-area">
+
+            <!-- Blok Jadwal dan Skor Mendatang -->
             <div class="sidebar-block" data-aos="fade-left">
-                <h3>Jadwal Mendatang</h3>
-                <ul class="schedule-list">
-                    <li><span class="team">Madrid</span> vs <span class="team">Barca</span> (Besok)</li>
-                    <li><span class="team">Liverpool</span> vs <span class="team">City</span> (Sabtu)</li>
-                    <li><span class="team">Juve</span> vs <span class="team">Milan</span> (Minggu)</li>
-                </ul>
+                <h3>Jadwal Mendatang (EPL)</h3>
+                <div class="fixture-list-container" id="upcomingFixturesContainer">
+                    <!-- Jadwal diisi oleh JS -->
+                    <div class="fixture-item loading-skeleton">
+                        <p class="skeleton-text-line"></p>
+                        <p class="skeleton-text-line-small"></p>
+                    </div>
+                    <div class="fixture-item loading-skeleton">
+                        <p class="skeleton-text-line"></p>
+                        <p class="skeleton-text-line-small"></p>
+                    </div>
+                </div>
+                <a href="jadwal-skor.html" class="all-schedule-link"><i class="fas fa-chevron-right"></i> Lihat Semua Jadwal</a>
             </div>
-            
-            <!-- Blok Artikel Populer -->
+
+            <!-- Blok Top 5 Populer -->
             <div class="sidebar-block" data-aos="fade-left" data-aos-delay="100">
                 <h3>Top 5 Populer</h3>
                 <ul class="popular-list">
-                    <li><a href="#">Analisis mendalam taktik baru Xavi di Barca</a></li>
-                    <li><a href="#">Mengapa Liga Inggris masih menjadi yang terbaik?</a></li>
-                    <li><a href="#">Kisah dramatis transfer Mbappe ke klub misterius</a></li>
-                    <li><a href="#">10 Pemain muda yang wajib Anda tonton musim ini</a></li>
-                    <li><a href="#">Kontroversi VAR terbaru: keputusan yang mengubah hasil</a></li>
+                    <!-- Daftar ini bisa diisi manual atau via JS jika ada data popularitas di articles.json -->
+                    <li><a href="#"><i class="fas fa-star"></i> Analisis mendalam taktik baru Xavi di Barca</a></li>
+                    <li><a href="#"><i class="fas fa-star"></i> Mengapa Liga Inggris masih menjadi yang terbaik?</a></li>
+                    <li><a href="#"><i class="fas fa-star"></i> Kisah dramatis transfer Mbappe ke klub misterius</a></li>
+                    <li><a href="#"><i class="fas fa-star"></i> 10 Pemain muda yang wajib Anda tonton musim ini</a></li>
+                    <li><a href="#"><i class="fas fa-star"></i> Kontroversi VAR terbaru: keputusan yang mengubah hasil</a></li>
                 </ul>
             </div>
 
