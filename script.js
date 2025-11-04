@@ -1,18 +1,27 @@
-/* script.js - Final (glass header + slow live ticker + articles)
-    API base: https://v3.football.api-sports.io
-    API key: the one you provided
-*/
-const API_BASE = "https://v3.football.api-sports.io";
-const API_KEY = "692e81ef84f51509360a8539fa45a9df"; // <--- Ganti kunci API Anda di sini jika ada yang baru
+/* =======================================================
+    SCRIPT.JS - BlogFootball
+    Dirombak untuk API football-data.org (V4) Multi-Liga
+   ======================================================= */
 
-// ID Liga & Tahun Musim
-// Contoh: Premier League (39), La Liga (140), Bundesliga (78), Serie A (135), Ligue 1 (61)
-const LEAGUE_ID = 39; // Default ke Premier League
-const SEASON = new Date().getFullYear(); 
+// === 1. KONFIGURASI API & LIGA ===
+// API Base URL untuk football-data.org V4
+const API_BASE = "https://api.football-data.org/v4";
+// Kunci API Anda dari screenshot (football-data.org)
+const API_KEY = "07cd52ea09c34d4e925c33139666fb38"; 
+
+// Daftar Liga yang tersedia di Tier Gratis Anda (dari screenshot)
+// CL: Champions League, BL1: Bundesliga, PL: Premier League, SA: Serie A, PD: La Liga, FL1: Ligue 1
+const LEAGUES = {
+    "PL": { id: "PL", name: "Premier League" },
+    "BL1": { id: "BL1", name: "Bundesliga" },
+    "SA": { id: "SA", name: "Serie A" },
+    "PD": { id: "PD", name: "La Liga" },
+    "FL1": { id: "FL1", name: "Ligue 1" },
+    "CL": { id: "CL", name: "Champions League" }
+};
 
 // =======================================================
-// INIT AOS (Animate On Scroll)
-// Easing yang lebih dinamis untuk efek 'pop' yang halus
+// INIT AOS (Animate On Scroll) - Kode Anda dipertahankan
 // =======================================================
 if (typeof AOS !== 'undefined') {
     AOS.init({
@@ -23,50 +32,54 @@ if (typeof AOS !== 'undefined') {
         offset: 80,         
     });
 }
+
 // =======================================================
-
-
-/* Helper fetch (returns data.response or throws) */
-async function apiFetch(path) {
-    // Implementasi exponential backoff untuk retry
-    for (let i = 0; i < 3; i++) {
-        try {
-            const res = await fetch(`${API_BASE}${path}`, {
-                headers: { "x-apisports-key": API_KEY }
-            });
-
-            if (res.status === 429) {
-                // Too Many Requests, tunggu dan coba lagi
-                const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
-                await new Promise(resolve => setTimeout(resolve, delay));
-                continue; // Lanjut ke iterasi berikutnya (retry)
-            }
-
-            if (!res.ok) throw new Error(`HTTP ${res.status}`);
-            const json = await res.json();
-            
-            // Cek batasan rate limit di header (opsional, untuk debugging)
-            // console.log("API Remaining: ", res.headers.get("x-ratelimit-requests-remaining"));
-
-            return json.response ?? [];
-        } catch (error) {
-            console.error(`Attempt ${i + 1} failed for path ${path}:`, error);
-            if (i === 2) throw error;
-        }
-    }
-}
-
-/* Elements */
+// ELEMEN DOM (Document Object Model)
+// =======================================================
 const liveScoresEl = () => document.getElementById("liveScores");
 const modal = document.getElementById("matchModal");
 const closeModalBtn = document.getElementById("closeModal");
 const matchStatsEl = document.getElementById("matchStats");
 const matchTitleEl = document.getElementById("matchTitle");
+
+// Elemen Dinamis (Hanya ada di halaman tertentu)
+const leagueTabsContainer = document.getElementById("leagueTabsContainer");
 const standingsBodyEl = document.getElementById("standingsBody");
 const fixturesListEl = document.getElementById("fixturesList");
+const mainArticleContainer = document.querySelector(".main-article");
+const trendingContainer = document.getElementById("trendingArticles");
+const moreArticlesContainer = document.getElementById("moreArticles");
 
+/* =======================================================
+   FUNGSI HELPER
+   ======================================================= */
 
-/* Escape HTML for safety */
+/* Helper Fetch API (Diubah untuk X-Auth-Token) */
+async function apiFetch(path) {
+    for (let i = 0; i < 3; i++) {
+        try {
+            const res = await fetch(`${API_BASE}${path}`, {
+                headers: { 
+                    "X-Auth-Token": API_KEY  // Menggunakan header yang benar
+                }
+            });
+
+            if (res.status === 429) { // Rate limit
+                const delay = Math.pow(2, i) * 1000 + Math.random() * 1000;
+                await new Promise(resolve => setTimeout(resolve, delay));
+                continue; 
+            }
+            if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+            const json = await res.json();
+            return json; // football-data.org mengembalikan data utuh
+        } catch (error) {
+            console.error(`Fetch API gagal (Attempt ${i + 1}): ${path}`, error);
+            if (i === 2) throw error;
+        }
+    }
+}
+
+/* Helper Escape HTML (Kode Anda dipertahankan) */
 function escapeHtml(str) {
     if (typeof str !== 'string') return str;
     return str.replace(/&/g, "&amp;")
@@ -76,88 +89,87 @@ function escapeHtml(str) {
              .replace(/'/g, "&#039;");
 }
 
-/* =======================================
-   FUNGSI 1: LOAD JADWAL PERTANDINGAN (FIXTURES)
-   ======================================= */
-async function loadFixtures() {
-    fixturesListEl.innerHTML = '<li>Memuat jadwal...</li>';
+/* =======================================================
+   FUNGSI 1: LOAD LIVE SCORES (SEMUA LIGA)
+   ======================================================= */
+async function loadLiveScores() {
+    const el = liveScoresEl();
+    if (!el) return; // Hanya jalankan jika elemen ada
+
     try {
-        // Ambil jadwal untuk LEAGUE_ID hari ini dan 7 hari ke depan
-        const today = new Date().toISOString().split('T')[0];
-        const nextWeek = new Date();
-        nextWeek.setDate(nextWeek.getDate() + 7);
-        const nextWeekDate = nextWeek.toISOString().split('T')[0];
+        // Path untuk semua pertandingan LIVE
+        const data = await apiFetch(`/matches?status=LIVE`);
+        const liveMatches = data.matches || [];
 
-        const path = `/fixtures?league=${LEAGUE_ID}&season=${SEASON}&from=${today}&to=${nextWeekDate}&status=NS`;
-        const fixtures = await apiFetch(path);
-
-        if (!fixtures || fixtures.length === 0) {
-            fixturesListEl.innerHTML = '<li class="muted-text">Tidak ada jadwal pertandingan dalam 7 hari ke depan.</li>';
+        if (liveMatches.length === 0) {
+            el.innerHTML = '<div class="no-match">⚽ Tidak ada pertandingan yang berlangsung saat ini.</div>';
             return;
         }
 
-        let html = '';
-        fixtures.sort((a, b) => new Date(a.fixture.date) - new Date(b.fixture.date)); // Urutkan berdasarkan tanggal
-        
-        fixtures.slice(0, 10).forEach(f => {
-            const date = new Date(f.fixture.date);
-            const timeStr = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', timeZoneName: 'short' });
-            const dayStr = date.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' });
+        const html = liveMatches.map(match => {
+            const statusText = match.status === 'PAUSED' ? 'HT' : "LIVE";
+            const home = escapeHtml(match.homeTeam.name);
+            const away = escapeHtml(match.awayTeam.name);
+            const scoreH = match.score.fullTime.home ?? match.score.halfTime.home ?? 0;
+            const scoreA = match.score.fullTime.away ?? match.score.halfTime.away ?? 0;
+            const fixtureId = match.id;
+            const title = `${home} ${scoreH} - ${scoreA} ${away}`;
 
-            html += `
-                <li class="fixture-item">
-                    <div class="date-time">${escapeHtml(dayStr)} ${escapeHtml(timeStr)}</div>
-                    <div class="teams">
-                        <span class="home-team">${escapeHtml(f.teams.home.name)}</span> vs 
-                        <span class="away-team">${escapeHtml(f.teams.away.name)}</span>
-                    </div>
-                </li>
+            return `
+                <div class="score-item" role="button" tabindex="0" 
+                     data-id="${fixtureId}" 
+                     data-title="${title}"
+                     onclick="showMatchDetails(${fixtureId}, '${title}')"
+                     onkeydown="if(event.key === 'Enter') showMatchDetails(${fixtureId}, '${title}')">
+                    <span class="status ${statusText}">${escapeHtml(statusText)}</span>
+                    <span class="home-name">${home}</span> 
+                    <span class="score-home">${scoreH}</span> - 
+                    <span class="score-away">${scoreA}</span> 
+                    <span class="away-name">${away}</span>
+                </div>
             `;
-        });
-        fixturesListEl.innerHTML = html;
+        }).join('');
+        el.innerHTML = html;
 
     } catch (err) {
-        console.error("loadFixtures err:", err);
-        fixturesListEl.innerHTML = '<li class="error-text">Gagal memuat jadwal. Silakan coba lagi.</li>';
+        console.error("loadLiveScores err:", err);
+        el.innerHTML = '<div class="no-match error-text">⚠️ Gagal memuat skor (API Error).</div>';
     }
 }
 
-/* =======================================
-   FUNGSI 2: LOAD KLASEMEN (STANDINGS)
-   ======================================= */
-async function loadStandings() {
+
+/* =======================================================
+   FUNGSI 2: LOAD KLASEMEN (PER LIGA)
+   ======================================================= */
+async function loadStandings(leagueCode) {
+    if (!standingsBodyEl) return; // Hanya jalankan jika elemen ada
+    
     standingsBodyEl.innerHTML = '<tr><td colspan="4">Memuat klasemen...</td></tr>';
     try {
-        const path = `/standings?league=${LEAGUE_ID}&season=${SEASON}`;
-        const data = await apiFetch(path);
-
-        if (!data || data.length === 0 || !data[0].league?.standings?.[0]) {
+        const data = await apiFetch(`/competitions/${leagueCode}/standings`);
+        
+        if (!data.standings || data.standings.length === 0) {
             standingsBodyEl.innerHTML = '<tr><td colspan="4">Klasemen belum tersedia.</td></tr>';
             return;
         }
 
-        // Ambil klasemen dari grup pertama (biasanya hanya ada 1 grup di liga reguler)
-        const standings = data[0].league.standings[0];
+        const standings = data.standings[0].table; // Ambil tabel klasemen
         let html = '';
 
-        // Tampilkan 5 tim teratas
-        standings.slice(0, 5).forEach(teamData => {
-            const rank = teamData.rank;
+        standings.slice(0, 10).forEach(teamData => { // Tampilkan 10 Tim Teratas
+            const rank = teamData.position;
             const teamName = escapeHtml(teamData.team.name);
-            const matchesPlayed = teamData.all.played;
+            const matchesPlayed = teamData.playedGames;
             const points = teamData.points;
             
             let rankClass = '';
-            if (rank <= 4) { // Contoh zona UCL/UEL
-                rankClass = 'ucl-zone';
-            } else if (rank > standings.length - 3) { // Contoh zona degradasi
-                rankClass = 'relegation-zone';
-            }
+            if (rank <= 4) rankClass = 'ucl-zone';
+            if (rank >= 18) rankClass = 'relegation-zone'; // Contoh
 
             html += `
                 <tr class="${rankClass}">
                     <td>${rank}</td>
-                    <td><img src="${escapeHtml(teamData.team.logo)}" alt="Logo ${teamName}" class="team-logo-small">${teamName}</td>
+                    <td><img src="${escapeHtml(teamData.team.crest)}" alt="Logo ${teamName}" class="team-logo-small">${teamName}</td>
                     <td>${matchesPlayed}</td>
                     <td><strong>${points}</strong></td>
                 </tr>
@@ -166,160 +178,236 @@ async function loadStandings() {
         standingsBodyEl.innerHTML = html;
 
     } catch (err) {
-        console.error("loadStandings err:", err);
-        standingsBodyEl.innerHTML = '<tr><td colspan="4" class="error-text">Gagal memuat klasemen.</td></tr>';
+        console.error(`loadStandings err (${leagueCode}):`, err);
+        standingsBodyEl.innerHTML = `<tr><td colspan="4" class="error-text">Gagal memuat klasemen ${leagueCode}.</td></tr>`;
     }
 }
-
 
 /* =======================================
-   FUNGSI SISANYA (LIVE SCORES & ARTIKEL MOCK)
+   FUNGSI 3: LOAD JADWAL (PER LIGA)
    ======================================= */
+async function loadFixtures(leagueCode) {
+    if (!fixturesListEl) return; // Hanya jalankan jika elemen ada
 
-/* --- Mock Articles (Tidak ada perubahan) --- */
-const MOCK_ARTICLES = [
-    // ... (Mock articles tetap di sini)
-    { id: 1, type: 'main', title: "Eksklusif: Mengapa Skema 3-4-3 Xavi Adalah Kunci Kebangkitan Barca", excerpt: "Analisis mendalam tentang perubahan taktik yang diterapkan Xavi Hernandez dan dampaknya pada lini serang Barcelona.", image: "https://placehold.co/1200x600/1e3b60/ffffff?text=HEADLINE+BARCA+3-4-3", tags: ["Analisis", "Taktik", "LaLiga"] },
-    { id: 2, type: 'normal', title: "Guardiola Isyaratkan Pensiun dalam Waktu Dekat, Fans City Panik", excerpt: "Manajer Manchester City memberikan petunjuk tentang akhir karirnya, memicu spekulasi besar di kalangan penggemar dan media.", image: "https://placehold.co/800x450/111b2e/99c8e8?text=Pep+Pensiun", tags: ["Liga Inggris", "City"] },
-    { id: 3, type: 'normal', title: "Rekor! Transfer Bintang Muda Portugal Pecahkan Batas Gaji Klub", excerpt: "Detail terperinci mengenai kepindahan sensasional Joao Almeida ke klub raksasa Italia dan besaran kontraknya yang fantastis.", image: "https://placehold.co/800x450/222d3c/b3d4f5?text=Joao+Transfer", tags: ["Transfer", "Serie A"] },
-    { id: 4, type: 'normal', title: "Prediksi UCL: Mampukah Inter Milan Mengulang Kejutan Musim Lalu?", excerpt: "Preview lengkap babak penyisihan grup Liga Champions, fokus pada peluang Inter Milan di 'Grup Neraka'.", image: "https://placehold.co/800x450/333a4b/c8e8ff?text=UCL+Preview", tags: ["UCL", "Preview"] },
-    { id: 5, type: 'normal', title: "Derby Panas Bundesliga Berakhir Imbang 3-3 Penuh Drama VAR", excerpt: "Laporan pertandingan penuh aksi dari Derby Ruhr yang menyajikan enam gol, dua kartu merah, dan intervensi VAR kontroversial.", image: "https://placehold.co/800x450/444a5a/dbefff?text=Derby+Bundesliga", tags: ["Bundesliga", "Laporan"] },
-    { id: 6, type: 'normal', title: "Wawancara Eksklusif: Eduardo Camavinga Bicara Peran Baru di Real Madrid", excerpt: "Gelandang Prancis ini membahas adaptasinya di posisi bek sayap dan ambisinya untuk meraih Ballon d'Or.", image: "https://placehold.co/800x450/555b6c/e9f7ff?text=Camavinga", tags: ["LaLiga", "Wawancara"] },
-];
-
-function renderArticleCard(article) {
-    // ... (Fungsi renderArticleCard tetap di sini)
-    const typeClass = article.type === 'main' ? 'main-headline-card horizontal-card' : 'standard-card';
-    const tagHtml = article.tags.map(tag => `<span class="article-tag">${escapeHtml(tag)}</span>`).join('');
-
-    return `
-        <article class="${typeClass}" data-id="${article.id}" data-aos="zoom-in" data-aos-easing="ease-out-quad">
-            <div class="article-image-area">
-                <img src="${escapeHtml(article.image)}" alt="${escapeHtml(article.title)}" class="article-image" loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/800x450/333a4b/c8e8ff?text=No+Image';">
-            </div>
-            <div class="article-content-area">
-                <div class="article-tags">${tagHtml}</div>
-                <h3 class="article-title">${escapeHtml(article.title)}</h3>
-                <p class="article-excerpt">${escapeHtml(article.excerpt)}</p>
-                <a href="#" class="read-more-link">Baca Selengkapnya »</a>
-            </div>
-        </article>
-    `;
-}
-
-function loadArticles() {
-    const mainArticleContainer = document.querySelector('.main-article');
-    const articlesContainer = document.querySelector('.articles-container');
-
-    const mainArticle = MOCK_ARTICLES.find(a => a.type === 'main');
-    const normalArticles = MOCK_ARTICLES.filter(a => a.type !== 'main');
-
-    if (mainArticle) {
-        mainArticleContainer.innerHTML = renderArticleCard(mainArticle);
-    }
-    
-    articlesContainer.innerHTML = normalArticles.map(renderArticleCard).join('');
-}
-
-
-/* --- Live Scores & Modal --- */
-const MAX_TICKER_ITEMS = 15; // Batasi item di ticker
-
-async function loadLiveScores() {
-    // ... (Fungsi loadLiveScores tetap di sini)
+    fixturesListEl.innerHTML = '<li>Memuat jadwal...</li>';
     try {
-        const path = `/fixtures?live=all&league=39`; // Cari semua pertandingan LIVE di EPL (ID 39)
-        const liveMatches = await apiFetch(path);
+        const today = new Date().toISOString().split('T')[0];
+        const nextWeek = new Date();
+        nextWeek.setDate(nextWeek.getDate() + 7);
+        const nextWeekDate = nextWeek.toISOString().split('T')[0];
 
-        if (!liveMatches || liveMatches.length === 0) {
-            liveScoresEl().innerHTML = '<div class="no-match">⚽ Tidak ada pertandingan yang berlangsung saat ini.</div>';
-            // Set timeout yang lebih lama jika tidak ada pertandingan
-            setTimeout(loadLiveScores, 15000); 
+        const data = await apiFetch(`/competitions/${leagueCode}/matches?dateFrom=${today}&dateTo=${nextWeekDate}&status=SCHEDULED`);
+        const fixtures = data.matches || [];
+
+        if (fixtures.length === 0) {
+            fixturesListEl.innerHTML = '<li class="muted-text">Tidak ada jadwal pertandingan dalam 7 hari ke depan.</li>';
             return;
         }
 
         let html = '';
-        liveMatches.slice(0, MAX_TICKER_ITEMS).forEach(match => {
-            const status = match.fixture.status.elapsed;
-            const statusText = match.fixture.status.short === 'HT' ? 'HT' : `${status}'`;
-            const home = escapeHtml(match.teams.home.name);
-            const away = escapeHtml(match.teams.away.name);
-            const scoreH = match.goals.home ?? 0;
-            const scoreA = match.goals.away ?? 0;
-            const fixtureId = match.fixture.id;
-            const title = `${home} ${scoreH} - ${scoreA} ${away}`;
+        fixtures.slice(0, 10).forEach(f => {
+            const date = new Date(f.utcDate);
+            const timeStr = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+            const dayStr = date.toLocaleDateString('id-ID', { weekday: 'short', day: 'numeric', month: 'short' });
 
             html += `
-                <div class="score-item" role="button" tabindex="0" 
-                     data-id="${fixtureId}" 
-                     data-title="${title}"
-                     onclick="showMatchDetails(${fixtureId}, '${title}')"
-                     onkeydown="if(event.key === 'Enter') showMatchDetails(${fixtureId}, '${title}')"
-                >
-                    <span class="status ${match.fixture.status.short}">${escapeHtml(statusText)}</span>
-                    <span class="home-name">${home}</span> 
-                    <span class="score-home">${scoreH}</span> - 
-                    <span class="score-away">${scoreA}</span> 
-                    <span class="away-name">${away}</span>
-                </div>
+                <li class="fixture-item">
+                    <div class="date-time">${escapeHtml(dayStr)} ${escapeHtml(timeStr)} WIB</div>
+                    <div class="teams">
+                        <span class="home-team">${escapeHtml(f.homeTeam.name)}</span> vs 
+                        <span class="away-team">${escapeHtml(f.awayTeam.name)}</span>
+                    </div>
+                </li>
             `;
         });
-        liveScoresEl().innerHTML = html;
-
-        // Ticker update setiap 5 detik
-        setTimeout(loadLiveScores, 5000); 
+        fixturesListEl.innerHTML = html;
 
     } catch (err) {
-        console.error("loadLiveScores err:", err);
-        liveScoresEl().innerHTML = '<div class="no-match error-text">⚠️ Gagal memuat skor langsung.</div>';
-        setTimeout(loadLiveScores, 15000); 
+        console.error(`loadFixtures err (${leagueCode}):`, err);
+        fixturesListEl.innerHTML = '<li class="error-text">Gagal memuat jadwal.</li>';
+    }
+}
+
+/* =======================================================
+   FUNGSI 4: SETUP TAB LIGA (MULTI-LIGA)
+   ======================================================= */
+function setupLeagueTabs() {
+    if (!leagueTabsContainer) return; // Hanya jalankan jika elemen ada
+
+    let tabsHtml = '';
+    Object.values(LEAGUES).forEach((league, index) => {
+        tabsHtml += `
+            <button class="tab-button ${index === 0 ? 'active' : ''}" data-league-code="${league.id}">
+                ${escapeHtml(league.name)}
+            </button>
+        `;
+    });
+    leagueTabsContainer.innerHTML = tabsHtml;
+
+    // Tambahkan event listener ke setiap tombol tab
+    leagueTabsContainer.querySelectorAll('.tab-button').forEach(button => {
+        button.addEventListener('click', () => {
+            // Hapus 'active' dari semua tombol
+            leagueTabsContainer.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            // Tambahkan 'active' ke tombol yang diklik
+            button.classList.add('active');
+            
+            const newLeagueCode = button.dataset.leagueCode;
+            
+            // Muat ulang data berdasarkan liga yang dipilih
+            // Cek elemen apa yang ada di halaman ini
+            if (standingsBodyEl) {
+                loadStandings(newLeagueCode);
+            }
+            if (fixturesListEl) {
+                loadFixtures(newLeagueCode);
+            }
+        });
+    });
+
+    // Muat data default untuk tab pertama yang aktif
+    const defaultLeagueCode = Object.values(LEAGUES)[0].id;
+    if (standingsBodyEl) {
+        loadStandings(defaultLeagueCode);
+    }
+    if (fixturesListEl) {
+        loadFixtures(defaultLeagueCode);
     }
 }
 
 
-// Fungsi untuk menampilkan detail pertandingan (statistik)
+/* =======================================================
+   FUNGSI 5: LOAD ARTIKEL (DARI ARTICLES.JSON)
+   ======================================================= */
+// Fungsi ini memuat artikel statis dari articles.json Anda
+async function loadArticles() {
+    // Pastikan fungsi ini hanya berjalan di halaman yang memiliki elemen artikel
+    if (!mainArticleContainer && !trendingContainer && !moreArticlesContainer) {
+        return;
+    }
+
+    try {
+        const response = await fetch('articles.json');
+        if (!response.ok) throw new Error('Gagal memuat articles.json');
+        const articles = await response.json();
+
+        // Render Artikel Utama (Headline)
+        if (mainArticleContainer) {
+            const mainArticle = articles.find(a => a.type === 'main');
+            if (mainArticle) {
+                mainArticleContainer.innerHTML = renderArticleCard(mainArticle, 'main-headline-card');
+            }
+        }
+
+        // Render Trending (Carousel)
+        if (trendingContainer) {
+            const trendingArticles = articles.filter(a => a.type === 'carousel');
+            trendingContainer.innerHTML = trendingArticles.map(a => renderArticleCard(a, 'horizontal-card')).join('');
+        }
+
+        // Render Berita Lainnya (Grid)
+        if (moreArticlesContainer) {
+            const gridArticles = articles.filter(a => a.type === 'grid');
+            moreArticlesContainer.innerHTML = gridArticles.map(a => renderArticleCard(a, 'article-card')).join('');
+        }
+
+    } catch (err) {
+        console.error("loadArticles err:", err);
+        if (mainArticleContainer) mainArticleContainer.innerHTML = "<p class='error-text'>Gagal memuat artikel.</p>";
+    }
+}
+
+// Fungsi helper untuk merender HTML card artikel
+function renderArticleCard(article, cardClass) {
+    return `
+        <a href="${escapeHtml(article.link)}" class="${cardClass}" data-aos="fade-up" data-aos-delay="50">
+            <div class="image-wrapper">
+                <img src="${escapeHtml(article.image)}" alt="${escapeHtml(article.title)}" class="card-image" loading="lazy" 
+                     onerror="this.onerror=null; this.src='https://placehold.co/400x225/333333/ffffff?text=Image+Error';">
+            </div>
+            <div class="card-content">
+                <div class="article-meta">
+                    <span class="category">${escapeHtml(article.category)}</span> | ${escapeHtml(article.date)}
+                </div>
+                <h3 class="card-title">${escapeHtml(article.title)}</h3>
+                ${cardClass === 'main-headline-card' ? `<p class="card-summary">${escapeHtml(article.excerpt)}</p>` : ''}
+            </div>
+        </a>
+    `;
+}
+
+
+/* =======================================================
+   FUNGSI 6: MODAL DETAIL PERTANDINGAN
+   ======================================================= */
 async function showMatchDetails(fixtureId, title) {
     if (!fixtureId) return;
     try {
         matchTitleEl.textContent = title || "Detail Pertandingan";
-        matchStatsEl.textContent = "Memuat statistik...";
+        matchStatsEl.textContent = "Memuat detail...";
         modal.style.display = "flex";
-        modal.setAttribute("aria-hidden","false");
+        modal.setAttribute("aria-hidden", "false");
 
-        const stats = await apiFetch(`/fixtures/statistics?fixture=${fixtureId}`);
-        if (!stats || stats.length === 0) {
-            matchStatsEl.textContent = "Statistik belum tersedia.";
+        // Ambil data pertandingan spesifik
+        const data = await apiFetch(`/matches/${fixtureId}`);
+        const match = data; // Data utuh adalah objek pertandingan
+
+        if (!match) {
+            matchStatsEl.textContent = "Detail pertandingan tidak ditemukan.";
             return;
         }
-        let html = "";
-        stats.forEach(team => {
-            html += `<h4 style="margin:8px 0 6px">${escapeHtml(team.team?.name || "")}</h4><ul class="stats-list-group">`;
-            team.statistics.forEach(s => {
-                const value = String(s.value ?? 0);
-                const type = escapeHtml(s.type);
-                const displayValue = type.includes('percentage') ? value : escapeHtml(value);
 
-                html += `<li><span class="stat-type">${type}</span><span class="stat-value">${displayValue}</span></li>`;
-            });
-            html += "</ul>";
-        });
-        matchStatsEl.innerHTML = html;
+        // Tampilkan info dasar (karena statistik rinci tidak ada di Free Tier)
+        const home = escapeHtml(match.homeTeam.name);
+        const away = escapeHtml(match.awayTeam.name);
+        const scoreH = match.score.fullTime.home ?? 0;
+        const scoreA = match.score.fullTime.away ?? 0;
+        const status = escapeHtml(match.status);
+        const competition = escapeHtml(match.competition.name);
+        const date = new Date(match.utcDate).toLocaleString('id-ID', { dateStyle: 'full', timeStyle: 'short' });
+
+        matchStatsEl.innerHTML = `
+            <div class="match-detail-header">
+                <img src="${escapeHtml(match.homeTeam.crest)}" alt="${home}" class="team-logo-small">
+                <strong>${home}</strong>
+                <span class="match-detail-score">${scoreH} - ${scoreA}</span>
+                <strong>${away}</strong>
+                <img src="${escapeHtml(match.awayTeam.crest)}" alt="${away}" class="team-logo-small">
+            </div>
+            <ul class="stats-list-group">
+                <li><span class="stat-type">Status</span> <span class="stat-value">${status}</span></li>
+                <li><span class="stat-type">Kompetisi</span> <span class="stat-value">${competition}</span></li>
+                <li><span class="stat-type">Tanggal</span> <span class="stat-value">${date} WIB</span></li>
+                <li><span class="stat-type">Skor HT</span> <span class="stat-value">${match.score.halfTime.home ?? '-'} - ${match.score.halfTime.away ?? '-'}</span></li>
+                <li><span class="stat-type">Wasit</span> <span class="stat-value">${escapeHtml(match.referee?.name || 'N/A')}</span></li>
+            </ul>
+            <p class="api-note">Statistik mendalam (shots, possession, dll) tidak tersedia di API Tier ini.</p>
+        `;
+
     } catch (err) {
         console.error("showMatchDetails err:", err);
-        matchStatsEl.textContent = "Gagal memuat statistik.";
+        matchStatsEl.textContent = "Gagal memuat detail pertandingan.";
     }
 }
 
-/* modal close handlers */
+/* Modal close handlers (Kode Anda dipertahankan) */
 document.addEventListener("click", (e) => {
     if (e.target === modal) { modal.style.display="none"; modal.setAttribute("aria-hidden","true"); }
 });
 if (closeModalBtn) closeModalBtn.addEventListener("click", () => { modal.style.display="none"; modal.setAttribute("aria-hidden","true"); });
 
-/* Boot sequence */
+/* =======================================================
+   BOOT SEQUENCE (URUTAN PEMUATAN)
+   ======================================================= */
 document.addEventListener("DOMContentLoaded", () => {
+    // 1. Muat artikel statis dari articles.json
     loadArticles();
-    loadLiveScores();
-    loadFixtures(); // Panggil fungsi baru
-    loadStandings(); // Panggil fungsi baru
+    
+    // 2. Muat skor langsung (Live Ticker) dari semua liga
+    loadLiveScores(); 
+    
+    // 3. Setup Tab Liga (jika ada di halaman ini)
+    // Ini juga akan memuat Klasemen/Jadwal default
+    setupLeagueTabs(); 
 });
+
